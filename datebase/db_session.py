@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from datebase.classes import Base
+from datebase.classes import table_base
 
 Session = None
 
@@ -11,7 +11,7 @@ def init_database():
 
     engine = create_engine('sqlite:///db/admission_analysis.db', echo = False)
     Session = sessionmaker(bind=engine)
-    Base.metadata.create_all(engine)
+    table_base.metadata.create_all(engine)
 
 
 def create_session():
