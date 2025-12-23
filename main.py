@@ -1,0 +1,35 @@
+from flask import Flask
+from main_page import main_page, mainpage
+from register import register_page, registerpage
+from datebase.db_session import init_database, create_session
+from flask_login import LoginManager, current_user
+from os import makedirs
+
+
+makedirs('db', exist_ok=True)
+app = Flask(__name__)
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+init_database()
+
+
+@login_manager.user_loader
+def load_user(id):
+    db_session = create_session()
+    user = db_session.get(User, id)
+    db_session.close()
+    return user
+
+@app.route('/')
+def inition():
+    if current_user.is_authenticated:
+        return mainpage()
+    return registerpage()
+
+app.register_blueprint(main_page)
+app.register_blueprint(register_page)
+
+
+if "__main__" == __name__:
+    app.run(debug=True)

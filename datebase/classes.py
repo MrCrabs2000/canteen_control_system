@@ -65,7 +65,7 @@ class Dish(table_base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     name = Column(String, nullable=False)
-    products = Column(ARRAY(Integer), nullanle=False)
+    products = Column(JSON, nullable=False)
     amount = Column(Integer, nullable=False, default=0)
 
     productss = relationship('Product', back_populates='dishes')
