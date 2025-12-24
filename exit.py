@@ -6,4 +6,4 @@ exit_page = Blueprint('exit_page', __name__, template_folder='templates')
 @exit_page.route('/exit')
 def exitpage():
     logout_user()
-    return redirect('/register')
+    return redirect('/')
