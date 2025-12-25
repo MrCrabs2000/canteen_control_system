@@ -1,0 +1,61 @@
+:root {
+    --bg-dark: hsl(0, 0%, 93%);
+    --bg: hsl(0, 0%, 97%);
+    --bg-light: hsl(0, 0%, 100%);
+    --primary: hsl(104, 50%, 45%);
+    --primary-dark: hsl(104, 50%, 40%);
+    --text: hsl(0, 0%, 18%);
+    --text-muted: hsl(0, 0%, 40%);
+    --text-light: hsl(0, 0%, 100%);
+    --shadow: 0px 4px 8px hsla(0, 0%, 0%, 0.15);
+    --shadow-small: 0px 4px 8px hsla(0, 0%, 0%, 0.075);
+    --border-radius: 16px;
+    --border-radius-small: 12px;
+}
+
+body {
+    color: var(--text);
+    font-family: Mulish, sans-serif;
+    background: var(--bg-dark);
+}
+
+label {
+    color: var(--text-muted);
+}
+
+input {
+    padding: 4px 12px;
+    font-family: inherit;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-small);
+    color: inherit;
+    box-shadow: var(--shadow-small);
+    outline: none;
+}
+
+input:focus {
+    border: 2px solid var(--primary);
+}
+
+button {
+    --hover: var(--bg);
+    padding: 8px 12px;
+    color: inherit;
+    font-family: inherit;
+    font-weight: 500;
+    border: 0;
+    border-radius: var(--border-radius-small);
+    background: var(--bg-light);
+    box-shadow: var(--shadow-small);
+}
+
+button:hover, button.accent:hover {
+    background: var(--hover);
+    cursor: pointer;
+}
+
+button.accent {
+    --hover: var(--primary-dark);
+    color: var(--text-light);
+    background: var(--primary);
+}

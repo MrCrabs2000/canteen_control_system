@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Регистрация{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/auth.css">
+{% endblock %}
+
+
+{% block content %}
+    <main>
+        <form id="auth-form" method="post">
+            <div id="title">Регистрация</div>
+
+            <div id="fields">
+
+                <div class="field">
+                    <label for="login">Логин</label>
+                    <input id="login" name="login" placeholder="Логин">
+                </div>
+                
+                <div class="field">
+                    <label for="name">Имя</label>
+                    <input id="name" name="name" placeholder="Имя">    
+                </div>
+
+                <div class="field">
+                    <label for="surname">Фамилия</label>
+                    <input id="surname" name="surname" placeholder="Фамилия">
+                </div>
+
+                <div class="field">
+                    <label for="patronymic">Отчество</label>
+                    <input id="patronymic" name="patronymic" placeholder="Отчество">
+                </div>
+
+                <div class="field">
+                    <label for="password">Пароль</label>
+                    <input id="password" name="password" type="password" placeholder="Пароль">
+                </div>
+
+                <div class="field">
+                    <label for="second_password">Повтор пароля</label>
+                    <input id="second_password" name="second_password" type="password" placeholder="Повтор пароля">
+                </div>
+    
+            </div>
+
+            <a href="/login">Вход</a>
+
+            <button id="submit-btn" class="accent" type="submit">Зарегистрироваться</button>
+        </form>
+    </main>
+{% endblock %}

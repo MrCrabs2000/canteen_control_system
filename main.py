@@ -1,7 +1,9 @@
-from flask import Flask
+from flask import Flask, render_template
 from main_page import main_page, mainpage
-from register import register_page, registerpage
+from profile_edit import profile_edit_page
+from register import register_page
 from exit import exit_page
+from login import login_page
 from datebase.db_session import init_database, create_session
 from flask_login import LoginManager, current_user
 from datebase.classes import User
@@ -27,6 +29,8 @@ def load_user(id):
 app.register_blueprint(main_page)
 app.register_blueprint(register_page)
 app.register_blueprint(exit_page)
+app.register_blueprint(login_page)
+app.register_blueprint(profile_edit_page)
 
 
 
@@ -34,7 +38,7 @@ app.register_blueprint(exit_page)
 def inition():
     if current_user.is_authenticated:
         return mainpage()
-    return registerpage()
+    return render_template('start.html')
 
 
 if "__main__" == __name__:

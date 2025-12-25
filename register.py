@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.security import generate_password_hash
 from datebase.classes import User
 from datebase import db_session
@@ -27,10 +27,10 @@ def registerpage():
 
         session.add(new_user)
 
-        login_user(new_user)
 
         try:
             session.commit()
+            login_user(new_user)
         except Exception:
             session.rollback()
         finally:
@@ -38,3 +38,4 @@ def registerpage():
         return redirect('/')
     else:
         return render_template('register.html')
+

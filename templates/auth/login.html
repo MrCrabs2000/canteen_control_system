@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Вход{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/auth.css">
+{% endblock %}
+
+
+{% block content %}
+    <main>
+        <form id="auth-form" method="post">
+            <div id="title">Вход</div>
+
+            <div id="fields">
+
+                <div class="field">
+                    <label for="login">Логин</label>
+                    <input id="login" name="login" placeholder="Логин">
+                </div>
+
+                <div class="field">
+                    <label for="password">Пароль</label>
+                    <input id="password" name="password" type="password" placeholder="Пароль">
+                </div>
+    
+            </div>
+            <a href="/register">Регистрация</a>
+
+            <button id="submit-btn" class="accent" type="submit">Войти</button>
+        </form>
+    </main>
+{% endblock %}
