@@ -35,5 +35,6 @@ def registerpage():
             session.rollback()
         finally:
             session.close()
+        return redirect('/')
     else:
         return render_template('register.html')
