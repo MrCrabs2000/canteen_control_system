@@ -31,7 +31,7 @@ class Info(table_base):
     aboniment = Column(BOOLEAN, default=False)
     preferences = Column(JSON)
     balance = Column(Integer, nullable=False, default=0)
-    clas = Column(String, default='')
+    stud_class = Column(String, default='')
 
     user = relationship("User", back_populates="student_info")
 
@@ -101,6 +101,7 @@ class Dish(table_base):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     name = Column(String, nullable=False)
     amount = Column(Integer, nullable=False, default=0)
+
 
     products = relationship('Product', secondary='dish_products', back_populates='dishes')
     reviews = relationship('Review', back_populates='dish')
