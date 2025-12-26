@@ -30,4 +30,4 @@ def loginpage():
 
         return redirect('/')
     else:
-        return render_template('login.html')
+        return render_template('login.html', is_not_authenticated=True)

@@ -5,24 +5,29 @@
     <title>Profile edit</title>
 </head>
 <body>
-    <h1>Редактирование профиля</h1>
     <form method="post">
-        <label>Логин:</label>
+        <label>Имя</label>
+        <input name="name" value="{{ name }}" placeholder="Имя"><br>
+
+        <label>Фамилия</label>
+        <input name="surname" value="{{ surname }}" placeholder="Фамилия"><br>
+
+        <label>Отчество</label>
+        <input name="patronymic" value="{{ patronymic }}" placeholder="Отчество"><br>
+
+        <label>Логин</label>
         <input name="login" value="{{ login }}" placeholder="Логин"><br>
 
-        <label>Аллергия:</label>
-        <input name="alergies" value="{{ alergies }}" placeholder="Аллергия"><br>
+        <label>Класс</label>
+        <input name="class" value="{{ class }}" placeholder="Класс"><br>
 
-        <label>Предпочтения:</label>
+        <label>Аллергии</label>
+        <input name="alergies" value="{{ alergies }}" placeholder="Аллергии"><br>
+
+        <label>Предпочтения</label>
         <input name="preferences" value="{{ preferences }}" placeholder="Предпочтения"><br>
 
-        <label>Пароль:</label>
-        <input type="password" name="password" placeholder="Пароль"><br>
-
-        <label>Повторите пароль:</label>
-        <input type="password" name="second_password" placeholder="Повторите пароль"><br>
-
-        <input type="submit" value="Сохранить изменения">
+        <input type="submit" value="Сохранить">
     </form>
 </body>
 </html>
