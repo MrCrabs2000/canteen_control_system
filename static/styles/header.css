@@ -1,0 +1,24 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 8px 8px;
+    background: var(--primary);
+}
+
+header button {
+    color: var(--text-light);
+    font-size: 26px;
+    background: none;
+    box-shadow: none;
+}
+
+header button:hover {
+    background: hsla(0, 0%, 0%, 0.1);
+}
+
+#app-menu {
+    display: flex;
+    gap: 8px;
+}

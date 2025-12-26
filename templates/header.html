@@ -1,0 +1,15 @@
+<header>
+    <div id="left-header">
+        <button id="notifications-btn"><img alt="Уведомления"></button>
+    </div>
+
+    <div id="right-header">
+        <nav id="app-menu">
+            <button onclick="window.location.href = '/menu'">Меню</button>
+            <button onclick="window.location.href = '/payment'">Оплата</button>
+            <button onclick="window.location.href = '/receiving'">Получение</button>
+            <button id="profile-btn">{{ surname }} {{ name[0] }}.</button>
+        </nav>
+    </div>
+</header>
+{% include 'profile-popup.html' %}
