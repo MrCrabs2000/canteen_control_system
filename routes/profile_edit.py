@@ -60,8 +60,8 @@ def profile_edit():
                 'class': info.stud_class,
                 'login': user.login,
                 'balance': info.balance,
-                'alergies': json_to_str(info.alergies),
-                'preferences': json_to_str(info.preferences)}
+                'alergies': json_to_str(info.alergies) if info.alergies else '',
+                'preferences': json_to_str(info.preferences) if info.preferences else ''}
 
     else:
         context = {
