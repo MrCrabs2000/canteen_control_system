@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>Меню</div>
+    {% if menus %}
+        {% for menu in menus %}
+                {{ menu.type }}
+                {% if menu.dishes %}
+                    {% for dish in menu.dishes %}
+                        {{ dish.name }}
+                        <div>Состав:</div>
+                        {% if dish.products %}
+                            {% for product in dish.products %}
+                                {{ product.name }}
+                            {% endfor %}
+                        {% else %}
+                            <div>Состав не известен</div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div>Нет блюд</div>
+                {% endif %}
+        {% endfor %}
+    {% else %}
+        <div>Меню нет</div>
+    {% endif %}
+
+    <button onclick="document.location.href='/main'">Назад</button>
+</body>
+</html>

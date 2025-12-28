@@ -5,6 +5,7 @@ from routes.exit import exit_page
 from routes.login import login_page
 from routes.profile import profile_page
 from routes.profile_edit import profile_edit_page
+from routes.menu import menu_page
 from datebase.db_session import init_database, create_session
 from flask_login import LoginManager, current_user
 from datebase.classes import User
@@ -33,6 +34,7 @@ app.register_blueprint(exit_page)
 app.register_blueprint(login_page)
 app.register_blueprint(profile_page)
 app.register_blueprint(profile_edit_page)
+app.register_blueprint(menu_page)
 
 
 
