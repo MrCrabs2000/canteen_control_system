@@ -1,6 +1,4 @@
-from email.policy import default
-
-from sqlalchemy import Column, Integer, String, ForeignKey, JSON, DateTime, BOOLEAN, Table
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON, DateTime, BOOLEAN
 from sqlalchemy.orm import relationship, declarative_base
 from flask_login import UserMixin
 

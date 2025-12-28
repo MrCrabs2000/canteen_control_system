@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from datebase.classes import User, Info
 from datebase import db_session
-from json import dumps, loads
 from flask_login import current_user, login_required
+from functions import json_to_str, str_to_json
 
 
 profile_edit_page = Blueprint('profile_edit', __name__, template_folder='templates')
@@ -30,29 +30,12 @@ def profile_edit():
 
             if info:
                 stud_class = request.form.get('class')
-                balance = request.form.get('balance')
                 alergies = request.form.get('alergies')
                 preferences = request.form.get('preferences')
 
-                if not all([stud_class, balance, alergies, preferences]):
-                    return redirect('profile')
                 try:
-                    alerg = {}
-                    prefer = {}
-
-                    a = 0
-                    b = 0
-
-                    for elem in alergies.split():
-                        alerg[a] = elem
-                        a += 1
-
-                    for elem in preferences.split():
-                        prefer[b] = elem
-                        b += 1
-
-                    info.stud_class, info.balance, info.alergies, info.preferences = stud_class, balance, dumps(alerg), dumps(prefer)
-
+                    info.stud_class, info.alergies, info.preferences = stud_class, str_to_json(alergies), str_to_json(preferences)
+                    session_db.commit()
                 except Exception:
                     session_db.rollback()
                 finally:
@@ -70,39 +53,22 @@ def profile_edit():
 
     if user.role == 'student':
         info = session_db.query(Info).filter_by(user_id=user_id).first()
-
-        if all([info.stud_class, info.balance, info.alergies, info.preferences]):
-            context = {
+        context = {
                 'name': user.name,
                 'surname': user.surname,
                 'patronymic': user.patronymic,
                 'class': info.stud_class,
                 'login': user.login,
                 'balance': info.balance,
-                'alergies': loads(info.alergies),
-                'preferences': loads(info.preferences)}
-
-        else:
-            context = {
-                'name': user.name,
-                'surname': user.surname,
-                'patronymic': user.patronymic,
-                'class': '',
-                'login': user.login,
-                'balance': '',
-                'alergies': '',
-                'preferences': ''}
+                'alergies': json_to_str(info.alergies),
+                'preferences': json_to_str(info.preferences)}
 
     else:
         context = {
             'name': user.name,
             'surname': user.surname,
             'patronymic': user.patronymic,
-            'login': user.login,
-            'class': '',
-            'balance': '',
-            'alergies': '',
-            'preferences': ''
+            'login': user.login
         }
 
     session_db.close()

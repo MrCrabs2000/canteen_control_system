@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash
 from datebase.classes import User, Info
 from datebase import db_session
