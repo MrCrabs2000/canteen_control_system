@@ -28,6 +28,7 @@ def load_user(id):
     db_session.close()
     return user
 
+
 app.register_blueprint(main_page)
 app.register_blueprint(register_page)
 app.register_blueprint(exit_page)

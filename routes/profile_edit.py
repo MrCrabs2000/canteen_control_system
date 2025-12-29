@@ -15,26 +15,22 @@ def profile_edit():
     user = session_db.query(User).filter_by(id=user_id).first()
 
     if request.method == 'POST':
-        name = request.form.get('name')
-        surname = request.form.get('surname')
-        patronymic = request.form.get('patronymic')
         login = request.form.get('login')
 
-        if not all([name, surname, patronymic, login]):
+        if not login:
             return redirect('/profile')
 
-        user.name, user.surname, user.patronymic, user.login = name, surname, patronymic, login
+        user.login = login
 
         if user.role == 'student':
             info = session_db.query(Info).filter_by(user_id=user_id).first()
 
             if info:
-                stud_class = request.form.get('class')
                 alergies = request.form.get('alergies')
                 preferences = request.form.get('preferences')
 
                 try:
-                    info.stud_class, info.alergies, info.preferences = stud_class, str_to_json(alergies), str_to_json(preferences)
+                    info.alergies, info.preferences = str_to_json(alergies), str_to_json(preferences)
                     session_db.commit()
                 except Exception:
                     session_db.rollback()

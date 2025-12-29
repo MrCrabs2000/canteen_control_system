@@ -12,8 +12,8 @@
                 {% if menu.dishes %}
                     {% for dish in menu.dishes %}
                         {{ dish.name }}
-                        <div>Состав:</div>
                         {% if dish.products %}
+                            <div>Состав:</div>
                             {% for product in dish.products %}
                                 {{ product.name }}
                             {% endfor %}
