@@ -1,6 +1,4 @@
-from email.policy import default
-
-from sqlalchemy import Column, Integer, String, ForeignKey, JSON, DateTime, BOOLEAN, Table
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON, DateTime, BOOLEAN
 from sqlalchemy.orm import relationship, declarative_base
 from flask_login import UserMixin
 
@@ -60,6 +58,7 @@ class Product(table_base):
     amount = Column(Integer, nullable=False, default=0)
 
     dishes = relationship('Dish', secondary='dish_products', back_populates='products')
+    dishh = relationship('DishProduct', overlaps="dishes", back_populates='product_assoc')
 
 
 class History(table_base):
@@ -76,8 +75,8 @@ class History(table_base):
 class AssociationDishMenu(table_base):
     __tablename__ = 'association_dish_menu'
 
-    menu_id = Column(Integer, ForeignKey('menus.id'), primary_key=True)
-    dish_id = Column(Integer, ForeignKey('dishes.id'), primary_key=True)
+    menu_id = Column(Integer, ForeignKey('menus.id'), primary_key=True, unique=True, nullable=False)
+    dish_id = Column(Integer, ForeignKey('dishes.id'), primary_key=True, unique=True, nullable=False)
 
 
 class DishProduct(table_base):
@@ -85,6 +84,9 @@ class DishProduct(table_base):
 
     dish_id = Column(Integer, ForeignKey('dishes.id'), primary_key=True)
     product_id = Column(Integer, ForeignKey('products.id'), primary_key=True)
+
+    dish_assoc = relationship('Dish', overlaps="dishes", back_populates='productt')
+    product_assoc = relationship('Product', overlaps="dishes", back_populates='dishh')
 
 
 class Menu(table_base):
@@ -105,6 +107,7 @@ class Dish(table_base):
     amount = Column(Integer, nullable=False, default=0)
 
 
-    products = relationship('Product', secondary='dish_products', back_populates='dishes')
+    products = relationship('Product', overlaps="dishh,product_assoc,dish_assoc", secondary='dish_products', back_populates='dishes')
+    productt = relationship('DishProduct', overlaps="dishes,products", back_populates='dish_assoc')
     reviews = relationship('Review', back_populates='dish')
     menus = relationship('Menu', secondary='association_dish_menu', back_populates='dishes')
