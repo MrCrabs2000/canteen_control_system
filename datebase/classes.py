@@ -41,7 +41,7 @@ class Info(table_base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False, unique=True)
-    allergies = Column(JSON, default=dict)
+    alergies = Column(JSON, default=dict)
     aboniment = Column(Boolean, default=False)
     preferences = Column(JSON, default=dict)
     balance = Column(Integer, default=0)
