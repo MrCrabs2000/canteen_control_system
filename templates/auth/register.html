@@ -18,22 +18,42 @@
 
                 <div class="field">
                     <label for="login">Логин</label>
-                    <input id="login" name="login" placeholder="Логин">
+                    <input id="login" name="login" placeholder="Логин" required>
                 </div>
                 
                 <div class="field">
                     <label for="name">Имя</label>
-                    <input id="name" name="name" placeholder="Имя">    
+                    <input id="name" name="name" placeholder="Имя" required>    
                 </div>
 
                 <div class="field">
                     <label for="surname">Фамилия</label>
-                    <input id="surname" name="surname" placeholder="Фамилия">
+                    <input id="surname" name="surname" placeholder="Фамилия"required>
                 </div>
 
                 <div class="field">
                     <label for="patronymic">Отчество</label>
-                    <input id="patronymic" name="patronymic" placeholder="Отчество">
+                    <input id="patronymic" name="patronymic" placeholder="Отчество" required>
+                </div>
+
+                <div class="field">
+                    <label>Класс</label>
+                    <div id="class-inputs">
+                        <select id="class-number" name="class_number" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                        </select>
+                        <input id="class-letter" name="class_letter" maxlength="1" pattern="[А-яЁё\s]+" required>
+                    </div>
                 </div>
 
                 <div class="field">
@@ -43,12 +63,12 @@
 
                 <div class="field">
                     <label for="password">Пароль</label>
-                    <input id="password" name="password" type="password" placeholder="Пароль">
+                    <input id="password" name="password" type="password" placeholder="Пароль" required>
                 </div>
 
                 <div class="field">
                     <label for="second_password">Повтор пароля</label>
-                    <input id="second_password" name="second_password" type="password" placeholder="Повтор пароля">
+                    <input id="second_password" name="second_password" type="password" placeholder="Повтор пароля" required>
                 </div>
     
             </div>

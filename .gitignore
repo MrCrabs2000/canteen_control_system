@@ -208,4 +208,4 @@ __marimo__/
 .idea
 db/
 
-many_to_many_test.py
+*test.py

@@ -1,9 +1,11 @@
 from flask import Flask, render_template
-from routes.profile_edit import profile_edit_page
 from routes.main_page import main_page, mainpage
 from routes.register import register_page
 from routes.exit import exit_page
 from routes.login import login_page
+from routes.profile import profile_page
+from routes.profile_edit import profile_edit_page
+from routes.menu import menu_page
 from datebase.db_session import init_database, create_session
 from flask_login import LoginManager, current_user
 from datebase.classes import User
@@ -26,11 +28,14 @@ def load_user(id):
     db_session.close()
     return user
 
+
 app.register_blueprint(main_page)
 app.register_blueprint(register_page)
 app.register_blueprint(exit_page)
 app.register_blueprint(login_page)
+app.register_blueprint(profile_page)
 app.register_blueprint(profile_edit_page)
+app.register_blueprint(menu_page)
 
 
 

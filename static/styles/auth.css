@@ -2,13 +2,15 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 64px;
 }
 
 #auth-form {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    max-width: 300px;
+    max-width: 400px;
+    width: 340px;
     padding: 16px;
     border-radius: var(--border-radius);
     background: var(--bg);
@@ -38,8 +40,22 @@ main {
     font-size: 0.9rem;
 }
 
-.field > input {
+.field input, .field select {
     font-size: 1.25rem;
+}
+
+#class-inputs {
+    display: flex;
+    gap: 8px;
+    max-width: 100%;
+}
+
+#class-number {
+    width: 4.1rem;
+}
+
+#class-letter {
+    width: 1.3rem;
 }
 
 #submit-btn {

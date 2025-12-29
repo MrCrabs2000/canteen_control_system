@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Профиль</h1>
+    <h2>ФИО: {{ surname }} {{ name }} {{ patronymic }}</h2>
+    <h2>Класс: {{ stud_class }}</h2>
+    <h2>Логин: {{ login }}</h2>
+    <h2>Мой баланс: {{ balance }}</h2>
+    <h2>Аллергия: {{ alergies }}</h2>
+    <h2>Предпочтения: {{ preferences }}</h2>
+    <button onclick="document.location.href='/profile_edit'">Редактирование</button>
+    <button onclick="document.location.href='/main'">Назад</button>
+</body>
+</html>

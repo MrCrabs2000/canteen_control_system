@@ -12,13 +12,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles/base.css">
+    <link rel="stylesheet" href="/static/styles/header.css">
+    <link rel="stylesheet" href="/static/styles/profile-popup.css">
     {% block head %}
     
     {% endblock %}
 </head>
 <body>
+    {% include 'header.html' %}
     {% block content %}
     
     {% endblock %}
+
+    <script>
+        const  popup = document.getElementById('profile-popup');
+        const profile_btn = document.getElementById('profile-btn');
+        profile_btn.addEventListener('click', togglePopupProfile);
+
+        function togglePopupProfile() {
+            popup.classList.toggle('active');
+        }
+        
+    </script>
+
 </body>
 </html>

@@ -1,0 +1,31 @@
+#profile-popup {
+    visibility: hidden;
+    position: absolute;
+    padding: 16px 24px;
+    margin-top: 8px;
+    right: 8px;
+    z-index: 1000;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+#profile-popup.active {
+    visibility: visible;
+}
+
+#profile-options {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+#profile-popup a {
+    color: black;
+    text-decoration: none;
+}
+
+#profile-popup a:hover {
+    color: var(--primary);
+}
