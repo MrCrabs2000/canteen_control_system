@@ -38,6 +38,13 @@ input:focus {
     border: 2px solid var(--primary);
 }
 
+input:read-only, input:read-only:focus {
+    caret-color: transparent;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
 button {
     --hover: var(--bg);
     padding: 8px 12px;
@@ -72,4 +79,29 @@ select {
 
 select:focus {
     border: 2px solid var(--primary);
+}
+
+#title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.labeled-input {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.labeled-input label {
+    margin-left: 8px;
+    font-size: 1rem;
+}
+
+.labeled-input input {
+    font-size: 1.4rem;
+}
+
+.labeled-input input:read-only {
+    padding-left: 8px;
 }
