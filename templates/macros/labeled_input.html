@@ -1,0 +1,6 @@
+{% macro labeled_input(name='input', label='input', type='text', class='labeled_input', required=False) %}
+    <div class="{{ class }}">
+        <label for="{{ name }}">{{ label }}</label>
+        <input id="{{ name }}" name="{{ name }}" type="{{ type }}" placeholder="{{ label }}" {% if required %}required{% endif %}>
+    </div>
+{% endmacro %}

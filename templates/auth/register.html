@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% from 'macros/labeled_input.html' import labeled_input %}
+
 
 {% block title %}Регистрация{% endblock %}
 
@@ -16,26 +18,11 @@
 
             <div id="fields">
 
-                <div class="field">
-                    <label for="login">Логин</label>
-                    <input id="login" name="login" placeholder="Логин" required>
-                </div>
+                {{ labeled_input(name='login', label='Логин', class='field', required=True) }}
+                {{ labeled_input(name='name', label='Имя', class='field', required=True) }}
+                {{ labeled_input(name='surname', label='Фамилия', class='field', required=True) }}
+                {{ labeled_input(name='patronymic', label='Отчество', class='field', required=True) }}
                 
-                <div class="field">
-                    <label for="name">Имя</label>
-                    <input id="name" name="name" placeholder="Имя" required>    
-                </div>
-
-                <div class="field">
-                    <label for="surname">Фамилия</label>
-                    <input id="surname" name="surname" placeholder="Фамилия"required>
-                </div>
-
-                <div class="field">
-                    <label for="patronymic">Отчество</label>
-                    <input id="patronymic" name="patronymic" placeholder="Отчество" required>
-                </div>
-
                 <div class="field">
                     <label>Класс</label>
                     <div id="class-inputs">
@@ -56,16 +43,9 @@
                     </div>
                 </div>
 
-                <div class="field">
-                    <label for="password">Пароль</label>
-                    <input id="password" name="password" type="password" placeholder="Пароль" required>
-                </div>
-
-                <div class="field">
-                    <label for="second_password">Повтор пароля</label>
-                    <input id="second_password" name="second_password" type="password" placeholder="Повтор пароля" required>
-                </div>
-    
+                {{ labeled_input(name='password', label='Пароль', type='password', class='field', required=True) }}
+                {{ labeled_input(name='second_password', label='Повтор пароля', type='password', class='field', required=True) }}
+                
             </div>
 
             <a href="/login">Вход</a>
