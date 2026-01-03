@@ -19,7 +19,7 @@ def profilepage():
         'login': current_user.login,
         'balance': info.balance if info else '0 рублей',
         'stud_class': info.stud_class if info else 'не указан',
-        'alergies': json_to_str(info.alergies) if info.alergies and json_to_str(info.alergies) != '' else 'нет',
+        'allergies': json_to_str(info.allergies) if info.allergies and json_to_str(info.allergies) != '' else 'нет',
         'preferences': json_to_str(info.preferences) if info.preferences and json_to_str(info.preferences) != '' else 'нет',
     }
 

@@ -27,8 +27,8 @@ class Info(table_base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False, unique=True)
-    alergies = Column(JSON)
-    aboniment = Column(BOOLEAN, default=False)
+    allergies = Column(JSON)
+    abonement = Column(BOOLEAN, default=False)
     preferences = Column(JSON)
     balance = Column(Integer, nullable='-', default=0)
     stud_class = Column(String, default='-')
