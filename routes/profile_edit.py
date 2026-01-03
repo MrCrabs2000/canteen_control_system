@@ -26,11 +26,11 @@ def profile_edit():
             info = session_db.query(Info).filter_by(user_id=user_id).first()
 
             if info:
-                alergies = request.form.get('alergies')
+                allergies = request.form.get('allergies')
                 preferences = request.form.get('preferences')
 
                 try:
-                    info.alergies, info.preferences = str_to_json(alergies), str_to_json(preferences)
+                    info.allergies, info.preferences = str_to_json(allergies), str_to_json(preferences)
                     session_db.commit()
                 except Exception:
                     session_db.rollback()
@@ -56,7 +56,7 @@ def profile_edit():
                 'class': info.stud_class,
                 'login': user.login,
                 'balance': info.balance,
-                'alergies': json_to_str(info.alergies) if info.alergies else '',
+                'allergies': json_to_str(info.allergies) if info.allergies else '',
                 'preferences': json_to_str(info.preferences) if info.preferences else ''}
 
     else:
