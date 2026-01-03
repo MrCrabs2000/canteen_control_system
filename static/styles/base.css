@@ -4,11 +4,14 @@
     --bg-light: hsl(0, 0%, 100%);
     --primary: hsl(104, 50%, 45%);
     --primary-dark: hsl(104, 50%, 40%);
+    --danger: hsl(0, 60%, 50%);
+    --danger-dark: hsl(0, 60%, 45%);
     --text: hsl(0, 0%, 18%);
     --text-muted: hsl(0, 0%, 40%);
     --text-light: hsl(0, 0%, 100%);
     --shadow: 0px 4px 8px hsla(0, 0%, 0%, 0.15);
-    --shadow-small: 0px 4px 8px hsla(0, 0%, 0%, 0.075);
+    --shadow-small: 0px 2px 4px hsla(0, 0%, 0%, 0.075);
+    --border-color: hsl(0, 0%, 80%);
     --border-radius: 16px;
     --border-radius-small: 12px;
 }
@@ -50,14 +53,14 @@ button {
     padding: 8px 12px;
     color: inherit;
     font-family: inherit;
-    font-weight: 500;
+    font-weight: 600;
     border: 0;
     border-radius: var(--border-radius-small);
     background: var(--bg-light);
     box-shadow: var(--shadow-small);
 }
 
-button:hover, button.accent:hover {
+button:hover, button.accent:hover, button.danger:hover {
     background: var(--hover);
     cursor: pointer;
 }
@@ -66,6 +69,12 @@ button.accent {
     --hover: var(--primary-dark);
     color: var(--text-light);
     background: var(--primary);
+}
+
+button.danger {
+    --hover: var(--danger-dark);
+    color: var(--text-light);
+    background: var(--danger);
 }
 
 select {
@@ -85,7 +94,16 @@ select:focus {
     text-align: center;
     font-size: 2rem;
     font-weight: 600;
+
+    &.left {
+        text-align: left;
+    }
+
+    &.right {
+        text-align: right;
+    }
 }
+
 
 .labeled-input {
     display: flex;
@@ -95,7 +113,7 @@ select:focus {
 
 .labeled-input label {
     margin-left: 8px;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .labeled-input input {
@@ -103,5 +121,6 @@ select:focus {
 }
 
 .labeled-input input:read-only {
+    padding: 0;
     padding-left: 8px;
 }

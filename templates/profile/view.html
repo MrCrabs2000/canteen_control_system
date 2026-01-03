@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% from 'macros/labeled_input.html' import labeled_input %}
+
+{% block title %}Профиль{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/profile.css">
+{% endblock %}
+
+
+{% block content %}
+    <main>
+        <form id="profile-container" action="profile/edit" method="post">
+            <div id="profile-top-bar">
+                <div id="title" class="left">Профиль</div>
+                <div id="btns-container">
+                    <button id="edit-btn" type="button">Изменить</button>
+                    <button id="confirm-btn" class="accent" style="display: none">Подтвердить</button>
+                    <button id="cancel-btn" class="danger" type="button" style="display: none">Отменить</button>
+                </div>
+            </div>
+    
+            <div id="profile-grid">
+                <div id="main-profile-info">
+                    {{ labeled_input(name='login', label='Логин', value=login, readonly=True) }}
+                    {{ labeled_input(name='surname', label='Фамилия', value=surname, readonly=True) }}
+                    {{ labeled_input(name='name', label='Имя', value=name, readonly=True) }}
+                    {{ labeled_input(name='patronymic', label='Отчество', value=patronymic, readonly=True ) }}
+                    {{ labeled_input(name='class', label='Класс', value=class, readonly=True) }}
+                </div>
+    
+                <div id="allergies" class="scrollable-container">
+                    <label>Аллергии</label>
+                    <ul id="allergies-list" class="scrollable-list">
+                        {% for allergy in allergies %}
+                        <li>
+                            <span>{{ allergy }}</span>
+                            <div class="li-btns" style="display: none;">
+                                <button type="button">Edit</button>
+                                <button class="danger" type="button">Delete</button>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+    
+                <div id="preferences-container" class="scrollable-container">
+                    <label>Предпочтения</label>
+                    <ul id="preferences-list" class="scrollable-list">
+                        {% for preference in preferences %}
+                        <li>
+                            <span>{{ preference }}</span>
+                            <div class="li-btns" style="display: none;">
+                                <button type="button">Edit</button>
+                                <button class="danger" type="button">Delete</button>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </main>
+
+
+    <script>
+        const edit_button = document.getElementById('edit-btn');
+        const confirm_button = document.getElementById('confirm-btn');
+        const cancel_button = document.getElementById('cancel-btn');
+
+        const fields = document.querySelectorAll('#main-profile-info input');
+        let initialValues = [];
+        
+        list_items = document.querySelectorAll('.scrollable-list li');
+
+        list_items.forEach(li => {
+            li.addEventListener('mouseenter', function() {
+                let btns = this.querySelector('.li-btns');
+                btns.style.display = 'block';
+            });
+        });
+
+        
+        list_items.forEach(li => {
+            li.addEventListener('mouseleave', function() {
+                let btns = this.querySelector('.li-btns');
+                btns.style.display = 'none';
+            });
+        });
+
+
+
+        fields.forEach(field => {
+            initialValues.push(field.value);
+        });
+
+        edit_button.addEventListener('click', function() {
+            fields.forEach(field => {
+                field.readOnly = false;
+            });
+
+            this.style.display = 'none';
+            confirm_button.style.display = 'inline-block';
+            cancel_button.style.display = 'inline-block';
+        });
+
+        cancel_button.addEventListener('click', function() {
+            fields.forEach((field, index) => {
+                field.readOnly = true;
+                field.value = initialValues[index];
+            });
+
+            this.style.display = 'none';
+            confirm_button.style.display = 'none';
+            edit_button.style.display = 'inline-block';
+        });
+    </script>
+
+{% endblock %}
