@@ -12,7 +12,7 @@
 
 {% block content %}
     <main>
-        <form id="profile-container" action="profile/edit" method="post">
+        <form id="profile-form" action="profile/edit" method="post">
             <div id="profile-top-bar">
                 <div id="title" class="left">Профиль</div>
                 <div id="btns-container">
@@ -32,14 +32,16 @@
                 </div>
     
                 <div id="allergies" class="scrollable-container">
-                    <label>Аллергии</label>
+                    <label>
+                        <span>Аллергии</span>
+                        <button id="add-allergy-btn" class="add-btn" type="button">+</button>
+                    </label>
                     <ul id="allergies-list" class="scrollable-list">
                         {% for allergy in allergies %}
-                        <li>
+                        <li data-content="{{ allergy }}">
                             <span>{{ allergy }}</span>
                             <div class="li-btns" style="display: none;">
-                                <button type="button">Edit</button>
-                                <button class="danger" type="button">Delete</button>
+                                <button class="delete-btn danger" type="button">Удалить</button>
                             </div>
                         </li>
                         {% endfor %}
@@ -47,25 +49,38 @@
                 </div>
     
                 <div id="preferences-container" class="scrollable-container">
-                    <label>Предпочтения</label>
+                    <label>
+                        <span>Предпочтения</span>
+                        <button id="add-preference-btn" class="add-btn" type="button">+</button>
+                    </label>
                     <ul id="preferences-list" class="scrollable-list">
                         {% for preference in preferences %}
-                        <li>
-                            <span>{{ preference }}</span>
+                        <li data-content="{{ preference }}">
+                            <span class="content">{{ preference }}</span>
                             <div class="li-btns" style="display: none;">
-                                <button type="button">Edit</button>
-                                <button class="danger" type="button">Delete</button>
+                                <button class="delete-btn danger" type="button">Удалить</button>
                             </div>
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
+
+            <div id="hidden-inputs" style="display: none;">
+                <input name="allergies" type="hidden">
+                <input name="preferences" type="hidden">
+            </div>
+
         </form>
     </main>
 
-
+    <script src="{{ url_for('static', filename='scripts/profile/getAllergies.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/profile/getPreferences.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/profile/submitProfileForm.js') }}"></script>
     <script>
+        const form = document.getElementById('profile-form');
+        const hiddenInputsContainer = document.getElementById('hidden-inputs');
+
         const edit_button = document.getElementById('edit-btn');
         const confirm_button = document.getElementById('confirm-btn');
         const cancel_button = document.getElementById('cancel-btn');
@@ -80,6 +95,17 @@
                 let btns = this.querySelector('.li-btns');
                 btns.style.display = 'block';
             });
+
+            let del_btn = li.querySelector('.delete-btn');
+            del_btn.addEventListener('click', function() {
+                li.remove();
+
+                let allergies = document.getElementById('allergies-list');
+                let preferences = document.getElementById('preferences-list');
+
+                submitProfileForm(form, hiddenInputsContainer, allergies, preferences);
+            });
+
         });
 
         
@@ -91,10 +117,10 @@
         });
 
 
-
         fields.forEach(field => {
             initialValues.push(field.value);
         });
+
 
         edit_button.addEventListener('click', function() {
             fields.forEach(field => {
@@ -105,6 +131,7 @@
             confirm_button.style.display = 'inline-block';
             cancel_button.style.display = 'inline-block';
         });
+
 
         cancel_button.addEventListener('click', function() {
             fields.forEach((field, index) => {

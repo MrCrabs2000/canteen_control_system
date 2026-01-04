@@ -4,7 +4,7 @@ main {
     align-items: center;
 }
 
-#profile-container {
+#profile-form {
     display: flex;
     flex-direction: column;
     margin-top: 64px;
@@ -58,6 +58,10 @@ main {
 }
 
 .scrollable-container label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 8px;
     font-size: 1.1rem;
 }
 
@@ -86,4 +90,11 @@ main {
 .scrollable-list li:hover {
     background: var(--bg-light);
     box-shadow: var(--shadow-small);
+}
+
+.add-btn {
+    aspect-ratio: 1/1;
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1.7rem;
 }
