@@ -17,25 +17,26 @@
                 <div id="title" class="left">Профиль</div>
                 <div id="btns-container">
                     <button id="edit-btn" type="button">Изменить</button>
-                    <button id="confirm-btn" class="accent" style="display: none">Подтвердить</button>
+                    <button id="confirm-btn" class="accent" type="button" style="display: none">Подтвердить</button>
                     <button id="cancel-btn" class="danger" type="button" style="display: none">Отменить</button>
                 </div>
             </div>
     
             <div id="profile-grid">
                 <div id="main-profile-info">
-                    {{ labeled_input(name='login', label='Логин', value=login, readonly=True) }}
-                    {{ labeled_input(name='surname', label='Фамилия', value=surname, readonly=True) }}
-                    {{ labeled_input(name='name', label='Имя', value=name, readonly=True) }}
-                    {{ labeled_input(name='patronymic', label='Отчество', value=patronymic, readonly=True ) }}
-                    {{ labeled_input(name='class', label='Класс', value=class, readonly=True) }}
+                    {{ labeled_input(name='login', label='Логин', value=login, readonly=True, required=True) }}
+                    {{ labeled_input(name='surname', label='Фамилия', value=surname, readonly=True, required=True) }}
+                    {{ labeled_input(name='name', label='Имя', value=name, readonly=True, required=True) }}
+                    {{ labeled_input(name='patronymic', label='Отчество', value=patronymic, readonly=True, required=True) }}
+                    {{ labeled_input(name='class', label='Класс', value=class, readonly=True, required=True) }}
                 </div>
     
                 <div id="allergies" class="scrollable-container">
-                    <label>
-                        <span>Аллергии</span>
-                        <button id="add-allergy-btn" class="add-btn" type="button">+</button>
-                    </label>
+                    <div class="list-top-bar">
+                        <label>Аллергии</label>
+                        <button id="add-allergy-btn" class="add-item-btn" type="button"></button>
+                    </div>
+
                     <ul id="allergies-list" class="scrollable-list">
                         {% for allergy in allergies %}
                         <li data-content="{{ allergy }}">
@@ -49,10 +50,10 @@
                 </div>
     
                 <div id="preferences-container" class="scrollable-container">
-                    <label>
-                        <span>Предпочтения</span>
-                        <button id="add-preference-btn" class="add-btn" type="button">+</button>
-                    </label>
+                    <div class="list-top-bar">
+                        <label>Предпочтения</label>
+                        <button id="add-preference-btn" class="add-item-btn" type="button"></button>
+                    </div>
                     <ul id="preferences-list" class="scrollable-list">
                         {% for preference in preferences %}
                         <li data-content="{{ preference }}">
@@ -74,8 +75,8 @@
         </form>
     </main>
 
-    <script src="{{ url_for('static', filename='scripts/profile/getAllergies.js') }}"></script>
-    <script src="{{ url_for('static', filename='scripts/profile/getPreferences.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/profile/getListStrContent.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/profile/addProfileListItem.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/profile/submitProfileForm.js') }}"></script>
     <script>
         const form = document.getElementById('profile-form');
@@ -88,37 +89,42 @@
         const fields = document.querySelectorAll('#main-profile-info input');
         let initialValues = [];
         
-        list_items = document.querySelectorAll('.scrollable-list li');
+        let list_items = document.querySelectorAll('.scrollable-list li');
+        
+        const addButtons = document.querySelectorAll('.add-item-btn');
+
+        addButtons.forEach(button => {
+            button.addEventListener('click', addProfileListItem);
+        })
+
 
         list_items.forEach(li => {
             li.addEventListener('mouseenter', function() {
                 let btns = this.querySelector('.li-btns');
                 btns.style.display = 'block';
             });
-
-            let del_btn = li.querySelector('.delete-btn');
-            del_btn.addEventListener('click', function() {
-                li.remove();
-
-                let allergies = document.getElementById('allergies-list');
-                let preferences = document.getElementById('preferences-list');
-
-                submitProfileForm(form, hiddenInputsContainer, allergies, preferences);
-            });
-
-        });
-
-        
-        list_items.forEach(li => {
+            
             li.addEventListener('mouseleave', function() {
                 let btns = this.querySelector('.li-btns');
                 btns.style.display = 'none';
             });
+
+            let del_btn = li.querySelector('.delete-btn');
+            del_btn.addEventListener('click', function() {
+                li.remove();
+                submitProfileForm(form, hiddenInputsContainer);
+            });
+
         });
 
 
         fields.forEach(field => {
             initialValues.push(field.value);
+        });
+
+
+        confirm_button.addEventListener('click', function() {
+            submitProfileForm(form, hiddenInputsContainer);
         });
 
 

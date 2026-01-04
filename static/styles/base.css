@@ -25,6 +25,7 @@ body {
 
 label {
     color: var(--text-muted);
+    font-weight: 600;
 }
 
 input {

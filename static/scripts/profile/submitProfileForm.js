@@ -4,15 +4,18 @@
  * @param {NodeList} allergies
  * @param {NodeList} preferences
  */
-function submitProfileForm(form, hiddenInputsContainer, allergiesContainer, preferencesContainer) {
+function submitProfileForm(form, hiddenInputsContainer) {
     const allergiesInput = hiddenInputsContainer.querySelector('input[name="allergies"');
     const preferencesInput = hiddenInputsContainer.querySelector('input[name="preferences"');
 
-    allergiesInput.value = JSON.stringify(getAllergies(allergiesContainer));
-    preferencesInput.value = JSON.stringify(getPreferences(preferencesContainer));
+    let allergiesContainer = document.getElementById('allergies-list');
+    let preferencesContainer = document.getElementById('preferences-list');
+
+    allergiesInput.value = JSON.stringify(getListStrContent(allergiesContainer));
+    preferencesInput.value = JSON.stringify(getListStrContent(preferencesContainer));
 
     console.log(`Allergies to save: ${allergiesInput.value}`);
     console.log(`Preferences to save: ${preferencesInput.value}`);
 
-    form.submit();
+    form.requestSubmit();
 }
