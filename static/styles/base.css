@@ -59,24 +59,52 @@ button {
     border-radius: var(--border-radius-small);
     background: var(--bg-light);
     box-shadow: var(--shadow-small);
+    
+    
+    &.accent {
+        --hover: var(--primary-dark);
+        color: var(--text-light);
+        background: var(--primary);
+    }
+    
+    &.danger {
+        --hover: var(--danger-dark);
+        color: var(--text-light);
+        background: var(--danger);
+    }    
+        
+    &.add {
+        position: relative;
+        aspect-ratio: 1/1;
+        padding: 16px;
+
+        &:after, &:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: var(--text);
+            transform: translate(-50%, -50%);
+            border-radius: 100px;
+        }
+        
+        &:before {
+            width: 0.18rem;
+            height: 1.1rem;
+        }
+        
+        &:after {
+            width: 1.1rem;
+            height: 0.18rem;
+        }
+    }
+    
+    &:hover {
+        background: var(--hover);
+        cursor: pointer;
+    }
 }
 
-button:hover, button.accent:hover, button.danger:hover {
-    background: var(--hover);
-    cursor: pointer;
-}
-
-button.accent {
-    --hover: var(--primary-dark);
-    color: var(--text-light);
-    background: var(--primary);
-}
-
-button.danger {
-    --hover: var(--danger-dark);
-    color: var(--text-light);
-    background: var(--danger);
-}
 
 select {
     padding: 4px 12px;
@@ -104,7 +132,6 @@ select:focus {
         text-align: right;
     }
 }
-
 
 .labeled-input {
     display: flex;

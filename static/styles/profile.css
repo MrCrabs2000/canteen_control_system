@@ -101,30 +101,3 @@ li.new-list-item {
 .new-list-item input {
     font-size: 1.1rem;
 }
-
-.add-item-btn {
-    position: relative;
-    aspect-ratio: 1/1;
-    padding: 16px;
-}
-
-.add-item-btn:after, .add-item-btn:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    background: var(--text);
-    transform: translate(-50%, -50%);
-    border-radius: 100px;
-}
-
-.add-item-btn:before{
-    width: 0.18rem;
-    height: 1.1rem;
-
-}
-
-.add-item-btn:after{
-    width: 1.1rem;
-    height: 0.18rem;
-}

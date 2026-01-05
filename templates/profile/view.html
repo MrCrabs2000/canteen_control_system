@@ -34,7 +34,7 @@
                 <div id="allergies" class="scrollable-container">
                     <div class="list-top-bar">
                         <label>Аллергии</label>
-                        <button id="add-allergy-btn" class="add-item-btn" type="button"></button>
+                        <button id="add-allergy-btn" class="add" type="button"></button>
                     </div>
 
                     <ul id="allergies-list" class="scrollable-list">
@@ -52,7 +52,7 @@
                 <div id="preferences-container" class="scrollable-container">
                     <div class="list-top-bar">
                         <label>Предпочтения</label>
-                        <button id="add-preference-btn" class="add-item-btn" type="button"></button>
+                        <button id="add-preference-btn" class="add" type="button"></button>
                     </div>
                     <ul id="preferences-list" class="scrollable-list">
                         {% for preference in preferences %}
@@ -91,7 +91,7 @@
         
         let list_items = document.querySelectorAll('.scrollable-list li');
         
-        const addButtons = document.querySelectorAll('.add-item-btn');
+        const addButtons = document.querySelectorAll('button.add');
 
         addButtons.forEach(button => {
             button.addEventListener('click', addProfileListItem);
