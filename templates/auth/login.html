@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% from 'macros/labeled_input.html' import labeled_input %}
+
 
 {% block title %}Вход{% endblock %}
 
@@ -15,17 +17,8 @@
             <div id="title">Вход</div>
 
             <div id="fields">
-
-                <div class="field">
-                    <label for="login">Логин</label>
-                    <input id="login" name="login" placeholder="Логин">
-                </div>
-
-                <div class="field">
-                    <label for="password">Пароль</label>
-                    <input id="password" name="password" type="password" placeholder="Пароль">
-                </div>
-    
+                {{ labeled_input(name='login', label='Логин', class='field', required=True) }}
+                {{ labeled_input(name='password', label='Пароль', type='password', class='field', required=True) }}    
             </div>
             <a href="/register">Регистрация</a>
 

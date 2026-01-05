@@ -2,7 +2,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 64px;
 }
 
 #auth-form {
@@ -11,16 +10,11 @@ main {
     gap: 24px;
     max-width: 400px;
     width: 340px;
+    margin-top: 64px;
     padding: 16px;
     border-radius: var(--border-radius);
     background: var(--bg);
     box-shadow: var(--shadow);
-}
-
-#title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 600;
 }
 
 #fields {
