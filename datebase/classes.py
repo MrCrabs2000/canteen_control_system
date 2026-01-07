@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship, declarative_base
 from flask_login import UserMixin
 from datetime import datetime
 
+
 table_base = declarative_base()
 
 
