@@ -47,11 +47,6 @@ main {
     border-width: 0 1px 0 0;
 }
 
-#main-profile-info input {
-    box-sizing: border-box;
-    width: 100%;
-}
-
 .scrollable-container {
     display: flex;
     flex-direction: column;
@@ -61,7 +56,6 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 8px;
     font-size: 1.1rem;
 }
 
@@ -85,6 +79,11 @@ main {
     padding-right: 4px;
     font-size: 1.4rem;
     border-radius: var(--border-radius);
+    transition: background 0.1s ease-in-out;
+}
+
+.scrollable-list li button {
+    font-size: 0.8rem;
 }
 
 .scrollable-list li:hover {
@@ -100,4 +99,8 @@ li.new-list-item {
 
 .new-list-item input {
     font-size: 1.1rem;
+}
+
+.new-list-item button {
+    font-size: 0.8rem;
 }

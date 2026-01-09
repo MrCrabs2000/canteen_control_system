@@ -8,17 +8,19 @@
 
 {% block head %}
     <link rel="stylesheet" href="/static/styles/auth.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
+    <link rel="stylesheet" href="/static/styles/elements/title.css">
 {% endblock %}
 
 
 {% block content %}
     <main>
         <form id="auth-form" method="post">
-            <div id="title">Вход</div>
+            <div class="title">Вход</div>
 
             <div id="fields">
-                {{ labeled_input(name='login', label='Логин', class='field', required=True) }}
-                {{ labeled_input(name='password', label='Пароль', type='password', class='field', required=True) }}    
+                {{ labeled_input(name='login', label='Логин', required=True) }}
+                {{ labeled_input(name='password', label='Пароль', type='password', required=True) }}    
             </div>
             <a href="/register">Регистрация</a>
 

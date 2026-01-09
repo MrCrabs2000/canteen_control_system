@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
 {% from 'macros/labeled_input.html' import labeled_input %}
+{% from 'macros/labeled_class_input.html' import labeled_class_input %}
 
 {% block title %}Профиль{% endblock %}
 
 
 {% block head %}
     <link rel="stylesheet" href="/static/styles/profile.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
+    <link rel="stylesheet" href="/static/styles/macros/class-input.css">
+    <link rel="stylesheet" href="/static/styles/elements/title.css">
 {% endblock %}
 
 
@@ -14,7 +18,7 @@
     <main>
         <form id="profile-form" action="profile/edit" method="post">
             <div id="profile-top-bar">
-                <div id="title" class="left">Профиль</div>
+                <div class="title" class="left">Профиль</div>
                 <div id="btns-container">
                     <button id="edit-btn" type="button">Изменить</button>
                     <button id="confirm-btn" class="accent" type="button" style="display: none">Подтвердить</button>
@@ -28,7 +32,7 @@
                     {{ labeled_input(name='surname', label='Фамилия', value=surname, readonly=True, required=True) }}
                     {{ labeled_input(name='name', label='Имя', value=name, readonly=True, required=True) }}
                     {{ labeled_input(name='patronymic', label='Отчество', value=patronymic, readonly=True, required=True) }}
-                    {{ labeled_input(name='class', label='Класс', value=class, readonly=True, required=True) }}
+                    {{ labeled_class_input(value=class, readonly=True, required=True) }}
                 </div>
     
                 <div id="allergies" class="scrollable-container">
@@ -78,18 +82,19 @@
     <script src="{{ url_for('static', filename='scripts/profile/getListStrContent.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/profile/addProfileListItem.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/profile/submitProfileForm.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/elements/classInput.js') }}"></script>
     <script>
         const form = document.getElementById('profile-form');
         const hiddenInputsContainer = document.getElementById('hidden-inputs');
 
-        const edit_button = document.getElementById('edit-btn');
-        const confirm_button = document.getElementById('confirm-btn');
-        const cancel_button = document.getElementById('cancel-btn');
+        const editButton = document.getElementById('edit-btn');
+        const confirmButton = document.getElementById('confirm-btn');
+        const cancelButton = document.getElementById('cancel-btn');
 
-        const fields = document.querySelectorAll('#main-profile-info input');
+        const fields = document.querySelectorAll('#main-profile-info > .labeled-input > input, #main-profile-info > .labeled-input > class-input');
         let initialValues = [];
         
-        let list_items = document.querySelectorAll('.scrollable-list li');
+        let listItems = document.querySelectorAll('.scrollable-list li');
         
         const addButtons = document.querySelectorAll('button.add');
 
@@ -98,7 +103,7 @@
         })
 
 
-        list_items.forEach(li => {
+        listItems.forEach(li => {
             li.addEventListener('mouseenter', function() {
                 let btns = this.querySelector('.li-btns');
                 btns.style.display = 'block';
@@ -123,31 +128,31 @@
         });
 
 
-        confirm_button.addEventListener('click', function() {
+        confirmButton.addEventListener('click', function() {
             submitProfileForm(form, hiddenInputsContainer);
         });
 
 
-        edit_button.addEventListener('click', function() {
+        editButton.addEventListener('click', function() {
             fields.forEach(field => {
                 field.readOnly = false;
             });
 
             this.style.display = 'none';
-            confirm_button.style.display = 'inline-block';
-            cancel_button.style.display = 'inline-block';
+            confirmButton.style.display = 'inline-block';
+            cancelButton.style.display = 'inline-block';
         });
 
 
-        cancel_button.addEventListener('click', function() {
+        cancelButton.addEventListener('click', function() {
             fields.forEach((field, index) => {
                 field.readOnly = true;
                 field.value = initialValues[index];
             });
 
             this.style.display = 'none';
-            confirm_button.style.display = 'none';
-            edit_button.style.display = 'inline-block';
+            confirmButton.style.display = 'none';
+            editButton.style.display = 'inline-block';
         });
     </script>
 

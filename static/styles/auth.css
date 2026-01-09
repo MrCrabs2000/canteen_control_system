@@ -23,35 +23,6 @@ main {
     gap: 12px;
 }
 
-.field {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.field > label {
-    margin-left: 8px;
-    font-size: 0.9rem;
-}
-
-.field input, .field select {
-    font-size: 1.25rem;
-}
-
-#class-inputs {
-    display: flex;
-    gap: 8px;
-    max-width: 100%;
-}
-
-#class-number {
-    width: 4.1rem;
-}
-
-#class-letter {
-    width: 1.3rem;
-}
-
 #submit-btn {
     font-size: 1.25rem;
 }

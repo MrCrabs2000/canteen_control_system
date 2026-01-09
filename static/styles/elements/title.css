@@ -1,0 +1,13 @@
+.title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+
+    &.left {
+        text-align: left;
+    }
+
+    &.right {
+        text-align: right;
+    }
+}

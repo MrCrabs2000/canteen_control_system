@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% from 'macros/labeled_input.html' import labeled_input %}
+{% from 'macros/labeled_class_input.html' import labeled_class_input %}
 
 
 {% block title %}Регистрация{% endblock %}
@@ -8,43 +9,28 @@
 
 {% block head %}
     <link rel="stylesheet" href="/static/styles/auth.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
+    <link rel="stylesheet" href="/static/styles/macros/class-input.css">
+    <link rel="stylesheet" href="/static/styles/elements/title.css">
 {% endblock %}
 
 
 {% block content %}
     <main>
         <form id="auth-form" method="post">
-            <div id="title">Регистрация</div>
+            <div class="title">Регистрация</div>
 
             <div id="fields">
 
-                {{ labeled_input(name='login', label='Логин', class='field', required=True) }}
-                {{ labeled_input(name='name', label='Имя', class='field', required=True) }}
-                {{ labeled_input(name='surname', label='Фамилия', class='field', required=True) }}
-                {{ labeled_input(name='patronymic', label='Отчество', class='field', required=True) }}
-                
-                <div class="field">
-                    <label>Класс</label>
-                    <div id="class-inputs">
-                        <select id="class-number" name="class_number" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                        <input id="class-letter" name="class_letter" maxlength="1" pattern="[А-яЁё\s]+" required>
-                    </div>
-                </div>
+                {{ labeled_input(name='login', label='Логин', required=True) }}
+                {{ labeled_input(name='name', label='Имя', required=True) }}
+                {{ labeled_input(name='surname', label='Фамилия', required=True) }}
+                {{ labeled_input(name='patronymic', label='Отчество', required=True) }}
+            
+                {{ labeled_class_input(required=True) }}
 
-                {{ labeled_input(name='password', label='Пароль', type='password', class='field', required=True) }}
-                {{ labeled_input(name='second_password', label='Повтор пароля', type='password', class='field', required=True) }}
+                {{ labeled_input(name='password', label='Пароль', type='password', required=True) }}
+                {{ labeled_input(name='second_password', label='Повтор пароля', type='password', required=True) }}
                 
             </div>
 
@@ -53,4 +39,5 @@
             <button id="submit-btn" class="accent" type="submit">Зарегистрироваться</button>
         </form>
     </main>
+    <script src="{{ url_for('static', filename='scripts/elements/classInput.js') }}"></script>
 {% endblock %}
