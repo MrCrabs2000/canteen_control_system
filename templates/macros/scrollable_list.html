@@ -1,0 +1,24 @@
+{% macro scrollable_list(label='', id='', items=[]) %}
+    <div id="{{ id }}" class="scrollable-container">
+        <div class="list-top-bar">
+            <label>{{ label }}</label>
+            <button id="add-allergy-btn" class="add" type="button"></button>
+        </div>
+
+        <ul id="{{ id }}-list" class="scrollable-list">
+            {% for item in items %}
+            {{ scrollable_list_item(item) }}
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}
+
+
+{% macro scrollable_list_item(content) %}
+    <li data-content="{{ content }}">
+        <span>{{ content }}</span>
+        <div class="li-btns" style="display: none;">
+            <button class="delete-btn danger" type="button">Удалить</button>
+        </div>
+    </li>
+{% endmacro %}

@@ -2,6 +2,8 @@
 
 {% from 'macros/labeled_input.html' import labeled_input %}
 {% from 'macros/labeled_class_input.html' import labeled_class_input %}
+{% from 'macros/scrollable_list.html' import scrollable_list %}
+{% from 'macros/title.html' import title %}
 
 {% block title %}Профиль{% endblock %}
 
@@ -10,7 +12,8 @@
     <link rel="stylesheet" href="/static/styles/profile.css">
     <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
     <link rel="stylesheet" href="/static/styles/macros/class-input.css">
-    <link rel="stylesheet" href="/static/styles/elements/title.css">
+    <link rel="stylesheet" href="/static/styles/macros/title.css">
+    <link rel="stylesheet" href="/static/styles/macros/scrollable-list.css">
 {% endblock %}
 
 
@@ -18,7 +21,7 @@
     <main>
         <form id="profile-form" action="profile/edit" method="post">
             <div id="profile-top-bar">
-                <div class="title" class="left">Профиль</div>
+                {{ title(text='Профиль') }}
                 <div id="btns-container">
                     <button id="edit-btn" type="button">Изменить</button>
                     <button id="confirm-btn" class="accent" type="button" style="display: none">Подтвердить</button>
@@ -35,40 +38,9 @@
                     {{ labeled_class_input(value=class, readonly=True, required=True) }}
                 </div>
     
-                <div id="allergies" class="scrollable-container">
-                    <div class="list-top-bar">
-                        <label>Аллергии</label>
-                        <button id="add-allergy-btn" class="add" type="button"></button>
-                    </div>
+                {{ scrollable_list(label='Аллергии', id='allergies', items=allergies) }}
+                {{ scrollable_list(label='Предпочтения', id='preferences', items=preferences) }}
 
-                    <ul id="allergies-list" class="scrollable-list">
-                        {% for allergy in allergies %}
-                        <li data-content="{{ allergy }}">
-                            <span>{{ allergy }}</span>
-                            <div class="li-btns" style="display: none;">
-                                <button class="delete-btn danger" type="button">Удалить</button>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-    
-                <div id="preferences-container" class="scrollable-container">
-                    <div class="list-top-bar">
-                        <label>Предпочтения</label>
-                        <button id="add-preference-btn" class="add" type="button"></button>
-                    </div>
-                    <ul id="preferences-list" class="scrollable-list">
-                        {% for preference in preferences %}
-                        <li data-content="{{ preference }}">
-                            <span class="content">{{ preference }}</span>
-                            <div class="li-btns" style="display: none;">
-                                <button class="delete-btn danger" type="button">Удалить</button>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
             </div>
 
             <div id="hidden-inputs" style="display: none;">
@@ -82,7 +54,7 @@
     <script src="{{ url_for('static', filename='scripts/profile/getListStrContent.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/profile/addProfileListItem.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/profile/submitProfileForm.js') }}"></script>
-    <script src="{{ url_for('static', filename='scripts/elements/classInput.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/customElements/classInput.js') }}"></script>
     <script>
         const form = document.getElementById('profile-form');
         const hiddenInputsContainer = document.getElementById('hidden-inputs');

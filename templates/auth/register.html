@@ -2,6 +2,7 @@
 
 {% from 'macros/labeled_input.html' import labeled_input %}
 {% from 'macros/labeled_class_input.html' import labeled_class_input %}
+{% from 'macros/title.html' import title %}
 
 
 {% block title %}Регистрация{% endblock %}
@@ -11,14 +12,14 @@
     <link rel="stylesheet" href="/static/styles/auth.css">
     <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
     <link rel="stylesheet" href="/static/styles/macros/class-input.css">
-    <link rel="stylesheet" href="/static/styles/elements/title.css">
+    <link rel="stylesheet" href="/static/styles/macros/title.css">
 {% endblock %}
 
 
 {% block content %}
     <main>
         <form id="auth-form" method="post">
-            <div class="title">Регистрация</div>
+            {{ title(text='Регистрация') }}
 
             <div id="fields">
 
@@ -27,7 +28,7 @@
                 {{ labeled_input(name='surname', label='Фамилия', required=True) }}
                 {{ labeled_input(name='patronymic', label='Отчество', required=True) }}
             
-                {{ labeled_class_input(required=True) }}
+                {{ labeled_class_input(name='class', required=True) }}
 
                 {{ labeled_input(name='password', label='Пароль', type='password', required=True) }}
                 {{ labeled_input(name='second_password', label='Повтор пароля', type='password', required=True) }}
@@ -39,5 +40,5 @@
             <button id="submit-btn" class="accent" type="submit">Зарегистрироваться</button>
         </form>
     </main>
-    <script src="{{ url_for('static', filename='scripts/elements/classInput.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/customElements/classInput.js') }}"></script>
 {% endblock %}
