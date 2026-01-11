@@ -1,0 +1,11 @@
+{% macro sidebar(header='') %}
+    <aside class="sidebar">
+        {% if header %}
+            <h2 class="sidebar__header">{{ header }}</h2>
+        {% endif %}
+
+        <div class="sidebar__content">
+            {{ caller() }}
+        </div>
+    </aside>
+{% endmacro %}

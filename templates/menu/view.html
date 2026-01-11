@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% from 'macros/sidebar.html' import sidebar %}
+{% from 'macros/title.html' import title %}
+
+{% block title %}Меню{% endblock %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/menu.css">
+    <link rel="stylesheet" href="/static/styles/macros/title.css">
+    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+{% endblock %}
+
+
+{% block content %}
+    <div class="wrapper">
+
+        <div class="top-bar">
+            <div class="top-bar__left">
+                {{ title(text='Меню', alignment='left') }}
+            </div>
+    
+            <div class="top-bar__right">
+                <div class="filters">
+                    <select name="type" id="menuTypeSelect" class="menu-type">
+                        <option value="breakfast">Завтрак</option>
+                        <option value="lunch">Обед</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        {% call sidebar(header='День') %}
+        <ul class="days-list">
+            <li class="day day--selected" data-day="10.01.2026">10 января (сегодня)</li>
+            <li class="day" data-day="11.01.2026">11 января</li>
+            <li class="day" data-day="12.01.2026">12 января</li>
+            <li class="day" data-day="13.01.2026">13 января</li>
+            <li class="day" data-day="14.01.2026">14 января</li>
+            <li class="day" data-day="15.01.2026">15 января</li>
+            <li class="day" data-day="16.01.2026">16 января</li>
+        </ul>
+        {% endcall %}
+            
+            
+        <main>
+            <div class="menu-grid">
+                <div class="menu-grid__item">
+                    <div class="dish">
+                        <div class="dish__name">Картофель</div>
+                        <ul class="dish__composition">
+                            <li>Картофель</li>
+                            <li>Картофель</li>
+                            <li>Картофель</li>
+                        </ul>
+                    </div>
+                </div>
+
+                
+            </div>
+        </main>
+    </div>
+
+{% endblock %}

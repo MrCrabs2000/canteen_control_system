@@ -1,5 +1,6 @@
 :root {
     --bg-dark: hsl(0, 0%, 93%);
+    --bg-dark-hover: hsla(0, 0%, 0%, 0.1);
     --bg: hsl(0, 0%, 97%);
     --bg-light: hsl(0, 0%, 100%);
     --primary: hsl(104, 50%, 45%);
@@ -9,14 +10,15 @@
     --text: hsl(0, 0%, 18%);
     --text-muted: hsl(0, 0%, 40%);
     --text-light: hsl(0, 0%, 100%);
-    --shadow: 0px 4px 8px hsla(0, 0%, 0%, 0.15);
+    --shadow: 0px 3px 6px hsla(0, 0%, 0%, 0.1);
     --shadow-small: 0px 2px 4px hsla(0, 0%, 0%, 0.1);
     --border-color: hsl(0, 0%, 80%);
     --border-radius: 16px;
     --border-radius-small: 12px;
 }
 
-body {
+html, body {
+    min-height: 100vh;
     margin: 0;
     color: var(--text);
     font-family: Mulish, sans-serif;

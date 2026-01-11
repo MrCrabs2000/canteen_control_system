@@ -22,7 +22,7 @@ header button, header a {
 }
 
 header button:hover, header a:hover {
-    background: hsla(0, 0%, 0%, 0.1);
+    background: var(--bg-dark-hover);
 }
 
 #app-menu {
