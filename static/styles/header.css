@@ -2,23 +2,31 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
+    height: 40px;
     padding: 8px 8px;
     background: var(--primary);
+    box-shadow: var(--shadow);
 }
 
-header button {
+header button, header a {
+    padding: 8px 12px;
+    text-decoration: none;
     color: var(--text-light);
-    font-size: 26px;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 600;
     background: none;
+    border: 0;
+    border-radius: var(--border-radius-small);
     box-shadow: none;
 }
 
-header button:hover {
+header button:hover, header a:hover {
     background: hsla(0, 0%, 0%, 0.1);
 }
 
 #app-menu {
     display: flex;
     gap: 8px;
+    font-size: 1.3rem;
 }

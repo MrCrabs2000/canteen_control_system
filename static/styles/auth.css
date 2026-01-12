@@ -9,7 +9,7 @@ main {
     flex-direction: column;
     gap: 24px;
     max-width: 400px;
-    width: 340px;
+    width: 360px;
     margin-top: 64px;
     padding: 16px;
     border-radius: var(--border-radius);
@@ -21,35 +21,6 @@ main {
     display: flex;
     flex-direction: column;
     gap: 12px;
-}
-
-.field {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.field > label {
-    margin-left: 8px;
-    font-size: 0.9rem;
-}
-
-.field input, .field select {
-    font-size: 1.25rem;
-}
-
-#class-inputs {
-    display: flex;
-    gap: 8px;
-    max-width: 100%;
-}
-
-#class-number {
-    width: 4.1rem;
-}
-
-#class-letter {
-    width: 1.3rem;
 }
 
 #submit-btn {
