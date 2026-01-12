@@ -1,17 +1,13 @@
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-.wrapper {
+.grid-wrapper {
+    box-sizing: border-box;
     flex: 1 1;
     display: grid;
     grid-template-columns: 210px 1fr;
-    grid-template-rows: 60px 1fr;
+    grid-template-rows: 60px minmax(0px, 1fr);
     row-gap: 12px;
     column-gap: 12px;
+    min-height: 100px;
     margin: 16px 16px;
-    height: 1fr;
 }
 
 .top-bar {
@@ -27,7 +23,7 @@ body {
 }
 
 .menu-type {
-    font-size: 1.25rem;   
+    font-size: 1.25rem;
 }
 
 .days-list {
@@ -36,6 +32,8 @@ body {
     gap: 0.25rem;
     margin: 0;
     padding: 0;
+    overflow-y: auto;
+    scroll-behavior: smooth;
     list-style: none;
 }
 

@@ -1,11 +1,20 @@
 .sidebar {
+    display: flex;
+    flex-direction: column;
     padding: 8px 8px;
     background: var(--bg);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    min-height: 250px;
 }
 
 .sidebar__header {
     margin: 0px 4px;
     margin-bottom: 8px;
+}
+
+.sidebar__content {
+    min-height: 10px;
+    height: auto;
+    overflow: auto;
 }
