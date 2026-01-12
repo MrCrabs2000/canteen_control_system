@@ -31,14 +31,16 @@
         </div>
         
         {% call sidebar(header='День') %}
-        <ul class="days-list">
-            <li class="day day--selected" data-day="10.01.2026">10 января (сегодня)</li>
-            <li class="day" data-day="11.01.2026">11 января</li>
-            <li class="day" data-day="12.01.2026">12 января</li>
-            <li class="day" data-day="13.01.2026">13 января</li>
-            <li class="day" data-day="14.01.2026">14 января</li>
-            <li class="day" data-day="15.01.2026">15 января</li>
-            <li class="day" data-day="16.01.2026">16 января</li>
+        <ul id="daysList" class="days-list">
+            {% for date in dates %}
+                {% if date == today %}
+                <li class="day day--selected" data-day="{{ date }}">{{ date.strftime('%d %B') }} (сегодня)</li>    
+                {% else %}
+                <li class="day" data-day="{{ date }}">{{ date.strftime('%-d %B') }}</li>
+                {% endif %}
+
+            {% endfor %}
+        
         </ul>
         {% endcall %}
             
