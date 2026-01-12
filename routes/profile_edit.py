@@ -2,13 +2,13 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from datebase.classes import User, Info
 from datebase import db_session
 from flask_login import current_user, login_required
-from functions import json_to_str, str_to_json
+from json import loads
 
 
-profile_edit_page = Blueprint('profile_edit', __name__, template_folder='templates')
+profile_edit_page = Blueprint('profile/edit', __name__, template_folder='templates')
 
 @login_required
-@profile_edit_page.route('/profile_edit', methods=['GET', 'POST'])
+@profile_edit_page.route('/profile/edit', methods=['POST'])
 def profile_edit():
     user_id = current_user.id
     session_db = db_session.create_session()
@@ -16,11 +16,17 @@ def profile_edit():
 
     if request.method == 'POST':
         login = request.form.get('login')
+        surname = request.form.get('surname')
+        name = request.form.get('name')
+        patronymic = request.form.get('patronymic')
 
-        if not login:
+        if not all([login, surname, name, patronymic]):
             return redirect('/profile')
 
         user.login = login
+        user.surname = surname
+        user.name = name
+        user.patronymic = patronymic
 
         if user.role == 'student':
             info = session_db.query(Info).filter_by(user_id=user_id).first()
@@ -28,13 +34,19 @@ def profile_edit():
             if info:
                 allergies = request.form.get('allergies')
                 preferences = request.form.get('preferences')
+                student_class = request.form.get('class')
+
+                if not student_class:
+                    return redirect('/profile')
+                
+                info.stud_class = student_class
 
                 try:
-                    info.allergies, info.preferences = str_to_json(allergies), str_to_json(preferences)
+                    info.allergies, info.preferences = allergies, preferences
                     session_db.commit()
                 except Exception:
                     session_db.rollback()
-                finally:
+                finally:  
                     session_db.close()
                 return redirect('/profile')
 
@@ -56,8 +68,8 @@ def profile_edit():
                 'class': info.stud_class,
                 'login': user.login,
                 'balance': info.balance,
-                'allergies': json_to_str(info.allergies) if info.allergies else '',
-                'preferences': json_to_str(info.preferences) if info.preferences else ''}
+                'allergies': loads(info.allergies) if info.allergies else '',
+                'preferences': loads(info.preferences) if info.preferences else ''}
 
     else:
         context = {
