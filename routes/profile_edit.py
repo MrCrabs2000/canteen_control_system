@@ -78,6 +78,3 @@ def profile_edit():
             'patronymic': user.patronymic,
             'login': user.login
         }
-
-    session_db.close()
-    return render_template('profile_edit.html', **context)

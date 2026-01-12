@@ -42,7 +42,8 @@ app.register_blueprint(menu_page)
 @app.route('/', methods=['GET', 'POST'])
 def inition():
     if current_user.is_authenticated:
-        return mainpage()
+        if current_user.role == 'student':
+            return mainpage()
     return render_template('start.html')
 
 
