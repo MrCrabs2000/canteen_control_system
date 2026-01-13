@@ -6,8 +6,8 @@ from datebase.classes import Menu, Dish
 
 
 menu_page = Blueprint('menu_page', __name__, template_folder='templates')
-@login_required
 @menu_page.route('/menu')
+@login_required
 def menupage():
     session_db = db_session.create_session()
 

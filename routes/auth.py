@@ -51,7 +51,6 @@ def registerpage():
 
 
 login_page = Blueprint('login_page', __name__, template_folder='templates')
-@login_required
 @login_page.route('/login', methods=['GET', 'POST'])
 def loginpage():
     if request.method == 'POST':
@@ -79,8 +78,8 @@ def loginpage():
 
 
 exit_page = Blueprint('exit_page', __name__, template_folder='templates')
-@login_required
 @exit_page.route('/exit')
+@login_required
 def exitpage():
     logout_user()
     return redirect('/')

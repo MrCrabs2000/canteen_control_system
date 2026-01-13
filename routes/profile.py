@@ -6,8 +6,8 @@ from json import loads
 
 
 profile_page = Blueprint('profile_page', __name__, template_folder='templates')
-@login_required
 @profile_page.route('/profile')
+@login_required
 def profilepage():
     session_db = db_session.create_session()
 
@@ -30,8 +30,8 @@ def profilepage():
 
 
 profile_edit_page = Blueprint('profile/edit', __name__, template_folder='templates')
-@login_required
 @profile_edit_page.route('/profile/edit', methods=['POST'])
+@login_required
 def profile_edit():
     if request.method == 'POST':
         login = request.form.get('login')
