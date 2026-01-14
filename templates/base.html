@@ -24,8 +24,9 @@
     
     {% endblock %}
 
+    {% if not is_not_authenticated %}
     <script>
-        const  popup = document.getElementById('profile-popup');
+        const popup = document.getElementById('profile-popup');
         const profile_btn = document.getElementById('profile-btn');
         profile_btn.addEventListener('click', togglePopupProfile);
 
@@ -34,6 +35,7 @@
         }
         
     </script>
+    {% endif %}
 
 </body>
 </html>

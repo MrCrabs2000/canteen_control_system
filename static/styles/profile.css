@@ -1,0 +1,48 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 64px;
+    padding: 16px;
+    width: 50%;
+    min-width: 400px;
+    height: 500px;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow)
+}
+
+#profile-top-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+#btns-container button {
+    font-size: 1rem;
+}
+
+#profile-grid {
+    flex: 1 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(100px, 1fr) minmax(100px, 1fr);
+    column-gap: 16px;
+    row-gap: 16px;
+    margin-top: 24px;
+}
+
+#main-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    grid-row: span 2;
+    padding-right: 16px;
+    border: solid var(--border-color);
+    border-width: 0 1px 0 0;
+}

@@ -1,31 +1,27 @@
 {% extends 'base.html' %}
 
+{% from 'macros/labeled_input.html' import labeled_input %}
+{% from 'macros/title.html' import title %}
+
 
 {% block title %}Вход{% endblock %}
 
 
 {% block head %}
     <link rel="stylesheet" href="/static/styles/auth.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
+    <link rel="stylesheet" href="/static/styles/macros/title.css">
 {% endblock %}
 
 
 {% block content %}
     <main>
         <form id="auth-form" method="post">
-            <div id="title">Вход</div>
+            {{ title(text='Вход') }}
 
             <div id="fields">
-
-                <div class="field">
-                    <label for="login">Логин</label>
-                    <input id="login" name="login" placeholder="Логин">
-                </div>
-
-                <div class="field">
-                    <label for="password">Пароль</label>
-                    <input id="password" name="password" type="password" placeholder="Пароль">
-                </div>
-    
+                {{ labeled_input(name='login', label='Логин', required=True) }}
+                {{ labeled_input(name='password', label='Пароль', type='password', required=True) }}    
             </div>
             <a href="/register">Регистрация</a>
 
