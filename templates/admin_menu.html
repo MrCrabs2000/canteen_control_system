@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Список меню{% endblock title %}
+
+    {% block content %}
+        {% for menu in menus %}
+            <div>{{ menu.type }}</div>
+            <div>{{ menu.price }}</div>
+        {% endfor %}
+    {% endblock content %}
+
+    <button onclick="document.location.href='/add_menu'">Создать меню</button>
+    <button onclick="document.location.href='/admin_read_dish'">Смотреть список блюд</button>
+
+    <button onclick="document.location.href='/add_user'">Добавить пользователя</button>
+    <button onclick="document.location.href='/exit'">Выйти</button>
+
+</body>
+</html>

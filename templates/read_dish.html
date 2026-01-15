@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>Список блюд</div>
+    {% block title %}Категории:{% endblock title %}
+
+    {% block content %}
+
+        <div>Завтраки</div>
+            {% if breakfasts %}
+                {% for dish in breakfasts %}
+                    <div>{{ dish.name }}</div>
+                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                {% endfor %}
+            {% else %}
+                <div>Пусто</div>
+            {% endif %}
+        <div>Салаты</div>
+            {% if salads %}
+                {% for dish in salads %}
+                    <div>{{ dish.name }}</div>
+                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                {% endfor %}
+            {% else %}
+                <div>Пусто</div>
+            {% endif %}
+        <div>Супы</div>
+            {% if soups %}
+                {% for dish in soups %}
+                    <div>{{ dish.name }}</div>
+                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                {% endfor %}
+            {% else %}
+                <div>Пусто</div>
+            {% endif %}
+        <div>Основные блюда</div>
+            {% if main_dishes %}
+                {% for dish in main_dishes %}
+                    <div>{{ dish.name }}</div>
+                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                {% endfor %}
+            {% else %}
+                <div>Пусто</div>
+            {% endif %}
+        <div>Напитки</div>
+            {% if drinks %}
+                {% for dish in drinks %}
+                    <div>{{ dish.name }}</div>
+                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                {% endfor %}
+            {% else %}
+                <div>Пусто</div>
+            {% endif %}
+        <div>Хлеб</div>
+            {% if bread %}
+                {% for dish in bread %}
+                    <div>{{ dish.name }}</div>
+                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                {% endfor %}
+            {% else %}
+                <div>Пусто</div>
+            {% endif %}
+
+    {% endblock content %}
+
+    <button onclick="document.location.href='/add_dish'">Создать блюдо</button>
+    <button onclick="document.location.href='/cook_menu'">Назад</button>
+</body>
+</html>
