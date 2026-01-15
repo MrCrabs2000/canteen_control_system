@@ -20,9 +20,11 @@ def cook_menu_page():
         return render_template('cook_menu.html', **context)
 
 
-@cook_menu.route('/read_dish')
+
+read_dish = Blueprint('read_dish', __name__, template_folder='templates')
+@read_dish.route('/read_dish')
 @login_required
-def read_dish():
+def read_dish_page():
     if current_user.role == 'cook':
         session_db = db_session.create_session()
         breakfasts = session_db.query(Dish).filter_by(category='Breakfasts').all()
