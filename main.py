@@ -7,7 +7,7 @@ from utils.generation_password import generate_password_for_user
 from datebase.db_session import init_database, create_session
 from werkzeug.security import generate_password_hash
 from flask_login import LoginManager, current_user
-from datebase.classes import User
+from datebase.classes import User, Role
 from os import makedirs
 
 
@@ -21,8 +21,9 @@ init_database()
 
 session_db = create_session()
 admin = session_db.query(User).filter_by(login='Admin').first()
+admin_role = session_db.query(Role).filter_by(name='admin').first()
 try:
-    if not admin:
+    if not admin and not admin_role:
         password = generate_password_for_user()
         print(password)
 
@@ -34,10 +35,15 @@ try:
             patronymic='Admin',
             login='Admin',
             password=passwordHash,
-            role='admin',
+            role=1
+        )
+
+        admin_role = Role(
+            name='admin'
         )
 
         session_db.add(main_admin)
+        session_db.add(admin_role)
         session_db.commit()
 except Exception:
     session_db.rollback()
@@ -58,12 +64,11 @@ register_all_blueprints(app)
 @app.route('/', methods=['GET', 'POST'])
 def inition():
     if current_user.is_authenticated:
-        print(current_user.role)
-        if current_user.role == 'student':
+        if current_user.role == 3:
             return mainpage()
-        elif current_user.role == 'cook':
+        elif current_user.role == 2:
             return cook_menu_page()
-        elif current_user.role == 'admin':
+        elif current_user.role == 1:
             return admin_menu_page()
     return render_template('start.html')
 

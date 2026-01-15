@@ -1,10 +1,20 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, JSON, DateTime, BOOLEAN
 from sqlalchemy.orm import relationship, declarative_base
 from flask_login import UserMixin
+from flask_security import RoleMixin
 from datetime import datetime
 
 
 table_base = declarative_base()
+
+
+class Role(table_base, RoleMixin):
+    __tablename__ = 'roles'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    name = Column(String, nullable=False, unique=True)
+
+    users = relationship('User', back_populates='role_id')
 
 
 class User(table_base, UserMixin):
@@ -16,11 +26,12 @@ class User(table_base, UserMixin):
     patronymic = Column(String, nullable=False)
     login = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    role = Column(String, default='student')
+    role = Column(Integer, ForeignKey('roles.id'), default=1)
 
     reviews = relationship('Review', back_populates='user')
     student_info = relationship("Info", back_populates="user", uselist=False)
     history = relationship('History', back_populates='user')
+    role_id = relationship('Role', back_populates='users')
 
 
 class Info(table_base):
