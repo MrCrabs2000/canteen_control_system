@@ -6,6 +6,7 @@ header {
     position: sticky;
     top: 0;
     height: 52px;
+    min-height: 52px;
     padding: 8px 8px;
     background: var(--primary);
     box-shadow: var(--shadow);
