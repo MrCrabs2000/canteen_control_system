@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, JSON, DateTime, BOOLEAN
 from sqlalchemy.orm import relationship, declarative_base
 from flask_login import UserMixin
+from datetime import datetime
 
 
 table_base = declarative_base()
@@ -91,6 +92,8 @@ class Menu(table_base):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     type = Column(String, nullable=False)
     get_amount = Column(Integer, nullable=False, default=0)
+    date = Column(DateTime, nullable=False, default=datetime.now)
+    price = Column(Integer, nullable=False)
 
     dishes = relationship('Dish', secondary='association_dish_menu', back_populates='menus')
 
@@ -101,6 +104,7 @@ class Dish(table_base):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     name = Column(String, nullable=False)
     amount = Column(Integer, nullable=False, default=0)
+    category = Column(String, nullable=False)
 
 
     products = relationship('Product', secondary='dish_products', back_populates='dishes')

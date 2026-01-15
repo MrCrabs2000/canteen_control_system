@@ -1,7 +1,11 @@
 from flask import Flask, render_template
-from routes.routes import register_all_blueprints
 from routes.main_pages import mainpage
+from routes.routes import register_all_blueprints
+from routes.admin_menu import admin_menu_page
+from routes.cook_menu import cook_menu_page
+from utils.generation_password import generate_password_for_user
 from datebase.db_session import init_database, create_session
+from werkzeug.security import generate_password_hash
 from flask_login import LoginManager, current_user
 from datebase.classes import User
 from os import makedirs
@@ -14,6 +18,30 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 init_database()
+
+session_db = create_session()
+admin = session_db.query(User).filter_by(login='Admin').first()
+try:
+    if not admin:
+        password = generate_password_for_user()
+        print(password)
+
+        passwordHash = generate_password_hash(password)
+
+        main_admin = User(
+            name='Admin',
+            surname='Admin',
+            patronymic='Admin',
+            login='Admin',
+            password=passwordHash,
+            role='admin',
+        )
+
+        session_db.add(main_admin)
+        session_db.commit()
+except Exception:
+    session_db.rollback()
+session_db.close()
 
 
 @login_manager.user_loader
@@ -30,8 +58,13 @@ register_all_blueprints(app)
 @app.route('/', methods=['GET', 'POST'])
 def inition():
     if current_user.is_authenticated:
+        print(current_user.role)
         if current_user.role == 'student':
             return mainpage()
+        elif current_user.role == 'cook':
+            return cook_menu_page()
+        elif current_user.role == 'admin':
+            return admin_menu_page()
     return render_template('start.html')
 
 
