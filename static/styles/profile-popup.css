@@ -2,7 +2,7 @@
     visibility: hidden;
     position: absolute;
     padding: 12px 20px;
-    margin-top: 8px;
+    top: 60px;
     right: 8px;
     z-index: 1000;
     background: var(--bg);

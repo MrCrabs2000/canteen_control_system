@@ -1,8 +1,11 @@
 from flask import Blueprint, render_template
 from flask_login import login_required
-from datebase import db_session
 from sqlalchemy.orm import joinedload
+from datetime import date
+
+from datebase import db_session
 from datebase.classes import Menu, Dish
+from utils.templates_rendering.menu import render_menu_template
 
 
 menu_page = Blueprint('menu_page', __name__, template_folder='templates')
@@ -19,4 +22,4 @@ def menupage():
 
     session_db.close()
 
-    return render_template('menu_page.html', **context)
+    return render_template('menu/view.html', **context)

@@ -40,5 +40,9 @@
             <button id="submit-btn" class="accent" type="submit">Зарегистрироваться</button>
         </form>
     </main>
+
+    
+    {% block scripts %}
     <script src="{{ url_for('static', filename='scripts/customElements/classInput.js') }}"></script>
+    {% endblock %}
 {% endblock %}
