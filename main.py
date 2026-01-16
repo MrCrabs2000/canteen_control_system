@@ -23,7 +23,7 @@ session_db = create_session()
 admin = session_db.query(User).filter_by(login='Admin').first()
 admin_role = session_db.query(Role).filter_by(name='admin').first()
 try:
-    if not admin and not admin_role:
+    if not admin:
         password = generate_password_for_user()
         print(password)
 
@@ -38,13 +38,15 @@ try:
             role=1
         )
 
+        session_db.add(main_admin)
+
+    if  not admin_role:
         admin_role = Role(
             name='admin'
         )
-
-        session_db.add(main_admin)
         session_db.add(admin_role)
-        session_db.commit()
+
+    session_db.commit()
 except Exception:
     session_db.rollback()
 session_db.close()

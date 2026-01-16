@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_login import login_required, current_user
 from datebase import db_session
-from sqlalchemy.orm import joinedload
 from datebase.classes import Dish
 
 
@@ -30,7 +29,10 @@ def add_dish_page():
 
             return redirect('/cook_menu')
 
-@add_dish.route('/<id>/delete_dish')
+
+
+delete_dish = Blueprint('delete_dish', __name__, template_folder='templates')
+@delete_dish.route('/<id>/delete_dish')
 @login_required
 def delete_dish_page(id):
     if current_user.role == 'cook':
