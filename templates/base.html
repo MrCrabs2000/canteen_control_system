@@ -19,10 +19,12 @@
     {% endblock %}
 </head>
 <body>
-    {% include 'header.html' %}
-    {% block content %}
-    
-    {% endblock %}
+    <div class="layout-wrapper">
+        {% include 'header.html' %}
+        {% block content %}
+        
+        {% endblock %}
+    </div>
 
     {% if not is_not_authenticated %}
     <script>
@@ -36,6 +38,11 @@
         
     </script>
     {% endif %}
+
+
+    {% block scripts %}
+        
+    {% endblock %}
 
 </body>
 </html>

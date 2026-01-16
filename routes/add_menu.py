@@ -17,13 +17,26 @@ def add_menu_page():
 
         elif request.method == 'POST':
             type = request.form.get('type')
-            dishes = request.form.get('dishes')
             price = request.form.get('price')
 
-            session_db = db_session.create_session()
-            new_menu = Menu(type=type, price=price)
-            session_db.add(new_menu)
-            session_db.commit()
-            session_db.close()
+            dish_name = []
+            for dishes in ['Breakfasts', 'Salads', 'Main dishes', 'Soups', 'Drinks', 'Bread']:
+                dish = request.form.get(dishes)
+                if dish:
+                    dish_name.append(dish)
 
-            return redirect('/admin_menu')
+            session_db = db_session.create_session()
+
+            if not dish_name:
+                session_db.close()
+                return redirect('/add_menu')
+
+            try:
+                dish1 = session_db.query(Dish).filter(Dish.name.in_(dish_name)).all()
+                new_menu = Menu(type=type, dishes=dish1, price=price)
+                session_db.add(new_menu)
+                session_db.commit()
+                return redirect('/admin_menu')
+
+            finally:
+                session_db.close()

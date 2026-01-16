@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Изменить блюдо{% endblock %}
+
+    {% block content %}
+    <main>
+        <form method="post">
+
+        <div>
+            <label for="name">Название</label>
+            <input id="name" name="name" placeholder="Название" value="{{ name }}" required>
+        </div>
+
+        <div>
+            <label>Категория</label>
+            <select id="category" name="category" required>
+                <option value="Breakfasts" {% if category == 'Breakfasts' %} selected {% endif %}>
+                    Завтраки
+                </option>
+                <option value="Salads" {% if category == 'Salads' %} selected {% endif %}>
+                    Салаты
+                </option>
+                <option value="Soups" {% if category == 'Soups' %} selected {% endif %}>
+                    Супы
+                </option>
+                <option value="Main dishes" {% if category == 'Main dishes' %} selected {% endif %}>
+                    Основные блюда
+                </option>
+                <option value="Drinks" {% if category == 'Drinks' %} selected {% endif %}>
+                    Напитки
+                </option>
+                <option value="Bread" {% if category == 'Bread' %} selected {% endif %}>
+                    Хлеб
+                </option>
+            </select>
+        </div>
+
+        <button type="submit">Подтвердить</button>
+
+      </form>
+    </main>
+
+    {% endblock %}
+</body>
+</html>

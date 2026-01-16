@@ -51,6 +51,8 @@
         </form>
     </main>
 
+
+    {% block scripts %}
     <script src="{{ url_for('static', filename='scripts/profile/getListStrContent.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/profile/addProfileListItem.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/profile/submitProfileForm.js') }}"></script>
@@ -127,5 +129,6 @@
             editButton.style.display = 'inline-block';
         });
     </script>
+    {% endblock %}    
 
 {% endblock %}

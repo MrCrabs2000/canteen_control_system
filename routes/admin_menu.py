@@ -11,13 +11,16 @@ admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
 def admin_menu_page():
     if current_user.role == 1:
         session_db = db_session.create_session()
-        menu = session_db.query(Menu).all()
-        context = {
-            'menus': menu,
-        }
+        try:
+            menu = session_db.query(Menu).all()
+            context = {
+                'menus': menu,
+            }
+            return render_template('admin_menu.html', **context)
 
-        session_db.close()
-        return render_template('admin_menu.html', **context)
+        finally:
+            session_db.close()
+
 
 
 
