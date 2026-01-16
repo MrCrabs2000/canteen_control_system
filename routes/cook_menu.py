@@ -11,13 +11,15 @@ def cook_menu_page():
     if current_user.role == 'cook':
         session_db = db_session.create_session()
         menu = session_db.query(Menu).all()
-        context = {
-            'menus': menu,
-        }
+        try:
+            context = {
+                'menus': menu,
+            }
 
-        session_db.close()
+            return render_template('cook_menu.html', **context)
 
-        return render_template('cook_menu.html', **context)
+        finally:
+            session_db.close()
 
 
 

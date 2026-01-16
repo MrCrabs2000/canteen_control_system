@@ -10,6 +10,9 @@
     {% block content %}
         {% for menu in menus %}
             <div>{{ menu.type }}</div>
+            {% for dish in menu.dishes %}
+                <div>{{ dish.name }}</div>
+            {% endfor %}
             <div>{{ menu.price }}</div>
         {% endfor %}
     {% endblock content %}
