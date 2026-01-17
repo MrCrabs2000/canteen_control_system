@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Оформление абонимента</title>
+</head>
+<body>
+    Баланс: {{ balance }}
+    <br><br>
+
+    <form method="POST" action="/edit_aboniment">
+        Выбор даты:
+        <input type="date"
+               name="date"
+               min="{{ today }}"
+               required>
+        <br><br>
+
+        <button type="submit">Оплатить</button>
+    </form>
+
+    <br>
+    <a href="/food_payment">Назад</a>
+</body>
+</html>

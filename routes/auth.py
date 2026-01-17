@@ -24,7 +24,7 @@ def registerpage():
         if not all([surname, name, patronymic, login, password, second_password, student_class]) or password != second_password or len(password) < 6 or user:
             return redirect('/')
 
-        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), role='student')
+        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), role=3)
 
         session.add(new_user)
 
