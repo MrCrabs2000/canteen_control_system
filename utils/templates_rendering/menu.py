@@ -16,4 +16,7 @@ def render_menu_template(menu, name: str = '', surname: str = '', selected_date:
         'menu': menu
     }
 
-    return render_template('menu/view.html', **context)
+    try:
+        return render_template('menu/view.html', **context, date_format='%-d %B')
+    except:
+        return render_template('menu/view.html', **context, date_format='%#d %B')
