@@ -24,7 +24,10 @@ def add_user_page():
 
             if not all([name, surname, patronymic, login, role, password, second_password]) or password != second_password or len(password) < 6 or user:
                 return redirect('/add_user')
-
+            if role == 'cook':
+                role = 2
+            elif role == 'admin':
+                role = 1
             new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, role=role,
                                 password=generate_password_hash(password))
 
