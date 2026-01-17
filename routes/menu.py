@@ -1,6 +1,6 @@
-from flask import Blueprint
-from flask_login import login_required
-from flask import request
+from flask import Blueprint, request
+from flask_login import login_required, current_user
+from datetime import datetime
 from datebase import db_session
 from datebase.classes import Menu
 from utils.templates_rendering.menu import render_menu_template
@@ -8,20 +8,24 @@ from utils.templates_rendering.menu import render_menu_template
 menu_page = Blueprint('menu_page', __name__)
 
 
-@menu_page.route('/menu/<date>')
+@menu_page.route('/menu/<date_str>')
 @login_required
-def menupage(date):
-    type = request.args.get('type')
+def menupage(date_str):
+    ttype = request.args.get('type', 'breakfast')
+
+    date = datetime.strptime(date_str, '%Y-%m-%d').date()
 
     session_db = db_session.create_session()
-    menu = session_db.query(Menu).filter_by(date=date, type=type).first()
 
-    session_db.close()
+    menu = session_db.query(Menu).filter_by(date=date, type=ttype).first()
 
     context = {
         'menu': menu,
-        'date': date,
-        'type': type
+        'name': current_user.name,
+        'surname': current_user.surname,
+        'selected_date': date,
+        'days_back': 7,
+        'days_forward': 7
     }
 
-    return render_menu_template(context)
+    return render_menu_template(**context)
