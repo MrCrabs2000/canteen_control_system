@@ -1,8 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, JSON, DateTime, BOOLEAN
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON, Date, BOOLEAN, DateTime
 from sqlalchemy.orm import relationship, declarative_base
 from flask_login import UserMixin
 from flask_security import RoleMixin
-from datetime import datetime
+from datetime import date
 
 
 table_base = declarative_base()
@@ -26,7 +26,7 @@ class User(table_base, UserMixin):
     patronymic = Column(String, nullable=False)
     login = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    role = Column(Integer, ForeignKey('roles.id'), default=1)
+    role = Column(Integer, ForeignKey('roles.id'), default=2)
 
     reviews = relationship('Review', back_populates='user')
     student_info = relationship("Info", back_populates="user", uselist=False)
@@ -103,7 +103,7 @@ class Menu(table_base):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     type = Column(String, nullable=False)
     get_amount = Column(Integer, nullable=False, default=0)
-    date = Column(DateTime, nullable=False, default=datetime.now)
+    date = Column(Date, nullable=False, default=date.today())
     price = Column(Integer, nullable=False)
 
     dishes = relationship('Dish', secondary='association_dish_menu', back_populates='menus')
