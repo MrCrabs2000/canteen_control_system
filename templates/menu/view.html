@@ -23,12 +23,14 @@
             <div class="top-bar__right">
                 <div class="filters">
                     <select name="type" id="menuTypeSelect" class="menu-type" form="filtersForm">
-                        {% if menu.type == "breakfast" %}
-                        <option value="breakfast" selected>Завтрак</option>
-                        <option value="lunch">Обед</option>
-                        {% elif menu.type == "lunch" %}
-                        <option value="breakfast">Завтрак</option>
-                        <option value="lunch" selected>Обед</option>
+                        {% if menu %}
+                            {% if menu.type == "breakfast" %}
+                            <option value="breakfast" selected>Завтрак</option>
+                            <option value="lunch">Обед</option>
+                            {% elif menu.type == "lunch" %}
+                            <option value="breakfast">Завтрак</option>
+                            <option value="lunch" selected>Обед</option>
+                            {% endif %}
                         {% else %}
                         <option value="breakfast">Завтрак</option>
                         <option value="lunch">Обед</option>
