@@ -29,12 +29,12 @@ read_dish = Blueprint('read_dish', __name__, template_folder='templates')
 def read_dish_page():
     if current_user.role == 'cook':
         session_db = db_session.create_session()
-        breakfasts = session_db.query(Dish).filter_by(category='Breakfasts').all()
-        salads = session_db.query(Dish).filter_by(category='Salads').all()
-        soups = session_db.query(Dish).filter_by(category='Soups').all()
-        main_dishes = session_db.query(Dish).filter_by(category='Main dishes').all()
-        drinks = session_db.query(Dish).filter_by(category='Drinks').all()
-        bread = session_db.query(Dish).filter_by(category='Bread').all()
+        breakfasts = session_db.query(Dish).filter_by(category='breakfasts').all()
+        salads = session_db.query(Dish).filter_by(category='salads').all()
+        soups = session_db.query(Dish).filter_by(category='soups').all()
+        main_dishes = session_db.query(Dish).filter_by(category='main_dishes').all()
+        drinks = session_db.query(Dish).filter_by(category='drinks').all()
+        bread = session_db.query(Dish).filter_by(category='bread').all()
 
         session_db.close()
 
