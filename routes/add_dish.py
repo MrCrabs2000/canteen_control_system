@@ -10,13 +10,18 @@ add_dish = Blueprint('add_dish', __name__, template_folder='templates')
 def add_dish_page():
     if current_user.roles[0].name == 'cook':
         if request.method == 'GET':
-            return render_template('add_dish.html')
+            session_db = db_session.create_session()
+            products = session_db.query(Product).all()
+            session_db.close()
+            return render_template('add_dish.html', products=products)
 
         elif request.method == 'POST':
             name = request.form.get('name')
             category = request.form.get('category')
 
-            if not name or not category:
+            product = request.form.getlist('ingredients')
+
+            if not all([name, category, product]):
                 return render_template('add_dish.html')
             other_dish = db.session.query(Dish).filter_by(name=name).first()
             if other_dish:
@@ -26,7 +31,16 @@ def add_dish_page():
             db.session.commit()
             db.session.close()
 
-            return redirect('/cook_menu')
+            try:
+                product1 = session_db.query(Product).filter(Product.name.in_(product)).all()
+                new_dish = Dish(name=name, category=category, products=product1)
+                session_db.add(new_dish)
+                session_db.commit()
+
+                return redirect('/cook_menu')
+            finally:
+                session_db.close()
+
 
 
 edit_dish = Blueprint('edit_dish', __name__, template_folder='templates')

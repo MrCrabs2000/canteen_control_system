@@ -3,12 +3,17 @@ from .profile import profile_page, profile_edit_page
 from .menu import menu_page, menu_redirect
 from .main_pages import main_page
 from .admin_menu import admin_menu, admin_read_dish
-from .add_user import add_user
-from .cook_menu import cook_menu, read_dish
-from .add_dish import add_dish, edit_dish, delete_dish
 from .add_menu import add_menu
+<<<<<<< HEAD
 from .food_payment import food_payment_main, edit_balance, edit_abonement
 from .reviews import reviews_main, review_new, review_view
+=======
+from .add_user import add_user
+from .cook_menu import cook_menu, read_dish, read_product
+from .add_dish import add_dish, edit_dish, delete_dish
+from .add_product import add_product, edit_product, delete_product
+
+>>>>>>> 39d5779 (Создание продуктов, добавление их в блюда, отображение состава блюд + доработки)
 
 
 def register_all_blueprints(app):
@@ -21,9 +26,11 @@ def register_all_blueprints(app):
     app.register_blueprint(menu_page)
     app.register_blueprint(admin_menu)
     app.register_blueprint(admin_read_dish)
+    app.register_blueprint(add_menu)
     app.register_blueprint(add_user)
     app.register_blueprint(cook_menu)
     app.register_blueprint(read_dish)
+    app.register_blueprint(read_product)
     app.register_blueprint(add_dish)
     app.register_blueprint(edit_dish)
     app.register_blueprint(delete_dish)

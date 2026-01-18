@@ -12,11 +12,21 @@
             <div>{{ menu.type }}</div>
             {% for dish in menu.dishes %}
                 <div>{{ dish.name }}</div>
+                {% if dish.products %}
+                    <div>Состав:</div>
+                    {% for product in dish.products %}
+                        {{ product.name }}
+                    {% endfor %}
+                {% else %}
+                     <div>Состав не известен</div>
+                {% endif %}
             {% endfor %}
             <div>{{ menu.price }}</div>
         {% endfor %}
     {% endblock content %}
 
+    <button onclick="document.location.href='/add_product'">Добавить продукт</button>
+    <button onclick="document.location.href='/read_product'">Смотреть список продуктов</button>
     <button onclick="document.location.href='/add_dish'">Создать блюдо</button>
     <button onclick="document.location.href='/read_dish'">Смотреть список блюд</button>
 
