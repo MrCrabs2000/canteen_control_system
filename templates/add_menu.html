@@ -23,60 +23,60 @@
         <div>
 
            <label>Завтраки</label>
-          <select id="Breakfasts" name="Breakfasts">
+          <select id="breakfasts" name="breakfasts">
+              <option value="" selected></option>
               {% for dish in dishes %}
-                {% if dish.category == "Breakfasts" %}
-                  <option value="" selected></option>
+                {% if dish.category == "breakfasts" %}
                   <option value="{{ dish.name }}">{{ dish.name }}</option>
                 {% endif %}
               {% endfor %}
           </select>
 
             <label>Салаты</label>
-          <select id="Salads" name="Salads">
+          <select id="salads" name="salads">
+              <option value="" selected></option>
               {% for dish in dishes %}
-                {% if dish.category == "Salads" %}
-                  <option value="" selected></option>
-                  <option value="{{ dish.name }}">{{ dish.name }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
-
-            <label>Основные блюда</label>
-          <select id="Main dishes" name="Main dishes">
-              {% for dish in dishes %}
-                {% if dish.category == "Main dishes" %}
-                  <option value="" selected></option>
+                {% if dish.category == "salads" %}
                   <option value="{{ dish.name }}">{{ dish.name }}</option>
                 {% endif %}
               {% endfor %}
           </select>
 
             <label>Супы</label>
-          <select id="Soups" name="Soups">
+          <select id="soups" name="soups">
+              <option value="" selected></option>
               {% for dish in dishes %}
-                {% if dish.category == "Soups" %}
-                  <option value="" selected></option>
+                {% if dish.category == "soups" %}
+                  <option value="{{ dish.name }}">{{ dish.name }}</option>
+                {% endif %}
+              {% endfor %}
+          </select>
+
+            <label>Основные блюда</label>
+          <select id="main_dishes" name="main_dishes">
+              <option value="" selected></option>
+              {% for dish in dishes %}
+                {% if dish.category == "main_dishes" %}
                   <option value="{{ dish.name }}">{{ dish.name }}</option>
                 {% endif %}
               {% endfor %}
           </select>
 
             <label>Напитки</label>
-          <select id="Drinks" name="Drinks">
+          <select id="drinks" name="drinks">
+              <option value="" selected></option>
               {% for dish in dishes %}
-                {% if dish.category == "Drinks" %}
-                  <option value="" selected></option>
+                {% if dish.category == "drinks" %}
                   <option value="{{ dish.name }}">{{ dish.name }}</option>
                 {% endif %}
               {% endfor %}
           </select>
 
           <label>Хлеб</label>
-          <select id="Bread" name="Bread">
+          <select id="bread" name="bread">
+              <option value="" selected></option>
               {% for dish in dishes %}
-                {% if dish.category == "Bread" %}
-                  <option value="" selected></option>
+                {% if dish.category == "bread" %}
                   <option value="{{ dish.name }}">{{ dish.name }}</option>
                 {% endif %}
               {% endfor %}

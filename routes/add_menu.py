@@ -19,7 +19,7 @@ def add_menu_page():
             price = request.form.get('price')
 
             dish_name = []
-            for dishes in ['Breakfasts', 'Salads', 'Main dishes', 'Soups', 'Drinks', 'Bread']:
+            for dishes in ['breakfasts', 'salads', 'soups', 'main_dishes', 'drinks', 'bread']:
                 dish = request.form.get(dishes)
                 if dish:
                     dish_name.append(dish)
