@@ -8,7 +8,7 @@ from utils.templates_rendering.menu import render_menu_template
 menu_page = Blueprint('menu_page', __name__)
 
 
-@menu_page.route('/menu/<date>')
+@menu_page.route('/menu/<date_str>')
 @login_required
 def menupage(date_str):
     ttype = request.args.get('type', 'breakfast')
