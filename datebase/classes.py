@@ -56,6 +56,7 @@ class Product(table_base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     name = Column(String, nullable=False)
+    measurement = Column(String, nullable=False)
     amount = Column(Integer, nullable=False, default=0)
 
     dishes = relationship('Dish', secondary='dish_products', back_populates='products')

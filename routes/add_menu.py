@@ -27,7 +27,7 @@ def add_menu_page():
 
             session_db = db_session.create_session()
 
-            if not dish_name:
+            if not all([type, price, dish_name]):
                 session_db.close()
                 return redirect('/add_menu')
 

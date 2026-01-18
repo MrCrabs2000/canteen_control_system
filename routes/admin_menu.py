@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from datebase import db_session
+from sqlalchemy.orm import joinedload
 from datebase.classes import Menu, Dish
 
 
@@ -30,12 +31,12 @@ admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templa
 def admin_read_dish_page():
     if current_user.role == 'admin':
         session_db = db_session.create_session()
-        breakfasts = session_db.query(Dish).filter_by(category='breakfasts').all()
-        salads = session_db.query(Dish).filter_by(category='salads').all()
-        soups = session_db.query(Dish).filter_by(category='soups').all()
-        main_dishes = session_db.query(Dish).filter_by(category='main_dishes').all()
-        drinks = session_db.query(Dish).filter_by(category='drinks').all()
-        bread = session_db.query(Dish).filter_by(category='bread').all()
+        breakfasts = session_db.query(Dish).filter_by(category='breakfasts').options(joinedload(Dish.products)).all()
+        salads = session_db.query(Dish).filter_by(category='salads').options(joinedload(Dish.products)).all()
+        soups = session_db.query(Dish).filter_by(category='soups').options(joinedload(Dish.products)).all()
+        main_dishes = session_db.query(Dish).filter_by(category='main_dishes').options(joinedload(Dish.products)).all()
+        drinks = session_db.query(Dish).filter_by(category='drinks').options(joinedload(Dish.products)).all()
+        bread = session_db.query(Dish).filter_by(category='bread').options(joinedload(Dish.products)).all()
 
         session_db.close()
 

@@ -58,7 +58,6 @@ register_all_blueprints(app)
 @app.route('/', methods=['GET', 'POST'])
 def inition():
     if current_user.is_authenticated:
-        print(current_user.role)
         if current_user.role == 'student':
             return mainpage()
         elif current_user.role == 'cook':

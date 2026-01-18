@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Изменить продукт{% endblock %}
+
+    {% block content %}
+    <main>
+        <form method="post">
+
+        <div>
+            <label for="name">Название</label>
+            <input id="name" name="name" placeholder="Название" value="{{ name }}" required>
+        </div>
+
+        <div>
+          <label for="measurement">Единицы измерения</label>
+          <select id="measurement" name="measurement" required>
+            <option value="кг" {% if measurement == 'кг' %} selected {% endif %}>кг</option>
+            <option value="л" {% if measurement == 'л' %} selected {% endif %}>л</option>
+          </select>
+        </div>
+
+        <button type="submit">Подтвердить</button>
+
+        </form>
+    </main>
+
+    {% endblock %}
+</body>
+</html>
