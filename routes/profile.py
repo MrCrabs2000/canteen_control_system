@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import login_required, current_user
-from datebase import db_session
+from flask_security import login_required, current_user
+from configs.app_configs import db
 from datebase.classes import Info, User
 from json import loads
 
@@ -9,9 +9,7 @@ profile_page = Blueprint('profile_page', __name__, template_folder='templates')
 @profile_page.route('/profile')
 @login_required
 def profilepage():
-    session_db = db_session.create_session()
-
-    info = session_db.query(Info).filter_by(user_id=current_user.id).first()
+    info = db.session.query(Info).filter_by(user_id=current_user.id).first()
     context = {
         'name': current_user.name,
         'surname': current_user.surname,
@@ -23,7 +21,7 @@ def profilepage():
         'preferences': loads(info.preferences) if info.preferences and loads(info.preferences) != '' else '',
     }
 
-    session_db.close()
+    db.session.close()
 
     return render_template('profile/view.html', **context)
 
@@ -40,8 +38,7 @@ def profile_edit():
         patronymic = request.form.get('patronymic')
 
         user_id = current_user.id
-        session_db = db_session.create_session()
-        user = session_db.query(User).filter_by(id=user_id).first()
+        user = db.session.query(User).filter_by(id=user_id).first()
 
         if not all([login, surname, name, patronymic]):
             return redirect('/profile')
@@ -52,7 +49,7 @@ def profile_edit():
         user.patronymic = patronymic
 
         if user.role == 'student':
-            info = session_db.query(Info).filter_by(user_id=user_id).first()
+            info = db.session.query(Info).filter_by(user_id=user_id).first()
 
             if info:
                 allergies = request.form.get('allergies')
@@ -66,18 +63,18 @@ def profile_edit():
 
                 try:
                     info.allergies, info.preferences = allergies, preferences
-                    session_db.commit()
+                    db.session.commit()
                 except Exception:
-                    session_db.rollback()
+                    db.session.rollback()
                 finally:  
-                    session_db.close()
+                    db.session.close()
                 return redirect('/profile')
 
         try:
-            session_db.commit()
+            db.session.commit()
         except Exception:
-            session_db.rollback()
+            db.session.rollback()
         finally:
-            session_db.close()
+            db.session.close()
 
         return redirect(url_for('main_page.mainpage'))

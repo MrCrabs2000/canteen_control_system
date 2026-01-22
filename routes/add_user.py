@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash
-from flask_login import login_required, current_user
-from datebase import db_session
+from flask_security import login_required, current_user
+from configs.app_configs import db
 from datebase.classes import User
 
 
@@ -19,8 +19,7 @@ def add_user_page():
             password = request.form.get('password')
             second_password = request.form.get('second_password')
 
-            session_db = db_session.create_session()
-            user = session_db.query(User).filter_by(login=login).first()
+            user = db.session.query(User).filter_by(login=login).first()
 
             if not all([name, surname, patronymic, login, role, password, second_password]) or password != second_password or len(password) < 6 or user:
                 return redirect('/add_user')
@@ -31,14 +30,14 @@ def add_user_page():
             new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, role=role,
                                 password=generate_password_hash(password))
 
-            session_db.add(new_user)
+            db.session.add(new_user)
 
             try:
-                session_db.commit()
+                db.session.commit()
             except Exception:
-                session_db.rollback()
+                db.session.rollback()
             finally:
-                session_db.close()
+                db.session.close()
 
             return redirect('/admin_menu')
         else:

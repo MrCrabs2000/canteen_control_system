@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_login import login_required, current_user
-from datebase import db_session
+from configs.app_configs import db
 from datebase.classes import Dish
 
 
@@ -18,14 +18,13 @@ def add_dish_page():
 
             if not name or not category:
                 return render_template('add_dish.html')
-            session_db = db_session.create_session()
-            other_dish = session_db.query(Dish).filter_by(name=name).first()
+            other_dish = db.session.query(Dish).filter_by(name=name).first()
             if other_dish:
                 return render_template('add_dish.html')
             new_dish = Dish(name=name, category=category)
-            session_db.add(new_dish)
-            session_db.commit()
-            session_db.close()
+            db.session.add(new_dish)
+            db.session.commit()
+            db.session.close()
 
             return redirect('/cook_menu')
 
@@ -35,8 +34,7 @@ edit_dish = Blueprint('edit_dish', __name__, template_folder='templates')
 @login_required
 def edit_dish_page(id):
     if current_user.role == 'cook':
-        session_db = db_session.create_session()
-        dish = session_db.query(Dish).filter_by(id=id).first()
+        dish = db.session.query(Dish).filter_by(id=id).first()
         if request.method == 'POST':
             name = request.form.get('name')
             category = request.form.get('category')
@@ -48,11 +46,11 @@ def edit_dish_page(id):
             dish.category = category
 
             try:
-                session_db.commit()
+                db.session.commit()
             except Exception:
-                session_db.rollback()
+                db.session.rollback()
             finally:
-                session_db.close()
+                db.session.close()
 
             return redirect('/read_dish')
 
@@ -60,7 +58,7 @@ def edit_dish_page(id):
             'name': dish.name,
             'category': dish.category,
         }
-        session_db.close()
+        db.session.close()
         return render_template('edit_dish.html', **context)
 
 
@@ -70,10 +68,9 @@ delete_dish = Blueprint('delete_dish', __name__, template_folder='templates')
 @login_required
 def delete_dish_page(id):
     if current_user.role == 'cook':
-        session_db = db_session.create_session()
-        dish = session_db.query(Dish).filter_by(id=id).first()
-        session_db.delete(dish)
-        session_db.commit()
-        session_db.close()
+        dish = db.session.query(Dish).filter_by(id=id).first()
+        db.session.delete(dish)
+        db.session.commit()
+        db.session.close()
 
         return redirect('/read_dish')

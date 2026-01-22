@@ -1,7 +1,7 @@
 from flask import Blueprint, request
-from flask_login import login_required, current_user
+from flask_security import login_required, current_user
 from datetime import datetime
-from datebase import db_session
+from configs.app_configs import db
 from datebase.classes import Menu
 from utils.templates_rendering.menu import render_menu_template
 
@@ -15,9 +15,7 @@ def menupage(date_str):
 
     date = datetime.strptime(date_str, '%Y-%m-%d').date()
 
-    session_db = db_session.create_session()
-
-    menu = session_db.query(Menu).filter_by(date=date, type=ttype).first()
+    menu = db.session.query(Menu).filter_by(date=date, type=ttype).first()
 
     context = {
         'menu': menu,

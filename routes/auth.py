@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from datebase.classes import User, Info
-from datebase import db_session
-from flask_login import login_user, login_required, logout_user
+from configs.app_configs import db
+from flask_security import login_user, login_required, logout_user
 
 
 register_page = Blueprint('register_page', __name__, template_folder='templates')
-@register_page.route('/register', methods=['GET', 'POST'])
+@register_page.route('/registeration', methods=['GET', 'POST'])
 def registerpage():
     if request.method == 'POST':
         surname = request.form.get('surname')
@@ -17,32 +17,30 @@ def registerpage():
         password = request.form.get('password')
         second_password = request.form.get('second_password')
 
-        session = db_session.create_session()
-
-        user = session.query(User).filter_by(login=login).first()
+        user = db.session.query(User).filter_by(login=login).first()
 
         if not all([surname, name, patronymic, login, password, second_password, student_class]) or password != second_password or len(password) < 6 or user:
             return redirect('/')
 
         new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), role=3)
 
-        session.add(new_user)
+        db.session.add(new_user)
 
-        session.flush()
+        db.session.flush()
         if student_class:
             new_student = Info(user_id=new_user.id, stud_class=student_class)
         else:
             new_student = Info(user_id=new_user.id, stud_class='')
 
-        session.add(new_student)
+        db.session.add(new_student)
 
         try:
-            session.commit()
+            db.session.commit()
             login_user(new_user)
         except Exception:
-            session.rollback()
+            db.session.rollback()
         finally:
-            session.close()
+            db.session.close()
 
         return redirect('/')
     else:
@@ -51,25 +49,23 @@ def registerpage():
 
 
 login_page = Blueprint('login_page', __name__, template_folder='templates')
-@login_page.route('/login', methods=['GET', 'POST'])
+@login_page.route('/enter', methods=['GET', 'POST'])
 def loginpage():
     if request.method == 'POST':
         login = request.form.get('login')
         password = request.form.get('password')
 
-        session = db_session.create_session()
-
         if not all([login, password]):
             return redirect('/')
         
-        user = session.query(User).filter_by(login=login).first()
+        user = db.session.query(User).filter_by(login=login).first()
 
         if not user or not check_password_hash(user.password, password):
             return redirect('/')
 
         login_user(user)
 
-        session.close()
+        db.session.close()
 
         return redirect('/')
     else:
