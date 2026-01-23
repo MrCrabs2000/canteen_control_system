@@ -65,9 +65,9 @@ def loginpage():
 
         if not user or not check_password_hash(user.password, password):
             return redirect('/')
-
+        
         login_user(user)
-
+        
         db.session.close()
 
         return redirect('/')

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_security import Security, SQLAlchemyUserDatastore
 from datebase.classes import db, User, Role
+import uuid
 import os
 from werkzeug.security import generate_password_hash
 from utils.generation_password import generate_password_for_user
@@ -28,7 +29,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECURITY_PASSWORD_SALT'] = 'wasd'
 app.config['SECURITY_TRACKABLE'] = True
 app.config['SECURITY_USERNAME_REQUIRED'] = True
-app.config['SECURITY_REGISTERABLE'] = False
+app.config['SECURITY_LOGIN_URL'] = '/logining'
+app.config['SECURITY_REGISTER_URL'] = '/registration'
+app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
 app.config['SECURITY_FLASH_MESSAGES'] = False
 app.config['SECURITY_UNAUTHORIZED_VIEW'] = None
@@ -52,9 +55,9 @@ def start_db():
     admin_role = Role.query.filter_by(name='admin').first()
 
     try:
-        if not db.session.query(User).filter_by(login='Admin').first():
+        if not User.query.filter_by(login='Admin').first():
             password = generate_password_for_user()
-            print(password)
+            print(f"Admin password: {password}")
 
             passwordHash = generate_password_hash(password)
 
@@ -64,7 +67,10 @@ def start_db():
                 patronymic='Admin',
                 login='Admin',
                 password=passwordHash,
-                role=1
+                role=1,
+                active=True,
+                fs_uniquifier=str(uuid.uuid4()),
+                login_count=0
             )
 
             db.session.add(main_admin)
