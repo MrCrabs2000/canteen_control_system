@@ -8,6 +8,7 @@ from .cook_menu import cook_menu, read_dish
 from .add_dish import add_dish, edit_dish, delete_dish
 from .add_menu import add_menu
 from .food_payment import food_payment_main, edit_balance, edit_abonement
+from .reviews import reviews_main, review_new, review_view
 
 
 def register_all_blueprints(app):
@@ -30,3 +31,6 @@ def register_all_blueprints(app):
     app.register_blueprint(food_payment_main)
     app.register_blueprint(edit_balance)
     app.register_blueprint(edit_abonement)
+    app.register_blueprint(reviews_main)
+    app.register_blueprint(review_new)
+    app.register_blueprint(review_view)

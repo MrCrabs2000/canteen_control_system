@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Мои отзывы</title>
+</head>
+<body>
+    <h1>Мои отзывы</h1>
+
+    {% if reviews %}
+        <ul>
+        {% for review in reviews %}
+            <li>
+                <h3><a href="/reviews/{{ review.id }}">Отзыв #{{ review.id }}</a></h3>
+                <p>{{ review.date }}</p>
+                <p>{{ review.stars }} звезд</p>
+                <p>{{ review.content }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас еще нет отзывов.</p>
+    {% endif %}
+
+    <a href="/reviews/new">Написать новый отзыв</a>
+    <a href="/">Назад к главной</a>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Создать отзыв</title>
+</head>
+<body>
+    <h1>Создать новый отзыв</h1>
+
+    <form method="POST">
+        <div>
+            <label>Текст отзыва:</label>
+            <textarea name="content" rows="4" cols="50" required></textarea>
+        </div>
+
+        <div>
+            <label>Блюдо:</label>
+            <select name="dish_id" required>
+                <option value="">Выберите блюдо</option>
+                {% for dish in dishes %}
+                <option value="{{ dish.id }}">{{ dish.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Оценка (звезды):</label>
+            <input type="number" name="stars" min="1" max="5" required>
+        </div>
+
+        <button type="submit">Создать отзыв</button>
+    </form>
+
+    <a href="/reviews">Назад к списку отзывов</a>
+</body>
+</html>

@@ -1,3 +1,5 @@
+from email.policy import default
+
 from flask_security import UserMixin, RoleMixin
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
@@ -32,7 +34,7 @@ class User(db.Model, UserMixin):
     student_info = db.relationship("Info", back_populates="user", uselist=False)
     history = db.relationship('History', back_populates='user')
     roles = db.relationship('Role', back_populates='users')
-    user_accepted = db.relationshp('Menu', secondary='user_menus', back_populates='menu_accepted')
+    user_accepted = db.relationship('Menu', secondary='user_menus', back_populates='menu_accepted')
 
 
 class Info(db.Model):
@@ -94,7 +96,7 @@ class Menu(db.Model):
     price = db.Column(db.Integer, nullable=False)
 
     dishes = db.relationship('Dish', secondary='dish_menu', back_populates='menus')
-    menu_accepted = db.relationshp('User', secondary='user_menus', back_populates='user_accepted')
+    menu_accepted = db.relationship('User', secondary='user_menus', back_populates='user_accepted')
 
 
 class Dish(db.Model):
@@ -108,7 +110,7 @@ class Dish(db.Model):
 
     products = db.relationship('Product', secondary='dish_products', back_populates='dishes')
     reviews = db.relationship('Review', back_populates='dish')
-    menus = db.relationship('Menu', secondary='association_dish_menu', back_populates='dishes')
+    menus = db.relationship('Menu', secondary='dish_menu', back_populates='dishes')
 
 
 class Notification(db.Model):
@@ -119,8 +121,6 @@ class Notification(db.Model):
 
 
     recevier_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-
 
 
 class AssociationDishMenu(db.Model):
@@ -140,5 +140,6 @@ class AssociationDishProduct(db.Model):
 class AssociationUserMenus(db.Model):
     __tablename__ = 'user_menus'
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    menu_id = db.Column(db.Integer, db.ForeignKey('menu.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'), primary_key=True)
+    date = db.Column(db.Date, nullable=False, default=date.today())

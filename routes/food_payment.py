@@ -5,6 +5,7 @@ from datebase.classes import User, Info
 from datetime import datetime, date
 
 food_payment_main = Blueprint('food_payment_main', __name__, template_folder='templates')
+
 @food_payment_main.route('/food_payment', methods=['GET', 'POST'])
 @login_required
 def food_payment_main_page():
@@ -19,6 +20,7 @@ def food_payment_main_page():
 
 
 edit_balance = Blueprint('edit_balance', __name__, template_folder='templates')
+
 @edit_balance.route("/edit_balance", methods=['GET', 'POST'])
 @login_required
 def edit_balance_page():
