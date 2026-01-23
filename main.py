@@ -9,7 +9,6 @@ from flask_security import current_user
 
 register_all_blueprints(app)
 
-
 @app.route('/', methods=['GET', 'POST'])
 def inition():
     if current_user.is_authenticated:

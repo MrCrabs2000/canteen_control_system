@@ -12,7 +12,7 @@ class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     name = db.Column(db.String, nullable=False, unique=True)
 
-    users = db.relationship('User', back_populates='role_id')
+    users = db.relationship('User', back_populates='roles')
 
 
 class User(db.Model, UserMixin):
@@ -24,14 +24,15 @@ class User(db.Model, UserMixin):
     patronymic = db.Column(db.String, nullable=False)
     login = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
-    role = db.Column(db.Integer, db.ForeignKey('roles.id'), default=3)
+    role = db.Column(db.Integer, db.ForeignKey('roles.name'), default='student')
     active = db.Column(db.Boolean)
     fs_uniquifier = db.Column(db.String, unique=True)
 
     reviews = db.relationship('Review', back_populates='user')
     student_info = db.relationship("Info", back_populates="user", uselist=False)
     history = db.relationship('History', back_populates='user')
-    role_id = db.relationship('Role', back_populates='users')
+    roles = db.relationship('Role', back_populates='users')
+    user_accepted = db.relationshp('Menu', secondary='user_menus', back_populates='menu_accepted')
 
 
 class Info(db.Model):
@@ -84,17 +85,24 @@ class History(db.Model):
 
 
 class AssociationDishMenu(db.Model):
-    __tablename__ = 'association_dish_menu'
+    __tablename__ = 'dish_menu'
 
     menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'), primary_key=True)
     dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
 
 
-class DishProduct(db.Model):
+class AssociationDishProduct(db.Model):
     __tablename__ = 'dish_products'
 
     dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
+
+
+class AssociationUserMenus(db.Model):
+    __tablename__ = 'user_menus'
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    menu_id = db.Column(db.Integer, db.ForeignKey('menu.id'), primary_key=True)
 
 
 class Menu(db.Model):
@@ -106,7 +114,8 @@ class Menu(db.Model):
     date = db.Column(db.Date, nullable=False, default=date.today())
     price = db.Column(db.Integer, nullable=False)
 
-    dishes = db.relationship('Dish', secondary='association_dish_menu', back_populates='menus')
+    dishes = db.relationship('Dish', secondary='dish_menu', back_populates='menus')
+    menu_accepted = db.relationshp('User', secondary='user_menus', back_populates='user_accepted')
 
 
 class Dish(db.Model):
