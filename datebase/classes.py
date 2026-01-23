@@ -41,7 +41,7 @@ class Info(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, unique=True)
     allergies = db.Column(db.JSON)
-    abonement = db.Column(db.Date, default=False)
+    abonement = db.Column(db.Date)
     preferences = db.Column(db.JSON)
     balance = db.Column(db.Integer, nullable='-', default=0)
     stud_class = db.Column(db.String, default='-')
