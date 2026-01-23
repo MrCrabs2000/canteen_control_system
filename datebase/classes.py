@@ -27,6 +27,12 @@ class User(db.Model, UserMixin):
     role = db.Column(db.Integer, db.ForeignKey('roles.id'), default=3)
     active = db.Column(db.Boolean)
     fs_uniquifier = db.Column(db.String, unique=True)
+    current_login_at = db.Column(db.DateTime)
+    current_login_ip = db.Column(db.String(100))
+    last_login_at = db.Column(db.DateTime)
+    last_login_ip = db.Column(db.String(100))
+    login_count = db.Column(db.Integer, default=0)
+    confirmed_at = db.Column(db.DateTime)
 
     reviews = db.relationship('Review', back_populates='user')
     student_info = db.relationship("Info", back_populates="user", uselist=False)
