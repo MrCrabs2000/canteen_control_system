@@ -84,27 +84,6 @@ class History(db.Model):
     user = db.relationship('User', back_populates='history')
 
 
-class AssociationDishMenu(db.Model):
-    __tablename__ = 'dish_menu'
-
-    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'), primary_key=True)
-    dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
-
-
-class AssociationDishProduct(db.Model):
-    __tablename__ = 'dish_products'
-
-    dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
-
-
-class AssociationUserMenus(db.Model):
-    __tablename__ = 'user_menus'
-
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    menu_id = db.Column(db.Integer, db.ForeignKey('menu.id'), primary_key=True)
-
-
 class Menu(db.Model):
     __tablename__ = 'menus'
 
@@ -137,4 +116,29 @@ class Notification(db.Model):
     name = db.Column(db.String, nullable=False)
     text = db.Column(db.String, nullable=False)
     date = db.Column(db.Date, nullable=False, default=date.today())
+
+
     recevier_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+
+
+
+class AssociationDishMenu(db.Model):
+    __tablename__ = 'dish_menu'
+
+    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'), primary_key=True)
+    dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
+
+
+class AssociationDishProduct(db.Model):
+    __tablename__ = 'dish_products'
+
+    dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
+
+
+class AssociationUserMenus(db.Model):
+    __tablename__ = 'user_menus'
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    menu_id = db.Column(db.Integer, db.ForeignKey('menu.id'), primary_key=True)
