@@ -12,7 +12,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, '..', 'templates')
 app.template_folder = TEMPLATE_DIR
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app.static_folder = os.path.join(BASE_DIR, '..', 'static')
+
 DB_DIR = os.path.join(BASE_DIR, '..', 'db')
 DB_PATH = os.path.join(DB_DIR, 'canteen_control_system.db')
 
@@ -21,7 +22,7 @@ if not os.path.exists(DB_DIR):
 
 
 app.config['SECRET_KEY'] = '25112008'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{DB_PATH}'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_PATH}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SECURITY_PASSWORD_SALT'] = 'wasd'
@@ -31,6 +32,7 @@ app.config['SECURITY_REGISTERABLE'] = False
 app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
 app.config['SECURITY_FLASH_MESSAGES'] = False
 app.config['SECURITY_UNAUTHORIZED_VIEW'] = None
+app.config['SECURITY_LOGIN_USER_TEMPLATE'] = 'auth/login.html'
 
 db.init_app(app)
 

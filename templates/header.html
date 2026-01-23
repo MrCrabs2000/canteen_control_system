@@ -1,15 +1,15 @@
 <header>
     <div id="left-header">
-        {% if not is_not_authenticated %}
+        {% if current_user.is_authenticated %}
         <button id="notifications-btn"><img alt="Уведомления"></button>
         {% endif %}
     </div>
 
     <div id="right-header">
-        {% if not is_not_authenticated %}
+        {% if current_user.is_authenticated %}
         <nav id="app-menu">
             <a href="/menu">Меню</a>
-            <a href="/payment">Оплата</a>
+            <a href="/food_payment">Оплата</a>
             <a href="/receiving">Получение</a>
             <button id="profile-btn">{{ surname }} {{ name[0] }}.</button>
         </nav>

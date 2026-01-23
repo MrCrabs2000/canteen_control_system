@@ -3,10 +3,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datebase.classes import User, Info
 from configs.app_configs import db
 from flask_security import login_user, login_required, logout_user
+import uuid
 
 
 register_page = Blueprint('register_page', __name__, template_folder='templates')
-@register_page.route('/registeration', methods=['GET', 'POST'])
+@register_page.route('/register', methods=['GET', 'POST'])
 def registerpage():
     if request.method == 'POST':
         surname = request.form.get('surname')
@@ -22,7 +23,9 @@ def registerpage():
         if not all([surname, name, patronymic, login, password, second_password, student_class]) or password != second_password or len(password) < 6 or user:
             return redirect('/')
 
-        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), role=3)
+        fs_uniquifier = str(uuid.uuid4())
+
+        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), role=3, active=True, fs_uniquifier=fs_uniquifier)
 
         db.session.add(new_user)
 
@@ -49,7 +52,7 @@ def registerpage():
 
 
 login_page = Blueprint('login_page', __name__, template_folder='templates')
-@login_page.route('/enter', methods=['GET', 'POST'])
+@login_page.route('/login', methods=['GET', 'POST'])
 def loginpage():
     if request.method == 'POST':
         login = request.form.get('login')

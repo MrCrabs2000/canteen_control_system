@@ -29,7 +29,6 @@ admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templa
 @login_required
 @roles_accepted('admin')
 def admin_read_dish_page():
-    db.session = db_session.create_session()
     breakfasts = db.session.query(Dish).filter_by(category='Breakfasts').all()
     salads = db.session.query(Dish).filter_by(category='Salads').all()
     soups = db.session.query(Dish).filter_by(category='Soups').all()
