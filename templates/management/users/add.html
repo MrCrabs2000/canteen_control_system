@@ -1,0 +1,30 @@
+{% extends 'management/users/users_base.html' %}
+
+{% from 'macros/labeled_input.html' import labeled_input %}
+
+
+{% block title %}Добавить пользователя{% endblock %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
+{% endblock %}
+
+
+{% block top_bar %}
+    {{ super() }}
+    <button class="add-user-btn accent">Добавить</button>
+{% endblock %}
+
+
+{% block main %}
+    <div class="add-user-form">
+        {{ labeled_input(name='login', label='Логин', required=True) }}
+        {{ labeled_input(name='surname', label='Фамилия', required=True) }}
+        {{ labeled_input(name='name', label='Имя', required=True) }}
+        {{ labeled_input(name='patronymic', label='Отчество', required=True) }}
+        {{ labeled_input(name='password', label='Пароль', required=True) }}
+        {{ labeled_input(name='second_password', label='Повтор пароля', required=True) }}
+    </div>
+{% endblock %}
