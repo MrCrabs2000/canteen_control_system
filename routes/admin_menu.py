@@ -9,7 +9,7 @@ admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
 @admin_menu.route('/admin_menu')
 @login_required
 def admin_menu_page():
-    if current_user.role == 1:
+    if current_user.roles[0].name == 'admin':
         try:
             menu = db.session.query(Menu).all()
             context = {
@@ -27,7 +27,6 @@ admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templa
 
 @admin_read_dish.route('/admin_read_dish')
 @login_required
-@roles_accepted('admin')
 def admin_read_dish_page():
     breakfasts = db.session.query(Dish).filter_by(category='Breakfasts').all()
     salads = db.session.query(Dish).filter_by(category='Salads').all()

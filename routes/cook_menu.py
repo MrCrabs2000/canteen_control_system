@@ -8,7 +8,7 @@ cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
 @cook_menu.route('/cook_menu')
 @login_required
 def cook_menu_page():
-    if current_user.role == 'cook':
+    if current_user.roles[0].name == 'cook':
         menu = db.session.query(Menu).all()
         try:
             context = {
@@ -26,7 +26,7 @@ read_dish = Blueprint('read_dish', __name__, template_folder='templates')
 @read_dish.route('/read_dish')
 @login_required
 def read_dish_page():
-    if current_user.role == 'cook':
+    if current_user.roles[0].name == 'cook':
         breakfasts = db.session.query(Dish).filter_by(category='Breakfasts').all()
         salads = db.session.query(Dish).filter_by(category='Salads').all()
         soups = db.session.query(Dish).filter_by(category='Soups').all()

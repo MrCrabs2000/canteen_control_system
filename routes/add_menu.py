@@ -8,7 +8,7 @@ add_menu = Blueprint('add_menu', __name__, template_folder='templates')
 @add_menu.route('/add_menu', methods=['GET', 'POST'])
 @login_required
 def add_menu_page():
-    if current_user.role == 'admin':
+    if current_user.roles[0].name == 'admin':
         if request.method == 'GET':
             dishes = db.session.query(Dish).all()
             db.session.close()

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
-from datebase.classes import User, Info
+from datebase.classes import User, Info, Role
 from configs.app_configs import db
 from flask_security import login_user, login_required, logout_user
 import uuid
@@ -19,13 +19,15 @@ def registerpage():
         second_password = request.form.get('second_password')
 
         user = db.session.query(User).filter_by(login=login).first()
+        role = db.session.query(Role).filter_by(name='user').first()
 
         if not all([surname, name, patronymic, login, password, second_password, student_class]) or password != second_password or len(password) < 6 or user:
             return redirect('/')
 
         fs_uniquifier = str(uuid.uuid4())
 
-        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), role=3, active=True, fs_uniquifier=fs_uniquifier)
+        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), active=True, fs_uniquifier=fs_uniquifier)
+        new_user.roles.append(role)
 
         db.session.add(new_user)
 

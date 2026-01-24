@@ -1,6 +1,6 @@
 from .auth import register_page, login_page, exit_page
 from .profile import profile_page, profile_edit_page
-from .menu import menu_page
+from .menu import menu_page, menu_redirect
 from .main_pages import main_page
 from .admin_menu import admin_menu, admin_read_dish
 from .add_user import add_user
@@ -34,3 +34,4 @@ def register_all_blueprints(app):
     app.register_blueprint(reviews_main)
     app.register_blueprint(review_new)
     app.register_blueprint(review_view)
+    app.register_blueprint(menu_redirect)

@@ -9,7 +9,7 @@ add_user = Blueprint('add_user', __name__, template_folder='templates')
 @add_user.route('/add_user', methods=['GET', 'POST'])
 @login_required
 def add_user_page():
-    if current_user.role == 1:
+    if current_user.roles[0].name == 'admin':
         if request.method == 'POST':
             name = request.form.get('name')
             surname = request.form.get('surname')
