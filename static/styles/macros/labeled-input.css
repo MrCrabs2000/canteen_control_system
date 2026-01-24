@@ -1,15 +1,15 @@
-.labeled-input {
+.labeled-input, .labeled-select {
     display: flex;
     flex-direction: column;
     gap: 3px;
 }
 
-.labeled-input label {
+.labeled-input label, .labeled-select label {
     margin-left: 8px;
     font-size: 1.1em;
 }
 
-.labeled-input input {
+.labeled-input input, .labeled-select select {
     font-size: 1.3em;
 }
 

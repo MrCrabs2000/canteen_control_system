@@ -1,0 +1,19 @@
+.add-user-btn {
+    font-size: 1.2rem;
+}
+
+.add-user-form {
+    width: 100%;
+    height: fit-content;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.form-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    column-gap: 16px;
+    row-gap: 12px;
+}
