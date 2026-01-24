@@ -40,7 +40,6 @@ app.config['SECURITY_LOGIN_USER_TEMPLATE'] = 'auth/login.html'
 db.init_app(app)
 
 
-
 @app.before_request
 def start_db():
     with app.app_context():
@@ -51,35 +50,40 @@ def start_db():
             db.session.add(admin_role)
             db.session.add(user_role)
             db.session.commit()
-        
+
     admin_role = Role.query.filter_by(name='admin').first()
 
     try:
-        if not User.query.filter_by(login='Admin').first():
+        admin_user = User.query.filter_by(login='Admin').first()
+
+        if not admin_user:
             password = generate_password_for_user()
             print(f"Admin password: {password}")
 
             passwordHash = generate_password_hash(password)
 
-            main_admin = User(
+            admin_user = User(
                 name='Admin',
                 surname='Admin',
                 patronymic='Admin',
                 login='Admin',
                 password=passwordHash,
-                role=1,
                 active=True,
                 fs_uniquifier=str(uuid.uuid4()),
                 login_count=0
             )
 
-            db.session.add(main_admin)
+            db.session.add(admin_user)
 
-        if not admin_role:
-            admin_role = Role(
-                name='admin'
-            )
-            db.session.add(admin_role)
+            if admin_role:
+                admin_user.roles.append(admin_role)
+            else:
+                admin_role = Role(name='admin')
+                db.session.add(admin_role)
+                admin_user.roles.append(admin_role)
+
+        elif admin_role and admin_role not in admin_user.roles:
+            admin_user.roles.append(admin_role)
 
         db.session.commit()
     except Exception:

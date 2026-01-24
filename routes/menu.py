@@ -29,12 +29,12 @@ def menupage(date_str):
     return render_menu_template(**context)
 
 
-menu_view = Blueprint('menu_page', __name__)
+menu_purchase = Blueprint('menu_purchase', __name__)
 
-@menu_page.route('/menu/<date_str>/')
+@menu_purchase.route('/menu/<date_str>/')
 @login_required
-def menupage(date_str):
-    ttype = request.args.get('type', 'breakfast')
+def menupurchase(date_str):
+    ttype = request.args.get('type')
 
     date = datetime.strptime(date_str, '%Y-%m-%d').date()
 
