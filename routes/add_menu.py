@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_login import login_required, current_user
+from datetime import datetime
 from datebase import db_session
 from datebase.classes import Menu, Dish
 
@@ -18,6 +19,9 @@ def add_menu_page():
         elif request.method == 'POST':
             type = request.form.get('type')
             price = request.form.get('price')
+            date = request.form.get('date')
+
+            date1 = datetime.strptime(date, '%Y-%m-%d').date()
 
             dish_name = []
             for dishes in ['breakfasts', 'salads', 'soups', 'main_dishes', 'drinks', 'bread']:
@@ -27,13 +31,13 @@ def add_menu_page():
 
             session_db = db_session.create_session()
 
-            if not all([type, price, dish_name]):
+            if not all([type, price, dish_name, date1]):
                 session_db.close()
                 return redirect('/add_menu')
 
             try:
                 dish1 = session_db.query(Dish).filter(Dish.name.in_(dish_name)).all()
-                new_menu = Menu(type=type, dishes=dish1, price=price)
+                new_menu = Menu(type=type, dishes=dish1, price=price, date=date1)
                 session_db.add(new_menu)
                 session_db.commit()
                 return redirect('/admin_menu')

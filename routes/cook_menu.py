@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from datebase import db_session
 from sqlalchemy.orm import joinedload
-from datebase.classes import Menu, Dish, Product
+from datebase.classes import Menu, Dish, Product, Requisition
 
 
 cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
@@ -59,3 +59,19 @@ def read_product_page():
 
         finally:
             session_db.close()
+
+
+
+read_requisition = Blueprint('read_requisition', __name__, template_folder='templates')
+@read_requisition.route('/read_requisition')
+@login_required
+def read_requisition_page():
+    if current_user.role == 'cook':
+        session_db = db_session.create_session()
+        requisitions = session_db.query(Requisition).order_by(Requisition.date.desc()).all()
+        products = {}
+        for requisition in requisitions:
+            product = session_db.query(Product).filter_by(id=requisition.product_id).first()
+            products[requisition.product_id] = product
+        session_db.close()
+        return render_template('read_requisition.html', products=products, requisitions=requisitions)

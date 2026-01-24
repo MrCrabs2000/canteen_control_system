@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, JSON, DateTime, BOOLEAN
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON, Date, BOOLEAN, DateTime
 from sqlalchemy.orm import relationship, declarative_base
 from flask_login import UserMixin
-from datetime import datetime
+from flask_security import RoleMixin
+from datetime import datetime, date
 
 
 table_base = declarative_base()
@@ -51,17 +52,6 @@ class Review(table_base):
     dish = relationship('Dish', back_populates='reviews')
 
 
-class Product(table_base):
-    __tablename__ = 'products'
-
-    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    name = Column(String, nullable=False)
-    measurement = Column(String, nullable=False)
-    amount = Column(Integer, nullable=False, default=0)
-
-    dishes = relationship('Dish', secondary='dish_products', back_populates='products')
-
-
 class History(table_base):
     __tablename__ = 'history'
 
@@ -71,6 +61,30 @@ class History(table_base):
     lunch_date = Column(DateTime, nullable=False)
 
     user = relationship('User', back_populates='history')
+
+
+class Product(table_base):
+    __tablename__ = 'products'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    name = Column(String, nullable=False)
+    measurement = Column(String, nullable=False)
+    amount = Column(Integer, nullable=False, default=0)
+
+    dishes = relationship('Dish', secondary='dish_products', back_populates='products')
+    requisitions = relationship('Requisition', back_populates='product')
+
+
+class Requisition(table_base):
+    __tablename__ = 'requisitions'
+
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    amount = Column(Integer, nullable=False, default=0)
+    date = Column(DateTime, nullable=False, default=datetime.now)
+    coordination = Column(Integer, nullable=False, default=0)
+
+    product = relationship('Product', back_populates='requisitions')
 
 
 class AssociationDishMenu(table_base):
@@ -93,7 +107,7 @@ class Menu(table_base):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     type = Column(String, nullable=False)
     get_amount = Column(Integer, nullable=False, default=0)
-    date = Column(DateTime, nullable=False, default=datetime.now)
+    date = Column(Date, nullable=False, default=date.today())
     price = Column(Integer, nullable=False)
 
     dishes = relationship('Dish', secondary='association_dish_menu', back_populates='menus')

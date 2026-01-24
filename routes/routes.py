@@ -5,9 +5,11 @@ from .main_pages import main_page
 from .admin_menu import admin_menu, admin_read_dish
 from .add_menu import add_menu
 from .add_user import add_user
-from .cook_menu import cook_menu, read_dish, read_product
+from .cook_menu import cook_menu, read_dish, read_product, read_requisition
 from .add_dish import add_dish, edit_dish, delete_dish
 from .add_product import add_product, edit_product, delete_product
+from .cook_requisition import cook_requisition
+from .admin_requisition import admin_requisition
 
 
 
@@ -26,9 +28,12 @@ def register_all_blueprints(app):
     app.register_blueprint(cook_menu)
     app.register_blueprint(read_dish)
     app.register_blueprint(read_product)
+    app.register_blueprint(read_requisition)
     app.register_blueprint(add_dish)
     app.register_blueprint(edit_dish)
     app.register_blueprint(delete_dish)
     app.register_blueprint(add_product)
     app.register_blueprint(edit_product)
     app.register_blueprint(delete_product)
+    app.register_blueprint(cook_requisition)
+    app.register_blueprint(admin_requisition)
