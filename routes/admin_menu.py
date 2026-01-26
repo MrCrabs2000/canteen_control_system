@@ -1,15 +1,14 @@
 from flask import Blueprint, render_template
-from flask_login import login_required, current_user
-from configs.app_configs import db
-from datebase.classes import Menu, Dish
-from flask_security import roles_accepted
+from flask_security import login_required, current_user, roles_accepted
+from sqlalchemy.orm import joinedload
+from datebase.classes import db, Menu, Dish
 
 
 admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
 @admin_menu.route('/admin_menu')
 @login_required
 def admin_menu_page():
-    if current_user.role == 1:
+    if current_user.roles[0].name == 'admin':
         try:
             menu = db.session.query(Menu).all()
             context = {
@@ -27,14 +26,14 @@ admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templa
 
 @admin_read_dish.route('/admin_read_dish')
 @login_required
-@roles_accepted('admin')
 def admin_read_dish_page():
-    breakfasts = db.session.query(Dish).filter_by(category='Breakfasts').all()
-    salads = db.session.query(Dish).filter_by(category='Salads').all()
-    soups = db.session.query(Dish).filter_by(category='Soups').all()
-    main_dishes = db.session.query(Dish).filter_by(category='Main dishes').all()
-    drinks = db.session.query(Dish).filter_by(category='Drinks').all()
-    bread = db.session.query(Dish).filter_by(category='Beer').all()
+    if current_user.roles[0].name == 'admin':
+        breakfasts = db.session.query(Dish).filter_by(category='breakfasts').options(joinedload(Dish.products)).all()
+        salads = db.session.query(Dish).filter_by(category='salads').options(joinedload(Dish.products)).all()
+        soups = db.session.query(Dish).filter_by(category='soups').options(joinedload(Dish.products)).all()
+        main_dishes = db.session.query(Dish).filter_by(category='main_dishes').options(joinedload(Dish.products)).all()
+        drinks = db.session.query(Dish).filter_by(category='drinks').options(joinedload(Dish.products)).all()
+        bread = db.session.query(Dish).filter_by(category='bread').options(joinedload(Dish.products)).all()
 
     db.session.close()
 

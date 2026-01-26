@@ -1,5 +1,3 @@
-from email.policy import default
-
 from flask_security import UserMixin, RoleMixin
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
@@ -14,7 +12,7 @@ class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     name = db.Column(db.String, nullable=False, unique=True)
 
-    users = db.relationship('User', back_populates='roles')
+    users = db.relationship('User', secondary='user_roles', back_populates='roles')
 
 
 class User(db.Model, UserMixin):
@@ -26,7 +24,6 @@ class User(db.Model, UserMixin):
     patronymic = db.Column(db.String, nullable=False)
     login = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
-    role = db.Column(db.Integer, db.ForeignKey('roles.name'), default='student')
     active = db.Column(db.Boolean)
     fs_uniquifier = db.Column(db.String, unique=True)
     current_login_at = db.Column(db.DateTime)
@@ -39,7 +36,7 @@ class User(db.Model, UserMixin):
     reviews = db.relationship('Review', back_populates='user')
     student_info = db.relationship("Info", back_populates="user", uselist=False)
     history = db.relationship('History', back_populates='user')
-    roles = db.relationship('Role', back_populates='users')
+    roles = db.relationship('Role', secondary='user_roles', back_populates='users')
     user_accepted = db.relationship('Menu', secondary='user_menus', back_populates='menu_accepted')
 
 
@@ -76,6 +73,7 @@ class Product(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     name = db.Column(db.String, nullable=False)
+    measurement = db.Column(db.String, nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
 
     dishes = db.relationship('Dish', secondary='dish_products', back_populates='products')
@@ -149,3 +147,11 @@ class AssociationUserMenus(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'), primary_key=True)
     date = db.Column(db.Date, nullable=False, default=date.today())
+
+
+
+class AssociationUserRole(db.Model):
+    __tablename__ = 'user_roles'
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), primary_key=True)

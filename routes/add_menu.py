@@ -8,7 +8,7 @@ add_menu = Blueprint('add_menu', __name__, template_folder='templates')
 @add_menu.route('/add_menu', methods=['GET', 'POST'])
 @login_required
 def add_menu_page():
-    if current_user.role == 'admin':
+    if current_user.roles[0].name == 'admin':
         if request.method == 'GET':
             dishes = db.session.query(Dish).all()
             db.session.close()
@@ -19,13 +19,13 @@ def add_menu_page():
             price = request.form.get('price')
 
             dish_name = []
-            for dishes in ['Breakfasts', 'Salads', 'Main dishes', 'Soups', 'Drinks', 'Bread']:
+            for dishes in ['breakfasts', 'salads', 'soups', 'main_dishes', 'drinks', 'bread']:
                 dish = request.form.get(dishes)
                 if dish:
                     dish_name.append(dish)
 
 
-            if not dish_name:
+            if not all([type, price, dish_name]):
                 db.session.close()
                 return redirect('/add_menu')
 

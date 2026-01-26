@@ -1,39 +1,49 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_login import login_required, current_user
-from configs.app_configs import db
-from datebase.classes import Dish
+from flask_security import login_required, current_user
+from datebase.classes import Dish, Product, db
 
 
 add_dish = Blueprint('add_dish', __name__, template_folder='templates')
 @add_dish.route('/add_dish', methods=['GET', 'POST'])
 @login_required
 def add_dish_page():
-    if current_user.role == 'cook':
+    if current_user.roles[0].name == 'cook':
         if request.method == 'GET':
-            return render_template('add_dish.html')
+
+            products = db.session.query(Product).all()
+            db.session.close()
+            return render_template('add_dish.html', products=products)
 
         elif request.method == 'POST':
             name = request.form.get('name')
             category = request.form.get('category')
 
-            if not name or not category:
+            product = request.form.getlist('ingredients')
+
+            if not all([name, category, product]):
                 return render_template('add_dish.html')
+
             other_dish = db.session.query(Dish).filter_by(name=name).first()
             if other_dish:
                 return render_template('add_dish.html')
-            new_dish = Dish(name=name, category=category)
-            db.session.add(new_dish)
-            db.session.commit()
-            db.session.close()
 
-            return redirect('/cook_menu')
+            try:
+                product1 = db.session.query(Product).filter(Product.name.in_(product)).all()
+                new_dish = Dish(name=name, category=category, products=product1)
+                db.session.add(new_dish)
+                db.session.commit()
+
+                return redirect('/cook_menu')
+            finally:
+                db.session.close()
+
 
 
 edit_dish = Blueprint('edit_dish', __name__, template_folder='templates')
 @edit_dish.route('/<id>/edit_dish', methods=['GET', 'POST'])
 @login_required
 def edit_dish_page(id):
-    if current_user.role == 'cook':
+    if current_user.roles[0].name == 'cook':
         dish = db.session.query(Dish).filter_by(id=id).first()
         if request.method == 'POST':
             name = request.form.get('name')
@@ -67,7 +77,7 @@ delete_dish = Blueprint('delete_dish', __name__, template_folder='templates')
 @delete_dish.route('/<id>/delete_dish')
 @login_required
 def delete_dish_page(id):
-    if current_user.role == 'cook':
+    if current_user.roles[0].name == 'cook':
         dish = db.session.query(Dish).filter_by(id=id).first()
         db.session.delete(dish)
         db.session.commit()

@@ -48,14 +48,18 @@ def start_db():
         if not Role.query.first():
             admin_role = Role(name='admin')
             user_role = Role(name='user')
+            cook_role = Role(name='cook')
             db.session.add(admin_role)
             db.session.add(user_role)
+            db.session.add(cook_role)
             db.session.commit()
         
     admin_role = Role.query.filter_by(name='admin').first()
 
     try:
-        if not User.query.filter_by(login='Admin').first():
+        admin = User.query.filter_by(login='Admin').first()
+
+        if not admin:
             password = generate_password_for_user()
             print(f"Admin password: {password}")
 
@@ -67,7 +71,6 @@ def start_db():
                 patronymic='Admin',
                 login='Admin',
                 password=passwordHash,
-                role=1,
                 active=True,
                 fs_uniquifier=str(uuid.uuid4()),
                 login_count=0
@@ -75,11 +78,15 @@ def start_db():
 
             db.session.add(main_admin)
 
-        if not admin_role:
-            admin_role = Role(
-                name='admin'
-            )
-            db.session.add(admin_role)
+            if admin_role:
+                main_admin.roles.append(admin_role)
+            else:
+                admin_role = Role(name='admin')
+                db.session.add(admin_role)
+                main_admin.roles.append(admin_role)
+                
+        elif admin_role and admin_role not in admin.roles:
+            main_admin.roles.append(admin_role)
 
         db.session.commit()
     except Exception:
