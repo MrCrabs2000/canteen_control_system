@@ -1,0 +1,33 @@
+.menus-grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 140px;
+    gap: 8px;
+}
+
+.menu {
+    padding: 8px 12px;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.menu__header {
+    margin: 0;
+}
+
+.menu__info {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu__info li {
+    width: fit-content;
+    padding: 4px 8px;
+    font-size: 1.25rem;
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}

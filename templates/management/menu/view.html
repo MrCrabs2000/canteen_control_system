@@ -1,0 +1,33 @@
+{% extends 'management/menu/menu_base.html' %}
+
+
+
+{% block title %}Список меню{% endblock %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/management/menu/menu.css">
+{% endblock %}
+
+
+{% block main %}
+    <div class="menus-grid">
+        {% for menu in menus %}
+            <div class="menu">
+                <h2 class="menu__header">{{ menu.date }} | 
+                    {% if menu.type == 'breakfast' %}
+                        Завтрак
+                    {% elif menu.type == 'lunch' %}
+                        Обед
+                    {% endif %}
+                </h2>
+
+                <ul class="menu__info">
+                    <li>{{ menu.price }}</li>
+                </ul>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
