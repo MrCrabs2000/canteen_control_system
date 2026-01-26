@@ -61,15 +61,17 @@ def loginpage():
         password = request.form.get('password')
 
         if not all([login, password]):
+            print(1)
             return redirect('/')
         
         user = db.session.query(User).filter_by(login=login).first()
 
         if not user or not check_password_hash(user.password, password):
+            print(2)
             return redirect('/')
         
         login_user(user)
-        
+        print(3)
         db.session.close()
 
         return redirect('/')

@@ -73,6 +73,7 @@ class Product(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     name = db.Column(db.String, nullable=False)
+    measurement = db.Column(db.String, nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
 
     dishes = db.relationship('Dish', secondary='dish_products', back_populates='products')

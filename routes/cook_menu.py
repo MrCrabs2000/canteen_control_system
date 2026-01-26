@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_security import login_required, current_user
-from configs.app_configs import db
-from datebase.classes import Menu, Dish
+from sqlalchemy.orm import joinedload
+from datebase.classes import db, Menu, Dish, Product
 
 
 cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
@@ -19,7 +19,6 @@ def cook_menu_page():
 
         finally:
             db.session.close()
-
 
 
 read_dish = Blueprint('read_dish', __name__, template_folder='templates')
@@ -45,9 +44,8 @@ read_product = Blueprint('read_product', __name__, template_folder='templates')
 @read_product.route('/read_product')
 @login_required
 def read_product_page():
-    if current_user.role == 'cook':
-        session_db = db_session.create_session()
-        product = session_db.query(Product).all()
+    if current_user.roles[0].name == 'cook':
+        product = db.session.query(Product).all()
         try:
             context = {
                 'products': product,
@@ -55,4 +53,4 @@ def read_product_page():
             return render_template('read_product.html', **context)
 
         finally:
-            session_db.close()
+            db.session.close()
