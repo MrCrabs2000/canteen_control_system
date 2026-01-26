@@ -14,7 +14,6 @@
         
         {% for user in users %}
         <div class="user" data-id="{{ user.id }}">
-            
             <a href="/manage/users/" class="user__link">
                 <div class="user__top">
                     <h2 class="user__full-name">{{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.</h2>
@@ -45,10 +44,17 @@
 
         users.forEach(user => {
             const deleteButton = user.querySelector('.user__delete-btn');
+            const id = user.dataset.id;
             
             deleteButton.addEventListener('click', function() {
                 event.preventDefault();
+                isDeleting = confirm('Удалить пользователя?');
+                if (isDeleting) {
+                    
+                }
             });
         });
+
+
     </script>
 {% endblock %}
