@@ -7,8 +7,13 @@ from .add_user import add_user
 from .cook_menu import cook_menu, read_dish
 from .add_dish import add_dish, edit_dish, delete_dish
 from .add_menu import add_menu
+from .cook_menu import cook_menu, read_dish, read_product
+from .add_dish import add_dish, edit_dish, delete_dish
+from .add_product import add_product, edit_product, delete_product
 from .food_payment import food_payment_main, edit_balance, edit_abonement
 from .reviews import reviews_main, review_new, review_view
+from .add_user import add_user
+
 
 
 def register_all_blueprints(app):
@@ -27,7 +32,9 @@ def register_all_blueprints(app):
     app.register_blueprint(add_dish)
     app.register_blueprint(edit_dish)
     app.register_blueprint(delete_dish)
-    app.register_blueprint(add_menu)
+    app.register_blueprint(add_product)
+    app.register_blueprint(edit_product)
+    app.register_blueprint(delete_product)
     app.register_blueprint(food_payment_main)
     app.register_blueprint(edit_balance)
     app.register_blueprint(edit_abonement)

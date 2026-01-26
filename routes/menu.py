@@ -7,7 +7,6 @@ from utils.templates_rendering.menu import render_menu_template
 
 
 menu_redirect = Blueprint('menu_redirect', __name__)
-
 @menu_redirect.route('/menu')
 @login_required
 def menupage():
@@ -20,29 +19,6 @@ menu_page = Blueprint('menu_page', __name__)
 @login_required
 def menupage(date_str):
     ttype = request.args.get('type', 'breakfast')
-
-    date = datetime.strptime(date_str, '%Y-%m-%d').date()
-
-    menu = db.session.query(Menu).filter_by(date=date, type=ttype).first()
-
-    context = {
-        'menu': menu,
-        'name': current_user.name,
-        'surname': current_user.surname,
-        'selected_date': date,
-        'days_back': 7,
-        'days_forward': 7
-    }
-
-    return render_menu_template(**context)
-
-
-menu_purchase = Blueprint('menu_purchase', __name__)
-
-@menu_purchase.route('/menu/<date_str>/')
-@login_required
-def menupurchase(date_str):
-    ttype = request.args.get('type')
 
     date = datetime.strptime(date_str, '%Y-%m-%d').date()
 

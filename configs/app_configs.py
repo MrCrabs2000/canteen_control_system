@@ -36,8 +36,10 @@ app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
 app.config['SECURITY_FLASH_MESSAGES'] = False
 app.config['SECURITY_UNAUTHORIZED_VIEW'] = None
 app.config['SECURITY_LOGIN_USER_TEMPLATE'] = 'auth/login.html'
+app.config['SECURITY_PROFILE_URL'] = '/user_profile'
 
 db.init_app(app)
+
 
 
 @app.before_request
@@ -47,22 +49,24 @@ def start_db():
         if not Role.query.first():
             admin_role = Role(name='admin')
             user_role = Role(name='user')
+            cook_role = Role(name='cook')
             db.session.add(admin_role)
             db.session.add(user_role)
+            db.session.add(cook_role)
             db.session.commit()
-
+        
     admin_role = Role.query.filter_by(name='admin').first()
 
     try:
-        admin_user = User.query.filter_by(login='Admin').first()
+        admin = User.query.filter_by(login='Admin').first()
 
-        if not admin_user:
+        if not admin:
             password = generate_password_for_user()
             print(f"Admin password: {password}")
 
             passwordHash = generate_password_hash(password)
 
-            admin_user = User(
+            main_admin = User(
                 name='Admin',
                 surname='Admin',
                 patronymic='Admin',
@@ -73,17 +77,17 @@ def start_db():
                 login_count=0
             )
 
-            db.session.add(admin_user)
+            db.session.add(main_admin)
 
             if admin_role:
-                admin_user.roles.append(admin_role)
+                main_admin.roles.append(admin_role)
             else:
                 admin_role = Role(name='admin')
                 db.session.add(admin_role)
-                admin_user.roles.append(admin_role)
-
-        elif admin_role and admin_role not in admin_user.roles:
-            admin_user.roles.append(admin_role)
+                main_admin.roles.append(admin_role)
+                
+        elif admin_role and admin_role not in admin.roles:
+            main_admin.roles.append(admin_role)
 
         db.session.commit()
     except Exception:
