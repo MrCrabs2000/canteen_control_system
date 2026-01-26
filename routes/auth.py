@@ -26,7 +26,7 @@ def registerpage():
 
         fs_uniquifier = str(uuid.uuid4())
 
-        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), role=3, active=True, fs_uniquifier=fs_uniquifier)
+        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, password=generate_password_hash(password), active=True, fs_uniquifier=fs_uniquifier)
         new_user.roles.append(role)
 
         db.session.add(new_user)

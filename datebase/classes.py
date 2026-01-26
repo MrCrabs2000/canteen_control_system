@@ -149,7 +149,6 @@ class AssociationUserMenus(db.Model):
     date = db.Column(db.Date, nullable=False, default=date.today())
 
 
-
 class AssociationUserRole(db.Model):
     __tablename__ = 'user_roles'
 

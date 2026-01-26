@@ -36,6 +36,7 @@ app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
 app.config['SECURITY_FLASH_MESSAGES'] = False
 app.config['SECURITY_UNAUTHORIZED_VIEW'] = None
 app.config['SECURITY_LOGIN_USER_TEMPLATE'] = 'auth/login.html'
+app.config['SECURITY_PROFILE_URL'] = '/user_profile'
 
 db.init_app(app)
 

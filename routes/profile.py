@@ -42,15 +42,13 @@ def profile_edit():
 
         if not all([login, surname, name, patronymic]):
             return redirect('/profile')
-
+        
         user.login = login
         user.surname = surname
         user.name = name
         user.patronymic = patronymic
-
-        if user.role == 'student':
+        if user.roles[0].name == 'user':
             info = db.session.query(Info).filter_by(user_id=user_id).first()
-
             if info:
                 allergies = request.form.get('allergies')
                 preferences = request.form.get('preferences')
@@ -59,16 +57,7 @@ def profile_edit():
                 if not student_class:
                     return redirect('/profile')
                 
-                info.stud_class = student_class
-
-                try:
-                    info.allergies, info.preferences = allergies, preferences
-                    db.session.commit()
-                except Exception:
-                    db.session.rollback()
-                finally:  
-                    db.session.close()
-                return redirect('/profile')
+                info.stud_class, info.allergies, info.preferences  = student_class, allergies, preferences
 
         try:
             db.session.commit()
@@ -76,5 +65,4 @@ def profile_edit():
             db.session.rollback()
         finally:
             db.session.close()
-
-        return redirect(url_for('main_page.mainpage'))
+            return redirect('/profile')

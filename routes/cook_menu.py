@@ -26,12 +26,12 @@ read_dish = Blueprint('read_dish', __name__, template_folder='templates')
 @login_required
 def read_dish_page():
     if current_user.roles[0].name == 'cook':
-        breakfasts = db.session.query(Dish).filter_by(category='breakfasts').options(joinedload(Dish.products)).all()
-        salads = db.session.query(Dish).filter_by(category='salads').options(joinedload(Dish.products)).all()
-        soups = db.session.query(Dish).filter_by(category='soups').options(joinedload(Dish.products)).all()
-        main_dishes = db.session.query(Dish).filter_by(category='main_dishes').options(joinedload(Dish.products)).all()
-        drinks = db.session.query(Dish).filter_by(category='drinks').options(joinedload(Dish.products)).all()
-        bread = db.session.query(Dish).filter_by(category='bread').options(joinedload(Dish.products)).all()
+        breakfasts = db.session.query(Dish).filter_by(category='Breakfasts').all()
+        salads = db.session.query(Dish).filter_by(category='Salads').all()
+        soups = db.session.query(Dish).filter_by(category='Soups').all()
+        main_dishes = db.session.query(Dish).filter_by(category='Main dishes').all()
+        drinks = db.session.query(Dish).filter_by(category='Drinks').all()
+        bread = db.session.query(Dish).filter_by(category='Bread').all()
 
         db.session.close()
 

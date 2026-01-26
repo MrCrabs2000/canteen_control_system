@@ -12,8 +12,7 @@ register_all_blueprints(app)
 @app.route('/', methods=['GET', 'POST'])
 def inition():
     if current_user.is_authenticated:
-        print(current_user.roles[0].name)
-        if current_user.roles[0].name == 'student':
+        if current_user.roles[0].name == 'user':
             return mainpage()
         elif current_user.roles[0].name == 'cook':
             return cook_menu_page()
