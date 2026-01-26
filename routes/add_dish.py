@@ -53,7 +53,7 @@ def edit_dish_page(id):
             category = request.form.get('category')
 
             if not all([name, category]):
-                return redirect('/edit_dish')
+                return redirect(f'/{id}/edit_dish')
 
             dish.name = name
             dish.category = category

@@ -45,7 +45,7 @@ def edit_product_page(id):
             measurement = request.form.get('measurement')
 
             if not all([name, measurement]):
-                return redirect('/edit_product')
+                return redirect(f'/{id}/edit_product')
 
             product.name = name
             product.measurement = measurement
