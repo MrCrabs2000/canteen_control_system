@@ -1,4 +1,4 @@
-.users-nav__list {
+.management-nav__list {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -7,7 +7,7 @@
     list-style: none;
 }
 
-.users-nav__list li a {
+.management-nav__list li a {
     display: block;
     box-sizing: border-box;
     padding: 6px 12px;
@@ -17,7 +17,7 @@
     text-decoration: none;
 }
 
-.users-nav__list li:hover {
+.management-nav__list li:hover {
     background: var(--bg-dark-hover);
     border-radius: var(--border-radius);
 }

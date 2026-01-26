@@ -7,7 +7,7 @@
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
     <link rel="stylesheet" href="/static/styles/macros/title.css">
-    <link rel="stylesheet" href="/static/styles/management/users_base.css">
+    <link rel="stylesheet" href="/static/styles/management/management_base.css">
 {% endblock %}
 
 
@@ -18,8 +18,8 @@
 
 {% block sidebar %}
     {% call sidebar(header='Меню') %}
-    <nav class="users-nav">
-        <ul class="users-nav__list">
+    <nav class="management-nav">
+        <ul class="management-nav__list">
             <li><a href="/manage/users">Список</a></li>
             <li><a href="/manage/users/add">Добавить</a></li>
         </ul>
