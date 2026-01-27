@@ -84,7 +84,7 @@ class History(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    eat_date = db.Column(db.DateTime, nullable=False)
+    eat_date = db.Column(db.Date, nullable=False)
     type = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
 

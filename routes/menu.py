@@ -22,7 +22,7 @@ def menupage(date_str):
 
     datte = datetime.strptime(date_str, '%Y-%m-%d').date()
     menu = db.session.query(Menu).filter_by(date=datte, type=ttype).first()
-    user_info = db.session.query(Info).filter_by(id=current_user.id).first()
+    user_info = db.session.query(Info).filter_by(user_id=current_user.id).first()
 
     if request.method == 'GET':
         context = {
@@ -36,4 +36,60 @@ def menupage(date_str):
 
         return render_menu_template(**context)
 
+    elif request.method == 'POST':
+        menu_id = request.form.get('menu_id')
+        date_today = datetime.strptime(str(date.today()), '%Y-%m-%d').date()
+        menu2 = db.session.query(Menu).filter_by(id=int(menu_id)).first()
+        flag = True
+
+        context = {
+            'menu': menu,
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'selected_date': datte,
+            'days_back': 7,
+            'days_forward': 7
+        }
+        for dish in menu2.dishes:
+            if dish.amount < 1:
+                flag = False
+                break
+        if flag:
+            if user_info.abonement >= datte:
+
+                history = History(
+                    user_id=current_user.id,
+                    eat_date=date_today,
+                    type=ttype,
+                    cost=0
+                    )
+
+                for dish in menu2.dishes:
+                    dish.amount -= 1
+
+                db.session.add(history)
+                db.session.commit()
+                return render_menu_template(**context)
+
+            elif user_info.balance >= menu2.price:
+                user_info.balance -= menu2.price
+
+                history = History(
+                    user_id=current_user.id,
+                    eat_date=date_today,
+                    type=ttype,
+                    cost=menu2.price
+                )
+
+                for dish in menu2.dishes:
+                    dish.amount -= 1
+
+                db.session.add(history)
+                db.session.commit()
+                return render_menu_template(**context)
+        else:
+            print('Какое-то блюдо кончилось')
+            return render_menu_template(**context)
+
+    return render_menu_template(**context)
 

@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, request, redirect
 from flask_security import login_required, current_user
 from configs.app_configs import db
 from datebase.classes import Review, Dish
-from datetime import date
+from datetime import datetime, date
 
 
 reviews_main = Blueprint('reviews_main', __name__)
@@ -55,7 +55,7 @@ def reviewview(review_id):
         if stars:
             review.stars = stars
 
-        review.date = date.today()
+        review.date = datetime.strptime(str(date.today()), '%Y-%m-%d').date()
         db.session.commit()
 
         return redirect(f'/reviews/{review.id}')
@@ -81,7 +81,7 @@ def reviewnew():
             new_review = Review(
                 content=content,
                 dish_id=dish_id,
-                date=date.today(),
+                date=datetime.strptime(str(date.today()), '%Y-%m-%d').date(),
                 stars=stars,
                 user_id=current_user.id
             )
