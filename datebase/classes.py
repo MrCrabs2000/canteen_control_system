@@ -48,7 +48,7 @@ class Info(db.Model):
     allergies = db.Column(db.JSON)
     abonement = db.Column(db.Date)
     preferences = db.Column(db.JSON)
-    balance = db.Column(db.Integer, nullable='-', default=0)
+    balance = db.Column(db.Integer, nullable=False, default=0)
     stud_class = db.Column(db.String, default='-')
 
     user = db.relationship("User", back_populates="student_info")
