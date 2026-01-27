@@ -76,6 +76,11 @@
                                 
                                 {% endfor %}
                             </ul>
+                            <form method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}" class="buy-form">
+                                цена: {{ menu.price }} руб.
+                                <input type="hidden" name="menu_id" value="{{ menu.id }}">
+                                <button type="submit" class="buy-button">Купить</button>
+                            </form>
                         </a>
                     </div>
                 </div>

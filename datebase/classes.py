@@ -83,8 +83,9 @@ class History(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    breakfast_date = db.Column(db.DateTime, nullable=False)
-    lunch_date = db.Column(db.DateTime, nullable=False)
+    eat_date = db.Column(db.DateTime, nullable=False)
+    type = db.Column(db.String, nullable=False)
+    cost = db.Column(db.Integer, nullable=False)
 
     user = db.relationship('User', back_populates='history')
 
