@@ -1,0 +1,54 @@
+{% extends 'management/menus/menu_base.html' %}
+
+{% from 'macros/labeled_input.html' import labeled_input %}
+{% from 'macros/labeled_select.html' import labeled_select  %}
+
+
+{% block title %}Добавить меню{% endblock %}
+
+
+{% block head %}    
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
+    <link rel="stylesheet" href="/static/styles/management/menu/add_menu.css">
+{% endblock %}
+
+
+{% block top_bar %}
+    {{ super() }}
+    <button id="add-menu-btn" form="add-menu-form" class="add-menu-btn accent">Добавить</button>
+{% endblock %}
+
+
+{% block main %}
+    <form id="add-menu-form" class="add-menu-form" method="post">
+        <div class="form-wrapper">
+
+            {{ labeled_select([('breakfast', 'Завтрак'), ('lunch', 'Обед')], label='Тип', name='type') }}
+
+            {% set categories = [] %}
+
+            {% for dish in dishes %}
+                {% if dish.category not in categories %}
+                    {{ categories.append(dish.category) }}
+                {% endif %}
+            {% endfor %}
+
+            {% for category in categories %}
+
+                {% set dishes_in_category = [] %}
+
+                {% for dish in dishes %}
+                    {% if dish.category == category %}
+                        {{ dishes_in_category.append((dish.name, dish.name)) }}
+                    {% endif %}
+                {% endfor %}
+
+                {{ labeled_select(options=dishes_in_category, name=category, label=category) }}
+    
+            {% endfor %}
+            
+
+        </div>
+    </form>
+{% endblock %}
