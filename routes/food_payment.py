@@ -4,6 +4,7 @@ from configs.app_configs import db
 from datebase.classes import User, Info
 from datetime import datetime, date
 
+
 food_payment_main = Blueprint('food_payment_main', __name__, template_folder='templates')
 
 @food_payment_main.route('/food_payment', methods=['GET', 'POST'])
@@ -25,7 +26,6 @@ edit_balance = Blueprint('edit_balance', __name__, template_folder='templates')
 @login_required
 def edit_balance_page():
 
-    user = db.session.query(User).filter_by(id=current_user.id).first()
     user_info = db.session.query(Info).filter_by(user_id=current_user.id).first()
 
     if request.method == 'GET':

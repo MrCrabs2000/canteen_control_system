@@ -19,13 +19,13 @@ def add_menu_page():
             price = request.form.get('price')
 
             dish_name = []
-            for dishes in ['Breakfasts', 'Salads', 'Main dishes', 'Soups', 'Drinks', 'Bread']:
+            for dishes in ['breakfasts', 'salads', 'soups', 'main_dishes', 'drinks', 'bread']:
                 dish = request.form.get(dishes)
                 if dish:
                     dish_name.append(dish)
 
 
-            if not dish_name:
+            if not all([type, price, dish_name]):
                 db.session.close()
                 return redirect('/add_menu')
 

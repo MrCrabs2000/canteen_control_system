@@ -10,9 +10,4 @@ def mainpage():
         'name': current_user.name,
         'surname': current_user.surname,
     }
-    if current_user.roles[0].name == 'user':
-        return render_template('main_page.html', **context)
-    elif current_user.roles[0].name == 'cook':
-        return render_template('main_page.html', **context)
-    elif current_user.roles[0].name == 'admin':
-        return render_template('main_page.html', **context)
+    return render_template('main_page.html', **context)

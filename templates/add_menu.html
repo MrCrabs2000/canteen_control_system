@@ -5,92 +5,91 @@
     <title>Title</title>
 </head>
 <body>
-  {% block title %}Добавить меню{% endblock %}
+    {% block title %}Добавить меню{% endblock %}
 
-  {% block content %}
+    {% block content %}
     <main>
-      <form method="post">
+        <form method="post">
 
-        <div>
-          <label for="type">Название</label>
-          <select id="type" name="type" required>
-              <option value="" selected></option>
-              <option value="Завтрак">Завтрак</option>
-              <option value="Обед">Обед</option>
-          </select>
-        </div>
+            <div>
+                <label for="type">Название</label>
+                <select id="type" name="type" required>
+                    <option value="" selected></option>
+                    <option value="Завтрак">Завтрак</option>
+                    <option value="Обед">Обед</option>
+                </select>
+            </div>
 
-        <div>
+            <div>
+                <label>Завтраки</label>
+                <select id="breakfasts" name="breakfasts">
+                    <option value="" selected></option>
+                    {% for dish in dishes %}
+                        {% if dish.category == "breakfasts" %}
+                            <option value="{{ dish.name }}">{{ dish.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
 
-           <label>Завтраки</label>
-          <select id="Breakfasts" name="Breakfasts">
-              {% for dish in dishes %}
-                {% if dish.category == "Breakfasts" %}
-                  <option value="" selected></option>
-                  <option value="{{ dish.name }}">{{ dish.name }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
+                <label>Салаты</label>
+                <select id="salads" name="salads">
+                    <option value="" selected></option>
+                    {% for dish in dishes %}
+                        {% if dish.category == "salads" %}
+                            <option value="{{ dish.name }}">{{ dish.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
 
-            <label>Салаты</label>
-          <select id="Salads" name="Salads">
-              {% for dish in dishes %}
-                {% if dish.category == "Salads" %}
-                  <option value="" selected></option>
-                  <option value="{{ dish.name }}">{{ dish.name }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
+                <label>Супы</label>
+                <select id="soups" name="soups">
+                    <option value="" selected></option>
+                    {% for dish in dishes %}
+                        {% if dish.category == "soups" %}
+                            <option value="{{ dish.name }}">{{ dish.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
 
-            <label>Основные блюда</label>
-          <select id="Main dishes" name="Main dishes">
-              {% for dish in dishes %}
-                {% if dish.category == "Main dishes" %}
-                  <option value="" selected></option>
-                  <option value="{{ dish.name }}">{{ dish.name }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
+                <label>Основные блюда</label>
+                <select id="main_dishes" name="main_dishes">
+                    <option value="" selected></option>
+                    {% for dish in dishes %}
+                        {% if dish.category == "main_dishes" %}
+                            <option value="{{ dish.name }}">{{ dish.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
 
-            <label>Супы</label>
-          <select id="Soups" name="Soups">
-              {% for dish in dishes %}
-                {% if dish.category == "Soups" %}
-                  <option value="" selected></option>
-                  <option value="{{ dish.name }}">{{ dish.name }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
+                <label>Напитки</label>
+                <select id="drinks" name="drinks">
+                    <option value="" selected></option>
+                    {% for dish in dishes %}
+                        {% if dish.category == "drinks" %}
+                            <option value="{{ dish.name }}">{{ dish.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
 
-            <label>Напитки</label>
-          <select id="Drinks" name="Drinks">
-              {% for dish in dishes %}
-                {% if dish.category == "Drinks" %}
-                  <option value="" selected></option>
-                  <option value="{{ dish.name }}">{{ dish.name }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
+                <label>Хлеб</label>
+                <select id="bread" name="bread">
+                    <option value="" selected></option>
+                    {% for dish in dishes %}
+                        {% if dish.category == "bread" %}
+                            <option value="{{ dish.name }}">{{ dish.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
 
-          <label>Хлеб</label>
-          <select id="Bread" name="Bread">
-              {% for dish in dishes %}
-                {% if dish.category == "Bread" %}
-                  <option value="" selected></option>
-                  <option value="{{ dish.name }}">{{ dish.name }}</option>
-                {% endif %}
-              {% endfor %}
-          </select>
-        </div>
+            <div>
+                <label for="price">Цена</label>
+                <input id="price" name="price" type="number" min="1" placeholder="Цена" required>
+            </div>
 
-        <div>
-          <label for="price">Цена</label>
-          <input id="price" name="price" type="number" min="1" placeholder="Цена" required>
-        </div>
-
-        <button type="submit">Подтвердить</button>
-      </form>
+            <button type="submit">Подтвердить</button>
+        </form>
     </main>
-  {% endblock %}
+    {% endblock %}
 </body>
 </html>

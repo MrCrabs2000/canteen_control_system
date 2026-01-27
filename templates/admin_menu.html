@@ -12,6 +12,14 @@
             <div>{{ menu.type }}</div>
             {% for dish in menu.dishes %}
                 <div>{{ dish.name }}</div>
+                {% if dish.products %}
+                    <div>Состав:</div>
+                    {% for product in dish.products %}
+                        {{ product.name }}
+                    {% endfor %}
+                {% else %}
+                     <div>Состав не известен</div>
+                {% endif %}
             {% endfor %}
             <div>{{ menu.price }}</div>
         {% endfor %}

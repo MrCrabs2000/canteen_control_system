@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  {% block title %}Добавить продукт{% endblock %}
+
+  {% block content %}
+    <main>
+      <form method="post">
+
+        <div>
+          <label for="name">Название</label>
+          <input id="name" name="name" placeholder="Название" required>
+        </div>
+
+        <div>
+          <label for="measurement">Единицы измерения</label>
+          <select id="measurement" name="measurement" required>
+            <option value="" selected></option>
+            <option value="кг">кг</option>
+            <option value="л">л</option>
+          </select>
+        </div>
+
+        <button type="submit">Подтвердить</button>
+
+      </form>
+    </main>
+
+  {% endblock %}
+</body>
+</html>
