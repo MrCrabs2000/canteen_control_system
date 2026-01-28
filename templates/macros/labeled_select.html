@@ -1,6 +1,10 @@
-{% macro labeled_select(options, name='', label='input', class='labeled-select', required=False) %}
+{% macro labeled_select(options, label, name='', class='labeled-select', required=False) %}
     <div class="{{ class }}">
+
+        {% if label %}
         <label for="{{ name }}">{{ label }}</label>
+        {% endif %}
+
         <select id="{{ name }}" name="{{ name }}"
             {% if required %}required{% endif %}>
 

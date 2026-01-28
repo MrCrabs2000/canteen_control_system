@@ -1,0 +1,16 @@
+.form-wrapper {
+    box-sizing: border-box;
+    height: fit-content;
+    width: 100%;
+    padding: 16px;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.add-menu-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    column-gap: 16px;
+    width: 100%;
+}

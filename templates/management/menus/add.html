@@ -10,7 +10,7 @@
 {% block head %}    
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
-    <link rel="stylesheet" href="/static/styles/management/menu/add_menu.css">
+    <link rel="stylesheet" href="/static/styles/management/menu/add-menu.css">
 {% endblock %}
 
 
@@ -21,34 +21,25 @@
 
 
 {% block main %}
-    <form id="add-menu-form" class="add-menu-form" method="post">
-        <div class="form-wrapper">
+    <div class="form-wrapper">
+        <form id="add-menu-form" class="add-menu-form" method="post">
 
-            {{ labeled_select([('breakfast', 'Завтрак'), ('lunch', 'Обед')], label='Тип', name='type') }}
+            <div class="type">
+                <h2>Тип</h2>
+                {{ labeled_select([('breakfast', 'Завтрак'), ('lunch', 'Обед')], name='type') }}
+            </div>
 
-            {% set categories = [] %}
 
-            {% for dish in dishes %}
-                {% if dish.category not in categories %}
-                    {{ categories.append(dish.category) }}
-                {% endif %}
-            {% endfor %}
 
-            {% for category in categories %}
-
-                {% set dishes_in_category = [] %}
-
-                {% for dish in dishes %}
-                    {% if dish.category == category %}
-                        {{ dishes_in_category.append((dish.name, dish.name)) }}
-                    {% endif %}
+            
+            <div class="composition">
+                <h2>Состав</h2>
+                {% for category in categories.keys() %}
+                {{ labeled_select(options=categories[category], name=category, label=category) }}
                 {% endfor %}
-
-                {{ labeled_select(options=dishes_in_category, name=category, label=category) }}
-    
-            {% endfor %}
+            </div>
             
 
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}
