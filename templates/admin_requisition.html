@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Согласование заявок{% endblock %}
+
+    {% block content %}
+
+    {% if requisitions %}
+        <div>Несогласованные заявки</div>
+        {% set ns = namespace(uncoordination = False) %}
+        {% for requisition in requisitions %}
+            {% if requisition.coordination == 0 %}
+                {% set ns.uncoordination = True %}
+                {% set product = products.get(requisition.product_id) %}
+
+                {% if product %}
+                    <div>{{ requisition.date.strftime('%Y-%m-%d %H:%M') }}</div>
+                    <div>{{ product.name }}</div>
+                    <div>{{ requisition.amount }}</div>
+                    <div>{{ product.measurement }}</div>
+                {% else %}
+                    <div>Ошибка в заявке</div>
+                {% endif %}
+
+                <main>
+                    <form method="post">
+
+                    <input type="hidden" name="requisition_id" value="{{ requisition.id }}">
+
+                    <div>
+                        <label for="coordination">Согласование</label>
+                        <select id="coordination" name="coordination" required>
+                            <option value="" selected></option>
+                            <option value="1">Подтвердить</option>
+                            <option value="2">Отклонить</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Согласовать</button>
+
+                    </form>
+                </main>
+
+            {% endif %}
+        {% endfor %}
+        {% if not ns.uncoordination %}
+            <div>Заявок нет</div>
+        {% endif %}
+
+        <div>Согласованные заявки</div>
+        {% set ns = namespace(coordination = False) %}
+        {% for requisition in requisitions %}
+            {% if requisition.coordination == 1 or requisition.coordination == 2 %}
+                {% set ns.coordination = True %}
+                {% set product = products.get(requisition.product_id) %}
+
+                {% if product %}
+                    <div>{{ requisition.date.strftime('%Y-%m-%d %H:%M') }}</div>
+                    <div>{{ product.name }}</div>
+                    <div>{{ requisition.amount }}</div>
+                    <div>{{ product.measurement }}</div>
+                    {% if requisition.coordination == 1 %}
+                        <div>Подтверждена</div>
+                    {% elif requisition.coordination == 2 %}
+                        <div>Отклонена</div>
+                    {% endif %}
+                {% else %}
+                    <div>Ошибка в заявке</div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if not ns.coordination %}
+            <div>Согласованных заявок нет</div>
+        {% endif %}
+
+    {% else %}
+        <div>Заявок нет</div>
+    {% endif %}
+
+    <button onclick="document.location.href='/admin_menu'">Назад</button>
+
+    {% endblock %}
+</body>
+</html>

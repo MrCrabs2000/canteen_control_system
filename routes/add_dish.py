@@ -18,7 +18,9 @@ def add_dish_page():
             name = request.form.get('name')
             category = request.form.get('category')
 
-            if not name or not category:
+            product = request.form.getlist('ingredients')
+
+            if not all([name, category, product]):
                 return render_template('add_dish.html')
 
             other_dish = db.session.query(Dish).filter_by(name=name).first()
@@ -48,7 +50,7 @@ def edit_dish_page(id):
             category = request.form.get('category')
 
             if not all([name, category]):
-                return redirect('/edit_dish')
+                return redirect(f'/{id}/edit_dish')
 
             dish.name = name
             dish.category = category

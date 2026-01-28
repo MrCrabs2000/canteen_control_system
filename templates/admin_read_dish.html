@@ -14,46 +14,99 @@
             {% if breakfasts %}
                 {% for dish in breakfasts %}
                     <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for product in dish.products %}
+                            {{ product.name }}
+                        {% endfor %}
+                    {% else %}
+                        <div>Состав не известен</div>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
             {% endif %}
+
         <div>Салаты</div>
             {% if salads %}
                 {% for dish in salads %}
                     <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for product in dish.products %}
+                            {{ product.name }}
+                        {% endfor %}
+                    {% else %}
+                        <div>Состав не известен</div>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
             {% endif %}
+
         <div>Супы</div>
             {% if soups %}
                 {% for dish in soups %}
                     <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for product in dish.products %}
+                            {{ product.name }}
+                        {% endfor %}
+                    {% else %}
+                        <div>Состав не известен</div>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
             {% endif %}
+
         <div>Основные блюда</div>
             {% if main_dishes %}
                 {% for dish in main_dishes %}
                     <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for product in dish.products %}
+                            {{ product.name }}
+                        {% endfor %}
+                    {% else %}
+                        <div>Состав не известен</div>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
             {% endif %}
+
         <div>Напитки</div>
             {% if drinks %}
                 {% for dish in drinks %}
                     <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for product in dish.products %}
+                            {{ product.name }}
+                        {% endfor %}
+                    {% else %}
+                        <div>Состав не известен</div>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
             {% endif %}
+
         <div>Хлеб</div>
             {% if bread %}
                 {% for dish in bread %}
                     <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for product in dish.products %}
+                            {{ product.name }}
+                        {% endfor %}
+                    {% else %}
+                        <div>Состав не известен</div>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
