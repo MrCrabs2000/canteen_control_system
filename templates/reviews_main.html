@@ -11,7 +11,8 @@
         {% for review in reviews %}
             <li>
                 <h3><a href="/reviews/{{ review.id }}">Отзыв #{{ review.id }}</a></h3>
-                <p>{{ review.date }}</p>
+                <p>{{ review.date.strftime('%d.%m.%Y') }}</p>
+                <p>{{ review.dish.name }}</p>
                 <p>{{ review.stars }} звезд</p>
                 <p>{{ review.content }}</p>
             </li>

@@ -5,9 +5,15 @@ from routes.routes import register_all_blueprints
 from routes.admin_menu import admin_menu_page
 from routes.cook_menu import cook_menu_page
 from flask_security import current_user
+from flask_migrate import Migrate
+from datebase.classes import db
+from utils.migrate import update_database
 
 
+migrate = Migrate(app, db)
 register_all_blueprints(app)
+update_database(app)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def inition():

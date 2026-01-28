@@ -24,7 +24,14 @@
 
         <div>
             <label>Оценка (звезды):</label>
-            <input type="number" name="stars" min="1" max="5" required>
+            <select name="stars" required>
+                <option value="">Выберите оценку</option>
+                <option value="1">1 звезда</option>
+                <option value="2">2 звезды</option>
+                <option value="3">3 звезды</option>
+                <option value="4">4 звезды</option>
+                <option value="5">5 звёзд</option>
+            </select>
         </div>
 
         <button type="submit">Создать отзыв</button>
