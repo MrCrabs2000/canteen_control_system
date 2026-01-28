@@ -15,17 +15,21 @@
     <div class="menus-grid">
         {% for menu in menus %}
             <div class="menu">
-                <a href="manage/menus/{{ menu.id }}" class="menu__link">
+                <a href="menus/{{ menu.id }}" class="menu__link">
 
-                    <h2 class="menu__header">{{ menu.date.strftime('%-d.%m.%Y') }} | 
-                        <span class="menu__type">
-                            {% if menu.type == 'breakfast' %}
-                                Завтрак
-                            {% elif menu.type == 'lunch' %}
-                                Обед
-                            {% endif %}
-                        </span>
-                    </h2>
+                    <div class="menu__top">
+                        <h2 class="menu__header">{{ menu.date.strftime('%-d.%m.%Y') }} | 
+                            <span class="menu__type">
+                                {% if menu.type == 'breakfast' %}
+                                    Завтрак
+                                {% elif menu.type == 'lunch' %}
+                                    Обед
+                                {% endif %}
+                            </span>
+                        </h2>
+    
+                        <button class="menu__delete-btn danger"><img style="height: 1.25em;" src='/static/images/buttons/delete_button.svg'></button>
+                    </div>
     
                     <ul class="menu__info">
                         <li>{{ menu.price }}₽</li>
@@ -37,4 +41,26 @@
             </div>
         {% endfor %}
     </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+        const menus = document.querySelectorAll('.menu');
+
+        menus.forEach(user => {
+            const deleteButton = user.querySelector('.menu__delete-btn');
+            const id = user.dataset.id;
+            
+            deleteButton.addEventListener('click', function() {
+                event.preventDefault();
+                isDeleting = confirm('Удалить меню?');
+                if (isDeleting) {
+                    
+                }
+            });
+        });
+
+
+    </script>
 {% endblock %}

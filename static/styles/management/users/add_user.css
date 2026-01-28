@@ -1,14 +1,12 @@
-.add-user-btn {
-    font-size: 1.2rem;
-}
-
 .add-user-form {
     width: 100%;
     height: fit-content;
+    max-height: 100%;
     padding: 12px;
     background: var(--bg);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    overflow-y: auto;
 }
 
 .form-wrapper {

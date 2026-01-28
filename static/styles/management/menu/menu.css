@@ -2,14 +2,16 @@
     display: grid;
     width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 84px;
+    grid-auto-rows: 100px;
     gap: 8px;
+    overflow-y: auto;
 }
 
 .menu {
     background: var(--bg);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    
 }
 
 .menu__link {
@@ -19,9 +21,28 @@
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding: 8px;
+    padding: 10px;
     text-decoration: none;
     color: var(--text);
+    border: solid 2px transparent;
+    border-radius: var(--border-radius);
+    transition: border 0.1s ease-in-out;
+
+    &:hover {
+        border: solid 2px var(--primary);
+    }
+}
+
+.menu__top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu__delete-btn {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 6px 6px;
 }
 
 .menu__header {
