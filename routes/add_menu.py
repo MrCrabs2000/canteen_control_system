@@ -2,8 +2,7 @@ from flask import Blueprint, render_template, request, redirect
 from flask_security import login_required, current_user, roles_accepted
 from configs.app_configs import db
 from datebase.classes import Menu, Dish
-from datetime import datetime
-
+from datetime import datetime, date
 
 add_menu = Blueprint('add_menu', __name__, template_folder='templates')
 @add_menu.route('/add_menu', methods=['GET', 'POST'])
@@ -18,9 +17,9 @@ def add_menu_page():
     elif request.method == 'POST':
         type = request.form.get('type')
         price = request.form.get('price')
-        date = request.form.get('date')
+        str_date = request.form.get('date')
 
-        date1 = datetime.strptime(date, '%Y-%m-%d').date()
+        date1 = datetime.strptime(str_date, '%Y-%m-%d').date()
 
         dish_name = []
         for dishes in ['breakfasts', 'salads', 'soups', 'main_dishes', 'drinks', 'bread']:
@@ -29,7 +28,7 @@ def add_menu_page():
                 dish_name.append(dish)
 
 
-        if not all([type, price, dish_name]):
+        if not all([type, price, dish_name]) or date1 < date.today() or Menu.query.filter_by(type=type, date=date1).first():
             db.session.close()
             return redirect('/add_menu')
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Список продуктов{% endblock title %}
+
+    {% block content %}
+
+        {% for product in products %}
+            <div>{{ product.name }}</div>
+            <div>{{ product.amount }}</div>
+            <div>{{ product.measurement }}</div>
+        {% endfor %}
+
+    {% endblock content%}
+
+    <button onclick="document.location.href='/admin_menu'">Назад</button>
+</body>
+</html>

@@ -26,7 +26,10 @@ def admin_requisition_page():
             return redirect('/admin_requisition')
 
         requisition = db.session.query(Requisition).filter_by(id=requisition_id).first()
+        product = db.session.query(Product).filter_by(id=requisition.product_id).first()
         if requisition:
+            if coordination == "1":
+                product.amount += requisition.amount
             requisition.coordination = coordination
             try:
                 db.session.commit()

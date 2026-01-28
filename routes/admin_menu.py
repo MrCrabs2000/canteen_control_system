@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_security import login_required, current_user, roles_accepted
 from sqlalchemy.orm import joinedload
-from datebase.classes import db, Menu, Dish, User
+from datebase.classes import db, Menu, Dish, Product, User
 
 
 admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
@@ -10,7 +10,7 @@ admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
 @roles_accepted('admin')
 def admin_menu_page():
     try:
-        menu = db.session.query(Menu).all()
+        menu = db.session.query(Menu).order_by(Menu.date.asc()).all()
         context = {
             'menus': menu,
         }
@@ -37,6 +37,23 @@ def admin_read_dish_page():
 
     return render_template('admin_read_dish.html', breakfasts=breakfasts, salads=salads, soups=soups,
                                 main_dishes=main_dishes, drinks=drinks, bread=bread)
+
+
+
+admin_read_product = Blueprint('admin_read_product', __name__, template_folder='templates')
+@admin_read_product.route('/admin_read_product')
+@login_required
+@roles_accepted('admin')
+def admin_read_product_page():
+    product = db.session.query(Product).all()
+    try:
+        context = {
+            'products': product,
+        }
+        return render_template('admin_read_product.html', **context)
+
+    finally:
+        db.session.close()
 
 
 

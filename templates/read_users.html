@@ -44,10 +44,10 @@
         {% endif %}
 
         <div>Ученики</div>
-        {% set ns = namespace(student = False) %}
+        {% set ns = namespace(user = False) %}
         {% for user in users %}
             {% if user.roles[0].name == 'user' %}
-                {% set ns.student = True %}
+                {% set ns.user = True %}
                 <div>{{ user.login }}</div>
                 <div>{{ user.surname }}</div>
                 <div>{{ user.name }}</div>
@@ -56,7 +56,7 @@
                 <button onclick="document.location.href='/{{ user.id }}/delete_user'">Удалить пользователя</button>
             {% endif %}
         {% endfor %}
-        {% if not ns.student %}
+        {% if not ns.user %}
             <div>Учеников нет</div>
         {% endif %}
     {% else %}
