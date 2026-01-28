@@ -1,39 +1,39 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_security import login_required, current_user
+from flask_security import login_required, current_user, roles_accepted
 from datebase.classes import Product, Requisition, db
 
 
 admin_requisition = Blueprint('admin_requisition', __name__, template_folder='templates')
 @admin_requisition.route('/admin_requisition', methods=['GET', 'POST'])
 @login_required
+@roles_accepted('admin')
 def admin_requisition_page():
-    if current_user.roles[0].name == 'admin':
-        requisitions = db.session.query(Requisition).order_by(Requisition.date.desc()).all()
-        if request.method == 'GET':
-            products = {}
-            for requisition in requisitions:
-                product = db.session.query(Product).filter_by(id=requisition.product_id).first()
-                products[requisition.product_id] = product
+    requisitions = db.session.query(Requisition).order_by(Requisition.date.desc()).all()
+    if request.method == 'GET':
+        products = {}
+        for requisition in requisitions:
+            product = db.session.query(Product).filter_by(id=requisition.product_id).first()
+            products[requisition.product_id] = product
+        db.session.close()
+        return render_template('admin_requisition.html', products=products, requisitions=requisitions)
+
+    elif request.method == 'POST':
+        coordination = request.form.get('coordination')
+        requisition_id = request.form.get('requisition_id')
+
+        if not all([coordination, requisition_id]):
             db.session.close()
-            return render_template('admin_requisition.html', products=products, requisitions=requisitions)
+            return redirect('/admin_requisition')
 
-        elif request.method == 'POST':
-            coordination = request.form.get('coordination')
-            requisition_id = request.form.get('requisition_id')
+        requisition = db.session.query(Requisition).filter_by(id=requisition_id).first()
+        if requisition:
+            requisition.coordination = coordination
+            try:
+                db.session.commit()
+                return redirect('/admin_menu')
 
-            if not all([coordination, requisition_id]):
+            finally:
                 db.session.close()
-                return redirect('/admin_requisition')
-
-            requisition = db.session.query(Requisition).filter_by(id=requisition_id).first()
-            if requisition:
-                requisition.coordination = coordination
-                try:
-                    db.session.commit()
-                    return redirect('/admin_menu')
-
-                finally:
-                    db.session.close()
-            else:
-                db.session.close()
-                return redirect('/admin_requisition')
+        else:
+            db.session.close()
+            return redirect('/admin_requisition')
