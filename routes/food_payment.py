@@ -1,16 +1,18 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_login import login_required, current_user
-from datebase import db_session
-from datebase.classes import User, Info
+from flask_security import login_required, current_user, roles_accepted
+from configs.app_configs import db
+from datebase.classes import Info
 from datetime import datetime, date
 
+
 food_payment_main = Blueprint('food_payment_main', __name__, template_folder='templates')
+
 @food_payment_main.route('/food_payment', methods=['GET', 'POST'])
 @login_required
+@roles_accepted('user')
 def food_payment_main_page():
-    session_db = db_session.create_session()
 
-    user_info = session_db.query(Info).filter_by(user_id=current_user.id).first()
+    user_info = db.session.query(Info).filter_by(user_id=current_user.id).first()
 
     context = {
         'balance': user_info.balance
@@ -20,13 +22,13 @@ def food_payment_main_page():
 
 
 edit_balance = Blueprint('edit_balance', __name__, template_folder='templates')
+
 @edit_balance.route("/edit_balance", methods=['GET', 'POST'])
 @login_required
+@roles_accepted('user')
 def edit_balance_page():
-    session_db = db_session.create_session()
 
-    user = session_db.query(User).filter_by(id=current_user.id).first()
-    user_info = session_db.query(Info).filter_by(user_id=current_user.id).first()
+    user_info = db.session.query(Info).filter_by(user_id=current_user.id).first()
 
     if request.method == 'GET':
         context = {
@@ -40,8 +42,8 @@ def edit_balance_page():
 
         user_info.balance += int(balance_edit)
 
-        session_db.commit()
-        session_db.close()
+        db.session.commit()
+        db.session.close()
 
         return redirect("/food_payment")
 
@@ -51,10 +53,10 @@ def edit_balance_page():
 edit_abonement = Blueprint('edit_abonement', __name__, template_folder='templates')
 @edit_abonement.route('/edit_aboniment', methods=['GET', 'POST'])
 @login_required
+@roles_accepted('user')
 def edit_abonement_page():
-    session_db = db_session.create_session()
 
-    user_info = session_db.query(Info).filter_by(user_id=current_user.id).first()
+    user_info = db.session.query(Info).filter_by(user_id=current_user.id).first()
 
     if request.method == 'GET':
         context = {
@@ -78,7 +80,7 @@ def edit_abonement_page():
             if user_info.balance >= cost:
                 user_info.balance -= cost
                 user_info.abonement = date2
-                session_db.commit()
+                db.session.commit()
 
             else:
                 print("Недостаточно средств")

@@ -5,32 +5,42 @@
     <title>Title</title>
 </head>
 <body>
-  {% block title %}Добавить блюдо{% endblock %}
+    {% block title %}Добавить блюдо{% endblock %}
 
-  {% block content %}
+    {% block content %}
     <main>
-      <form method="post">
+        <form method="post">
 
-        <div>
-          <label for="name">Название</label>
-          <input id="name" name="name" placeholder="Название" required>
-        </div>
+            <div>
+                <label for="name">Название</label>
+                <input id="name" name="name" placeholder="Название" required>
+            </div>
 
-        <div>
-          <label>Категория</label>
-          <select id="category" name="category" required>
-                            <option value="Breakfasts">Завтраки</option>
-                            <option value="Salads">Салаты</option>
-                            <option value="Soups">Супы</option>
-                            <option value="Main dishes">Основные блюда</option>
-                            <option value="Drinks">Напитки</option>
-                            <option value="Bread">Хлеб</option>
-          </select>
-        </div>
+            <div>
+                <label for="category">Категория</label>
+                <select id="category" name="category" required>
+                    <option value=""></option>
+                    <option value="breakfasts">Завтраки</option>
+                    <option value="salads">Салаты</option>
+                    <option value="soups">Супы</option>
+                    <option value="main_dishes">Основные блюда</option>
+                    <option value="drinks">Напитки</option>
+                    <option value="bread">Хлеб</option>
+                </select>
+            </div>
 
-        <button type="submit">Подтвердить</button>
+            <div>
+                <label for="ingredients">Состав</label>
+                <select id="ingredients" name="ingredients" multiple required>
+                    <option value=""></option>
+                    {% for product in products %}
+                        <option value="{{ product.name }}">{{ product.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit">Подтвердить</button>
 
-      </form>
+        </form>
     </main>
 
   {% endblock %}

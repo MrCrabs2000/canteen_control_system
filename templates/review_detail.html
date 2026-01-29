@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Отзыв {{ review.id }}</title>
+</head>
+<body>
+    <h1>Отзыв {{ review.id }}</h1>
+
+    <div>
+        <p>{{ review.date.strftime('%d.%m.%Y') }}</p>
+        <p>{{ review.stars }} звёзд</p>
+        <p>{{ review.content }}</p>
+    </div>
+
+    <h2>Редактировать отзыв</h2>
+    <form method="POST" action="/reviews/{{ review.id }}">
+        <div>
+            <label>Блюдо:</label>
+            <select name="dish_id">
+                {% for dish in dishes %}
+                <option value="{{ dish.id }}" {% if dish.id == review.dish_id %}selected{% endif %}>
+                    {{ dish.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Оценка (звёзды):</label>
+            <input type="number" name="stars" min="1" max="5" value="{{ review.stars }}">
+        </div>
+
+        <div>
+            <label>Текст отзыва:</label>
+            <textarea name="content" rows="4" cols="50">{{ review.content }}</textarea>
+        </div>
+
+        <button type="submit">Изменить отзыв</button>
+    </form>
+
+    <h2>Удалить отзыв</h2>
+    <form method="POST" action="/reviews/{{ review.id }}">
+        <input type="hidden" name="methodd" value="DELETE">
+        <button type="submit">Удалить отзыв</button>
+    </form>
+
+    <a href="/reviews">Назад к списку отзывов</a>
+</body>
+</html>

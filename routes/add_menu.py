@@ -1,42 +1,43 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_login import login_required, current_user
-from datebase import db_session
+from flask_security import login_required, current_user, roles_accepted
+from configs.app_configs import db
 from datebase.classes import Menu, Dish
-
+from datetime import datetime, date
 
 add_menu = Blueprint('add_menu', __name__, template_folder='templates')
 @add_menu.route('/add_menu', methods=['GET', 'POST'])
 @login_required
+@roles_accepted('admin')
 def add_menu_page():
-    if current_user.role == 'admin':
-        if request.method == 'GET':
-            session_db = db_session.create_session()
-            dishes = session_db.query(Dish).all()
-            session_db.close()
-            return render_template('add_menu.html', dishes=dishes)
+    if request.method == 'GET':
+        dishes = db.session.query(Dish).all()
+        db.session.close()
+        return render_template('add_menu.html', dishes=dishes)
 
-        elif request.method == 'POST':
-            type = request.form.get('type')
-            price = request.form.get('price')
+    elif request.method == 'POST':
+        type = request.form.get('type')
+        price = request.form.get('price')
+        str_date = request.form.get('date')
 
-            dish_name = []
-            for dishes in ['Breakfasts', 'Salads', 'Main dishes', 'Soups', 'Drinks', 'Bread']:
-                dish = request.form.get(dishes)
-                if dish:
-                    dish_name.append(dish)
+        date1 = datetime.strptime(str_date, '%Y-%m-%d').date()
 
-            session_db = db_session.create_session()
+        dish_name = []
+        for dishes in ['breakfasts', 'salads', 'soups', 'main_dishes', 'drinks', 'bread']:
+            dish = request.form.get(dishes)
+            if dish:
+                dish_name.append(dish)
 
-            if not dish_name:
-                session_db.close()
-                return redirect('/add_menu')
 
-            try:
-                dish1 = session_db.query(Dish).filter(Dish.name.in_(dish_name)).all()
-                new_menu = Menu(type=type, dishes=dish1, price=price)
-                session_db.add(new_menu)
-                session_db.commit()
-                return redirect('/admin_menu')
+        if not all([type, price, dish_name]) or date1 < date.today() or Menu.query.filter_by(type=type, date=date1).first():
+            db.session.close()
+            return redirect('/add_menu')
 
-            finally:
-                session_db.close()
+        try:
+            dish1 = db.session.query(Dish).filter(Dish.name.in_(dish_name)).all()
+            new_menu = Menu(type=type, dishes=dish1, price=price, date=date1)
+            db.session.add(new_menu)
+            db.session.commit()
+            return redirect('/admin_menu')
+
+        finally:
+            db.session.close()
