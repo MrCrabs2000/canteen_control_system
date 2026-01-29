@@ -16,10 +16,6 @@ def history_view():
         'history_list': histtory[::-1]
     }
 
-    if request.method == 'GET':
-        db.session.close()
-        return render_template('history.html', **context)
-
-    if request.method == 'POST':
-        return render_template('history.html', **context)
+    db.session.close()
+    return render_template('history.html', **context)
 
