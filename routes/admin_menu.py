@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template
-from flask_security import login_required, current_user, roles_accepted
+from flask_security import current_user, roles_accepted
 from sqlalchemy.orm import joinedload
 from datebase.classes import db, Menu, Dish, Product, User
+from configs.app_configs import login_required
 
 
 admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')

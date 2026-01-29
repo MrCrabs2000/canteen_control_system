@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from flask_security import login_required, current_user
+from flask import Blueprint, render_template, request, redirect
+from flask_security import current_user
 from configs.app_configs import db
 from datebase.classes import Info, User
 from json import loads
+from configs.app_configs import login_required
 
 
 profile_page = Blueprint('profile_page', __name__, template_folder='templates')

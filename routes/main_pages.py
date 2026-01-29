@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
-from flask_security import login_required, current_user
+from flask_security import current_user
+from configs.app_configs import login_required
 
 
 main_page = Blueprint('main_page', __name__, template_folder='templates')

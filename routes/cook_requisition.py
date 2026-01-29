@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_security import login_required, current_user, roles_accepted
+from flask_security import roles_accepted
 from datebase.classes import Product, Requisition, db
+from configs.app_configs import login_required
 
 
 cook_requisition = Blueprint('cook_requisition', __name__, template_folder='templates')

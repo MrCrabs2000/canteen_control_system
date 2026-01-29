@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_security import login_required, current_user, roles_accepted
+from flask_security import login_required, roles_accepted
 from datebase.classes import Product, db
+from configs.app_configs import login_required
 
 
 add_product = Blueprint('add_product', __name__, template_folder='templates')

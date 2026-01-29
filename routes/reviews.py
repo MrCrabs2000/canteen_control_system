@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, render_template, request, redirect
-from flask_security import login_required, current_user, roles_accepted
-from configs.app_configs import db
+from flask_security import current_user, roles_accepted
+from configs.app_configs import db, login_required
 from datebase.classes import Review, Dish
 from datetime import datetime, date
 
