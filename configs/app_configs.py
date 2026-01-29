@@ -5,6 +5,7 @@ import uuid
 import os
 from werkzeug.security import generate_password_hash
 from utils.generation_password import generate_password_for_user
+from flask_migrate import upgrade
 
 
 app = Flask(__name__)
@@ -46,6 +47,7 @@ db.init_app(app)
 def start_db():
     with app.app_context():
         db.create_all()
+        upgrade()
         if not Role.query.first():
             admin_role = Role(name='admin')
             user_role = Role(name='user')
@@ -85,9 +87,6 @@ def start_db():
                 admin_role = Role(name='admin')
                 db.session.add(admin_role)
                 main_admin.roles.append(admin_role)
-                
-        elif admin_role and admin_role not in admin.roles:
-            main_admin.roles.append(admin_role)
 
         db.session.commit()
     except Exception:

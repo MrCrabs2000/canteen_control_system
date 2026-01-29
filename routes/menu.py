@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, render_template
-from flask_security import login_required, current_user
+from flask_security import login_required, current_user, roles_accepted
 from datetime import datetime, date
 from configs.app_configs import db
 from datebase.classes import Menu, Info, History
@@ -9,6 +9,7 @@ from utils.templates_rendering.menu import render_menu_template
 menu_redirect = Blueprint('menu_redirect', __name__)
 @menu_redirect.route('/menu')
 @login_required
+@roles_accepted('user')
 def menupage():
     return redirect(f'/menu/{date.today()}')
 
@@ -17,6 +18,7 @@ menu_page = Blueprint('menu_page', __name__)
 
 @menu_page.route('/menu/<date_str>', methods=['GET', 'POST'])
 @login_required
+@roles_accepted('user')
 def menupage(date_str):
     ttype = request.args.get('type', 'breakfast')
 

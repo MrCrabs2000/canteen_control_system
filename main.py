@@ -9,10 +9,12 @@ from flask_migrate import Migrate
 from datebase.classes import db
 from utils.migrate import update_database
 
-
-migrate = Migrate(app, db)
 register_all_blueprints(app)
-update_database(app)
+try:
+    update_database(app)
+except Exception as e:
+    print(f'У нас ошибка в функции поймана:{e}')
+
 
 
 @app.route('/', methods=['GET', 'POST'])
