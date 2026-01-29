@@ -13,6 +13,7 @@ from .add_user import add_user, edit_user, delete_user
 from .cook_requisition import cook_requisition
 from .admin_requisition import admin_requisition
 from .dish import dish_view
+from .history import history
 
 
 def register_all_blueprints(app):
@@ -51,3 +52,4 @@ def register_all_blueprints(app):
     app.register_blueprint(cook_requisition)
     app.register_blueprint(admin_requisition)
     app.register_blueprint(dish_view)
+    app.register_blueprint(history)

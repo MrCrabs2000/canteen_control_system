@@ -34,7 +34,7 @@ def edit_balance_page():
         context = {
             'balance': user_info.balance
         }
-
+        db.session.close()
         return render_template('edit_balance.html', **context)
 
     if request.method == 'POST':
@@ -44,9 +44,9 @@ def edit_balance_page():
 
         db.session.commit()
         db.session.close()
-
+        db.session.close()
         return redirect("/food_payment")
-
+    db.session.close()
     return render_template('edit_balance.html')
 
 
@@ -63,7 +63,7 @@ def edit_abonement_page():
             'balance': user_info.balance,
             'today': date.today()
         }
-
+        db.session.close()
         return render_template('edit_abonement.html', **context)
 
     if request.method == 'POST':
@@ -80,11 +80,20 @@ def edit_abonement_page():
             if user_info.balance >= cost:
                 user_info.balance -= cost
                 user_info.abonement = date2
-                db.session.commit()
+
+                try:
+                    db.session.commit()
+                except Exception as e:
+                    print(e)
+                    db.session.rollback()
+                finally:
+                    db.session.close()
 
             else:
                 print("Недостаточно средств")
+                db.session.close()
 
         return redirect("/food_payment")
 
+    db.session.close()
     return render_template('edit_abonement.html')

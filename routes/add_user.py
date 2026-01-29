@@ -28,6 +28,7 @@ def add_user_page():
             role = [db.session.query(Role).filter_by(name='cook').first()]
         elif role == 'admin':
             role = [db.session.query(Role).filter_by(name='admin').first()]
+
         new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, roles=role,
                             password=generate_password_hash(password), active=True, fs_uniquifier=fs_uniquifier)
 

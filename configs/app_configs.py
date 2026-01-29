@@ -43,6 +43,7 @@ db.init_app(app)
 
 
 
+
 @app.before_request
 def start_db():
     with app.app_context():
@@ -55,7 +56,6 @@ def start_db():
             db.session.add(user_role)
             db.session.add(cook_role)
             db.session.commit()
-        
     admin_role = Role.query.filter_by(name='admin').first()
 
     try:
@@ -86,9 +86,6 @@ def start_db():
                 admin_role = Role(name='admin')
                 db.session.add(admin_role)
                 main_admin.roles.append(admin_role)
-                
-        elif admin_role and admin_role not in admin.roles:
-            main_admin.roles.append(admin_role)
 
         db.session.commit()
     except Exception:

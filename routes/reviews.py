@@ -42,7 +42,14 @@ def reviewview(review_id):
     elif request.method == 'POST':
         if request.form.get('methodd') == 'DELETE':
             db.session.delete(review)
-            db.session.commit()
+
+            try:
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+            finally:
+                db.session.close()
 
             return redirect('/reviews')
 
@@ -58,7 +65,14 @@ def reviewview(review_id):
             review.stars = stars
 
         review.date = datetime.strptime(str(date.today()), '%Y-%m-%d').date()
-        db.session.commit()
+
+        try:
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+        finally:
+            db.session.close()
 
         return redirect(f'/reviews/{review.id}')
 
@@ -73,6 +87,7 @@ def reviewnew():
     dishes = db.session.query(Dish).all()
 
     if request.method == 'GET':
+        db.session.close()
         return render_template('review_create.html', dishes=dishes)
 
     elif request.method == 'POST':
@@ -90,7 +105,14 @@ def reviewnew():
             )
 
             db.session.add(new_review)
-            db.session.commit()
+
+            try:
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+            finally:
+                db.session.close()
 
             return redirect(f'/reviews')
         else:

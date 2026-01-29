@@ -101,6 +101,7 @@ class History(db.Model):
     eat_date = db.Column(db.Date, nullable=False)
     type = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.Boolean, nullable=False, default=False)
 
     user = db.relationship('User', back_populates='history')
 
