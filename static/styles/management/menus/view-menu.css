@@ -30,15 +30,18 @@
 
 .menu__info {
     flex-grow: 1;
-    padding-top: 24px;
     overflow: auto;
 }
 
-.dishes__header {
+.menu__info > section {
+    margin-top: 24px;
+}
+
+.menu__info h3 {
     margin: 0;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .dishes__grid {

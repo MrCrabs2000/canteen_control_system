@@ -9,7 +9,9 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/management/menus/view-menu.css">
+    <link rel="stylesheet" href="/static/styles/management/menus/menu-form.css">
     <link rel="stylesheet" href="/static/styles/macros/tiles/dish_tile.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
 {% endblock %}
 
 
@@ -35,6 +37,12 @@
         </div>
 
         <div class="menu__info">
+
+            <section class="menu__editing">
+                <h3 class="dishes__header">Изменение...</h3>
+                {% include 'management/menus/menu_form.html' %}
+            </section>
+
 
             <section class="dishes">
     

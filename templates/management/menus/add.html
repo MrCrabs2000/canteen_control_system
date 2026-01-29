@@ -11,7 +11,7 @@
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/macros/labeled-input.css">
     <link rel="stylesheet" href="/static/styles/management/adding-styles.css">
-    <link rel="stylesheet" href="/static/styles/management/menu/add-menu.css">
+    <link rel="stylesheet" href="/static/styles/management/menus/menu-form.css">
 {% endblock %}
 
 
@@ -22,31 +22,5 @@
 
 
 {% block main %}
-    <div class="form-wrapper">
-        <form id="add-menu-form" class="add-menu-form" method="post">
-
-            <section class="form__section">
-                <h2 class="section__header">Основное</h2>
-
-                <div class="section__content">
-                    {{ labeled_select([('breakfast', 'Завтрак'), ('lunch', 'Обед')], label='Тип', name='type', required=True) }}
-                    {{ labeled_input(name='date', label='Дата', type='date') }}
-                </div>
-
-            </section>
-
-
-            <section class="form__section">
-                <h2 class="section__header">Состав</h2>
-
-                <div class="section__content">
-                    {% for category in categories.keys() %}
-                    {{ labeled_select(options=[('', '...')] + categories[category], name=category, label=category) }}
-                    {% endfor %}
-                </div>
-            </section>
-            
-
-        </form>
-    </div>
+    {% include 'management/menus/menu_form.html' %}
 {% endblock %}
