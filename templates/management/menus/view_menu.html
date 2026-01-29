@@ -8,14 +8,14 @@
 
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="/static/styles/management/menu/view-menu.css">
+    <link rel="stylesheet" href="/static/styles/management/menus/view-menu.css">
     <link rel="stylesheet" href="/static/styles/macros/tiles/dish_tile.css">
 {% endblock %}
 
 
 {% block main %}
     <div class="menu">
-        <div class="menu__top-bar">
+        <div class="menu__top-bar" style="z-index: 2;">
             <h2 class="menu__header">{{ menu.date | date_Y_M_d }} | 
                 <span class="menu__type">
                     {% if menu.type == 'breakfast' %}
