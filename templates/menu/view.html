@@ -90,8 +90,7 @@
                 {% set type = menu.type %}
 
                 <li class="day {{ selected }}" data-day="{{ date }}">
-                    <a class="day__link" href="/menu/{{ date }}?type={{ type }}">{{ date.strftime(date_format) }}{{ today }}</a>
-
+                    <a class="day__link" href="/menu/{{ date }}?type={{ type }}">{{ date | date_fM_d }}{{ today }}</a>
                 </li>
             {% endfor %}
         
