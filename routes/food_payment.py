@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import login_required, current_user, roles_accepted
 from configs.app_configs import db
-from datebase.classes import User, Info
+from datebase.classes import Info
 from datetime import datetime, date
 
 
