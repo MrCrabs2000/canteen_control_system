@@ -30,6 +30,7 @@
 
                 <div class="section__content">
                     {{ labeled_select([('breakfast', 'Завтрак'), ('lunch', 'Обед')], label='Тип', name='type', required=True) }}
+                    {{ labeled_input(name='date', label='Дата', type='date') }}
                 </div>
 
             </section>
