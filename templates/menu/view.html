@@ -63,74 +63,26 @@
         
     <div class="menu-grid">
         {% for dish in menu.dishes %}
-            
         <div class="menu-grid__item">
             <div class="dish">
                 <a class="dish__link" href="/dishes/{{ dish.id }}">
                     <div class="dish__name">{{ dish.name }}</div>
                     <ul class="dish__composition">
                         {% for product in dish.products %}
-
+                        
                         <li>{{ product.name }}</li>
                         
                         {% endfor %}
                     </ul>
+                    <form method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}" class="buy-form">
+                        цена: {{ menu.price }} руб.
+                        <input type="hidden" name="menu_id" value="{{ menu.id }}">
+                        <button type="submit" class="buy-button">Купить</button>
+                    </form>
                 </a>
             </div>
         </div>
         {% endfor %}
-        
-
-        
-        {% call sidebar(header='День') %}
-        <ul id="daysList" class="days-list">
-            {% for date in dates %}
-                {% set selected = 'day--selected' if date == selected_date else '' %}
-                {% set today = ' (сегодня)' if date == today_date else '' %}
-                {% set type = menu.type %}
-
-                <li class="day {{ selected }}" data-day="{{ date }}">
-                    <a class="day__link" href="/menu/{{ date }}?type={{ type }}">{{ date | date_fM_d }}{{ today }}</a>
-                </li>
-            {% endfor %}
-        
-        </ul>
-        {% endcall %}
-            
-            
-        <main>
-            {% if not menu or not menu.dishes %}
-                <p class="no-menu-message"><strong>На эту дату нет меню.</strong></p>
-            {% else %}
-                
-            <div class="menu-grid">
-                {% for dish in menu.dishes %}
-                    
-                <div class="menu-grid__item">
-                    <div class="dish">
-                        <a class="dish__link" href="/dishes/{{ dish.id }}">
-                            <div class="dish__name">{{ dish.name }}</div>
-                            <ul class="dish__composition">
-                                {% for product in dish.products %}
-
-                                <li>{{ product.name }}</li>
-                                
-                                {% endfor %}
-                            </ul>
-                            <form method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}" class="buy-form">
-                                цена: {{ menu.price }} руб.
-                                <input type="hidden" name="menu_id" value="{{ menu.id }}">
-                                <button type="submit" class="buy-button">Купить</button>
-                            </form>
-                        </a>
-                    </div>
-                </div>
-                
-                {% endfor %}
-            </div>
-
-            {% endif %}
-        </main>
     </div>
 
     {% endif %}
