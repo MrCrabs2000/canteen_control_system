@@ -1,5 +1,6 @@
 {% extends 'management/menus/menu_base.html' %}
 
+{% from 'macros/tiles/dish_tile.html' import dish_tile %}
 
 
 {% block title %}{% endblock %}
@@ -8,6 +9,7 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/management/menu/view-menu.css">
+    <link rel="stylesheet" href="/static/styles/macros/tiles/dish_tile.css">
 {% endblock %}
 
 
@@ -40,18 +42,7 @@
     
                 <div class="dishes__grid">
                     {% for dish in menu.dishes %}
-                        <div class="dish">
-                            <a class="dish__link" href="/dishes/{{ dish.id }}">
-                                <div class="dish__name">{{ dish.name }}</div>
-                                <ul class="dish__composition">
-                                    {% for product in dish.products %}
-        
-                                    <li>{{ product.name }}</li>
-                                    
-                                    {% endfor %}
-                                </ul>
-                            </a>
-                        </div>
+                        {{ dish_tile(dish) }}
                     {% endfor %}
                 </div>
             </section>
