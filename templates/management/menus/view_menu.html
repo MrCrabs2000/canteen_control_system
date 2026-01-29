@@ -13,6 +13,66 @@
 
 {% block main %}
     <div class="menu">
+        <div class="menu__top-bar">
+            <h2 class="menu__header">{{ menu.date | date_Y_M_d }} | 
+                <span class="menu__type">
+                    {% if menu.type == 'breakfast' %}
+                        Завтрак
+                    {% elif menu.type == 'lunch' %}
+                        Обед
+                    {% endif %}
+                </span>
+            </h2>
+
+            <div class="top-bar__buttons">
+                <button>Изменить</button>
+
+                <form id="deleteMenuForm" action="/menus/{{ menu.id }}/delete" method="post" style="display: none"></form>
+                <button id="deleteMenuButton" class="menu__delete-btn danger">Удалить</button>
+            </div>
+        </div>
+
+        <div class="menu__info">
+
+            <section class="dishes">
+    
+                <h3 class="dishes__header">Блюда</h3>
+    
+                <div class="dishes__grid">
+                    {% for dish in menu.dishes %}
+                        <div class="dish">
+                            <a class="dish__link" href="/dishes/{{ dish.id }}">
+                                <div class="dish__name">{{ dish.name }}</div>
+                                <ul class="dish__composition">
+                                    {% for product in dish.products %}
         
+                                    <li>{{ product.name }}</li>
+                                    
+                                    {% endfor %}
+                                </ul>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+
+
     </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+        const deleteButton = document.getElementById('deleteMenuButton');
+        const deleteForm = document.getElementById('deleteMenuForm');
+
+        deleteButton.addEventListener('click', function() {
+            let isDeleting = confirm('Удалить меню?');
+
+            if (isDeleting) {
+                deleteForm.submit();
+            }
+        });
+    </script>
 {% endblock %}
