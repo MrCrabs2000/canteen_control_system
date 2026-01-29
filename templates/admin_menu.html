@@ -9,6 +9,7 @@
 
     {% block content %}
         {% for menu in menus %}
+            <div>{{ menu.date }}</div>
             <div>{{ menu.type }}</div>
             {% for dish in menu.dishes %}
                 <div>{{ dish.name }}</div>
@@ -27,8 +28,11 @@
 
     <button onclick="document.location.href='/add_menu'">Создать меню</button>
     <button onclick="document.location.href='/admin_read_dish'">Смотреть список блюд</button>
+    <button onclick="document.location.href='/admin_read_product'">Смотреть список продуктов</button>
 
+    <button onclick="document.location.href='/admin_requisition'">Согласование заявок</button>
     <button onclick="document.location.href='/add_user'">Добавить пользователя</button>
+    <button onclick="document.location.href='/read_users'">Смотреть список пользователей</button>
     <button onclick="document.location.href='/exit'">Выйти</button>
 
 </body>

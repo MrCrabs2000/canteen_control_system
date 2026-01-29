@@ -17,7 +17,7 @@
             </div>
 
             <div>
-                <label>Категория</label>
+                <label for="category">Категория</label>
                 <select id="category" name="category" required>
                     <option value=""></option>
                     <option value="breakfasts">Завтраки</option>
@@ -30,7 +30,7 @@
             </div>
 
             <div>
-                <label>Состав</label>
+                <label for="ingredients">Состав</label>
                 <select id="ingredients" name="ingredients" multiple required>
                     <option value=""></option>
                     {% for product in products %}

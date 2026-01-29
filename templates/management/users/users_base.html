@@ -1,0 +1,28 @@
+{% extends 'grid_w_sidebar_layout.html' %}
+{% from 'macros/sidebar.html' import sidebar %}
+{% from 'macros/title.html' import title   %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+    <link rel="stylesheet" href="/static/styles/macros/title.css">
+    <link rel="stylesheet" href="/static/styles/management/users_base.css">
+{% endblock %}
+
+
+{% block top_bar %}
+    {{ title(text='Пользователи', alignment='left') }}
+{% endblock %}
+
+
+{% block sidebar %}
+    {% call sidebar(header='Меню') %}
+    <nav class="users-nav">
+        <ul class="users-nav__list">
+            <li><a href="/manage/users">Список</a></li>
+            <li><a href="/manage/users/add">Добавить</a></li>
+        </ul>
+    </nav>
+    {% endcall %}
+{% endblock %}

@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from datebase.classes import User, Info, Role
-from configs.app_configs import db
-from flask_security import login_user, login_required, logout_user
+from configs.app_configs import db, login_required
+from flask_security import login_user, logout_user
 import uuid
 
 

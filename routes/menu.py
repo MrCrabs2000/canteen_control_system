@@ -1,7 +1,7 @@
-from flask import Blueprint, request, redirect, render_template
-from flask_security import login_required, current_user, roles_accepted
+from flask import Blueprint, request, redirect
+from flask_security import current_user, roles_accepted
 from datetime import datetime, date
-from configs.app_configs import db
+from configs.app_configs import db, login_required
 from datebase.classes import Menu, Info, History
 from utils.templates_rendering.menu import render_menu_template
 

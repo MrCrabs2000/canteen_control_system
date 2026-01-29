@@ -1,10 +1,11 @@
-from flask import Flask
-from flask_security import Security, SQLAlchemyUserDatastore
+from flask import Flask, redirect
+from flask_security import Security, SQLAlchemyUserDatastore, current_user
 from datebase.classes import db, User, Role
 import uuid
 import os
 from werkzeug.security import generate_password_hash
 from utils.generation_password import generate_password_for_user
+from functools import wraps
 
 
 app = Flask(__name__)
@@ -94,8 +95,14 @@ def start_db():
     app.before_first_request = True
 
 
-
-
-
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return redirect('/')
+        return f(*args, **kwargs)
+    return decorated_function

@@ -1,6 +1,6 @@
 from flask_security import UserMixin, RoleMixin
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date
+from datetime import date, datetime
 
 
 db = SQLAlchemy()
@@ -77,6 +77,20 @@ class Product(db.Model):
     amount = db.Column(db.Integer, nullable=False, default=0)
 
     dishes = db.relationship('Dish', secondary='dish_products', back_populates='products')
+    requisitions = db.relationship('Requisition', back_populates='product')
+
+
+
+class Requisition(db.Model):
+    __tablename__ = 'requisitions'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    amount = db.Column(db.Integer, nullable=False, default=0)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    coordination = db.Column(db.Integer, nullable=False, default=0)
+
+    product = db.relationship('Product', back_populates='requisitions')
 
 
 class History(db.Model):

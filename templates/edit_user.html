@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Изменить пользователя{% endblock %}
+
+    {% block content %}
+    <main>
+        <form method="post">
+
+        <div>
+            <label for="name">Имя</label>
+            <input id="name" name="name" placeholder="Имя" value="{{ name }}" required>
+        </div>
+
+        <div>
+            <label for="surname">Фамилия</label>
+            <input id="surname" name="surname" placeholder="Фамилия" value="{{ surname }}" required>
+        </div>
+
+        <div>
+            <label for="patronymic">Отчество</label>
+            <input id="patronymic" name="patronymic" placeholder="Отчество" value="{{ patronymic }}" required>
+        </div>
+
+        <div>
+            <label for="login">Логин</label>
+            <input id="login" name="login" placeholder="Логин" value="{{ login }}" required>
+        </div>
+
+        {% if role != "user" %}
+            <div>
+                <label for="role">Роль</label>
+                <select id="role" name="role" required>
+                    <option value="cook" {% if role == 'cook' %} selected {% endif %}>Повар</option>
+                    <option value="admin" {% if role == 'admin' %} selected {% endif %}>Администратор</option>
+                </select>
+            </div>
+        {% else %}
+            <div>Роль: студент</div>
+        {% endif %}
+
+        <button type="submit">Подтвердить</button>
+
+        </form>
+    </main>
+
+    {% endblock %}
+</body>
+</html>

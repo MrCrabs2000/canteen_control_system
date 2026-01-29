@@ -4,7 +4,7 @@ from datetime import date
 from utils.get_dates import get_dates
 
 
-def render_menu_template(menu, name: str = '', surname: str = '', selected_date: date = date.today(), days_back: int = 0, days_forward: int = 0):
+def render_menu_template(menu, name: str = '', surname: str = '', selected_date: date = date.today(), days_back: int = 0, days_forward: int = 0, **kwargs):
     dates = get_dates(days_back, days_forward)
 
     context = {
@@ -17,6 +17,6 @@ def render_menu_template(menu, name: str = '', surname: str = '', selected_date:
     }
 
     try:
-        return render_template('menu/view.html', **context, date_format='%-d %B')
+        return render_template('menu/view.html', **context, date_format='%-d %B', **kwargs)
     except:
-        return render_template('menu/view.html', **context, date_format='%#d %B')
+        return render_template('menu/view.html', **context, date_format='%#d %B', **kwargs)
