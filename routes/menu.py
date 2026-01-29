@@ -33,7 +33,7 @@ def menupage(date_str):
             'days_back': 7,
             'days_forward': 7
         }
-
+        db.session.close()
         return render_menu_template(**context)
 
     elif request.method == 'POST':
@@ -61,14 +61,25 @@ def menupage(date_str):
                     user_id=current_user.id,
                     eat_date=date_today,
                     type=ttype,
-                    cost=0
+                    cost=0,
+                    status=False
                     )
 
                 for dish in menu2.dishes:
                     dish.amount -= 1
 
+                menu2.get_amount += 1
                 db.session.add(history)
-                db.session.commit()
+
+                try:
+                    db.session.commit()
+                except Exception as e:
+                    print(e)
+                    db.session.rollback()
+                finally:
+                    db.session.close()
+
+                db.session.close()
                 return render_menu_template(**context)
 
             elif user_info.balance >= menu2.price:
@@ -78,18 +89,25 @@ def menupage(date_str):
                     user_id=current_user.id,
                     eat_date=date_today,
                     type=ttype,
-                    cost=menu2.price
+                    cost=menu2.price,
+                    status=False
                 )
 
                 for dish in menu2.dishes:
                     dish.amount -= 1
 
+                menu2.get_amount += 1
                 db.session.add(history)
-                db.session.commit()
+
+                try:
+                    db.session.commit()
+                except Exception as e:
+                    print(e)
+                    db.session.rollback()
+                finally:
+                    db.session.close()
                 return render_menu_template(**context)
         else:
             print('Какое-то блюдо кончилось')
+            db.session.close()
             return render_menu_template(**context)
-
-    return render_menu_template(**context)
-

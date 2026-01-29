@@ -10,5 +10,5 @@ dish_view = Blueprint('dish_view', __name__)
 @login_required
 def dishview(dish_id):
     dish = db.session.query(Dish).filter_by(id=dish_id).first()
-
+    db.session.close()
     return render_template('dish_view.html', dish=dish)

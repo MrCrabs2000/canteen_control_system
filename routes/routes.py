@@ -11,6 +11,7 @@ from .add_product import add_product, edit_product, delete_product
 from .food_payment import food_payment_main, edit_balance, edit_abonement
 from .reviews import reviews_main, review_new, review_view
 from .dish import dish_view
+from .history import history
 
 
 
@@ -43,3 +44,4 @@ def register_all_blueprints(app):
     app.register_blueprint(review_view)
     app.register_blueprint(menu_redirect)
     app.register_blueprint(dish_view)
+    app.register_blueprint(history)
