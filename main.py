@@ -5,13 +5,18 @@ from routes.routes import register_all_blueprints
 from routes.admin_menu import admin_menu_page
 from routes.cook_menu import cook_menu_page
 from flask_security import current_user
-from flask_migrate import Migrate
-from datebase.classes import db
-from utils.migrate import update_database
+from utils.migrate import update_database, drop_alembic_version_table
+from pathlib import Path
+
 
 register_all_blueprints(app)
 try:
+    db_path = Path(__file__).parent / 'db' / 'canteen_control_system.db'
+    if not db_path.exists():
+        drop_alembic_version_table(app)
+
     update_database(app)
+
 except Exception as e:
     print(f'У нас ошибка в функции поймана:{e}')
 

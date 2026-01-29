@@ -5,7 +5,6 @@ import uuid
 import os
 from werkzeug.security import generate_password_hash
 from utils.generation_password import generate_password_for_user
-from flask_migrate import upgrade
 
 
 app = Flask(__name__)
@@ -43,11 +42,11 @@ db.init_app(app)
 
 
 
+
 @app.before_request
 def start_db():
     with app.app_context():
         db.create_all()
-        upgrade()
         if not Role.query.first():
             admin_role = Role(name='admin')
             user_role = Role(name='user')
@@ -56,7 +55,6 @@ def start_db():
             db.session.add(user_role)
             db.session.add(cook_role)
             db.session.commit()
-        
     admin_role = Role.query.filter_by(name='admin').first()
 
     try:
