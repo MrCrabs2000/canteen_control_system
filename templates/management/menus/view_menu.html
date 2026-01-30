@@ -29,25 +29,31 @@
             </h2>
 
             <div class="top-bar__buttons">
-                <button>Изменить</button>
 
-                <form id="deleteMenuForm" action="/menus/{{ menu.id }}/delete" method="post" style="display: none"></form>
-                <button id="deleteMenuButton" class="menu__delete-btn danger">Удалить</button>
+                <div id="editingViewButtons" style="display: none;">
+                    <button id="confirmEditingButton" class="accent" form="editMenuForm" type="confirm">Подтвердить</button>
+                    <button id="cancelEditingButton" class="danger">Отмена</button>
+                </div>
+
+                <div id="basicViewButtons">
+                    <button id="editMenuButton">Изменить</button>
+    
+                    <form id="deleteMenuForm" action="/menus/{{ menu.id }}/delete" method="post" style="display: none"></form>
+                    <button id="deleteMenuButton" class="menu__delete-btn danger">Удалить</button>
+                </div>
             </div>
         </div>
+        
 
-        <div class="menu__info">
-
-            <section class="menu__editing">
-                <h3 class="dishes__header">Изменение...</h3>
-                {% include 'management/menus/menu_form.html' %}
-            </section>
+        <section id="editingSection" class="menu__editing" style="display: none;">
+            <h3 class="dishes__header">Изменение...</h3>
+            {% include 'management/menus/menu_form.html' %}
+        </section>
 
 
+        <div id="menuInfo" class="menu__info">
             <section class="dishes">
-    
                 <h3 class="dishes__header">Блюда</h3>
-    
                 <div class="dishes__grid">
                     {% for dish in menu.dishes %}
                         {{ dish_tile(dish) }}
@@ -73,5 +79,34 @@
                 deleteForm.submit();
             }
         });
+
+
+        const editButton = document.getElementById('editMenuButton');
+        const cancelEditingButton = document.getElementById('cancelEditingButton');
+        const confirmEditingButton = document.getElementById('confirmEditingButton');
+
+        const editingSection = document.getElementById('editingSection');
+        const menuInfo = document.getElementById('menuInfo');
+
+        const basicViewButtons = document.getElementById('basicViewButtons');
+        const editingViewButtons = document.getElementById('editingViewButtons');
+        
+        editButton.addEventListener('click', function() {
+            basicViewButtons.style.display = 'none';
+            editingViewButtons.style.display = 'block';
+
+            editingSection.style.display = 'block';
+            menuInfo.style.display = 'none';
+        });
+
+        cancelEditingButton.addEventListener('click', function() {
+            basicViewButtons.style.display = 'block';
+            editingViewButtons.style.display = 'none';
+
+            editingSection.style.display = 'none';
+            menuInfo.style.display = 'block';
+        });
+
+
     </script>
 {% endblock %}

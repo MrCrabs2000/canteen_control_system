@@ -28,16 +28,21 @@
     gap: 12px;
 }
 
+.top-bar__buttons > div {
+    display: flex;
+    gap: 12px;
+}
+
 .menu__info {
     flex-grow: 1;
     overflow: auto;
 }
 
-.menu__info > section {
+.menu__info > section, #editingSection {
     margin-top: 24px;
 }
 
-.menu__info h3 {
+.menu__info h3, #editingSection h3 {
     margin: 0;
     margin-bottom: 10px;
     font-size: 1.5rem;

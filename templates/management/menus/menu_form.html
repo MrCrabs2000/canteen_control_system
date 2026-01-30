@@ -2,7 +2,7 @@
 {% from 'macros/labeled_select.html' import labeled_select %}
 
 
-<form id="add-menu-form" class="add-menu-form" method="post">
+<form id="editMenuForm" class="menu-form" method="post">
 
     <section class="form__section">
         <h2 class="section__header">Основное</h2>
@@ -21,8 +21,15 @@
 
         <div class="section__content">
             {% for category in categories.keys() %}
+            {% set ns = namespace(selected='') %}
             
-            {{ labeled_select(options=[('', '...')] + categories[category], name=category, label=category) }}
+                {% for dish in menu.dishes %}
+                    {% if dish.category == category %}
+                        {% set ns.selected = dish %}
+                    {% endif %}
+                {% endfor %}
+
+            {{ labeled_select(options=[('', '...')] + categories[category], selected=ns.selected.name, name=category, label=category) }}
             {% endfor %}
         </div>
     </section>

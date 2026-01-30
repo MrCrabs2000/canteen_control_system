@@ -1,4 +1,4 @@
-.add-menu-form {
+.menu-form {
     box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
