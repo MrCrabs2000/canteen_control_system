@@ -1,7 +1,10 @@
-{% macro labeled_input(name='', label='input', type='text', value='', class='labeled-input', 
+{% macro labeled_input(label, name='', type='text', value='', class='labeled-input', 
         readonly=False, required=False) %}
     <div class="{{ class }}">
+        {% if label %}
         <label for="{{ name }}">{{ label }}</label>
+        {% endif %}
+
         <input id="{{ name }}" name="{{ name }}" type="{{ type }}" value="{{ value }}" placeholder="{{ label }}"
          {% if required %}required{% endif %}
          {% if readonly %}readonly{% endif %}>

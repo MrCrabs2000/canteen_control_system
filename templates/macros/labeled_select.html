@@ -1,11 +1,19 @@
-{% macro labeled_select(options, name='', label='input', class='labeled-select', required=False) %}
+{% macro labeled_select(options, label, selected=None, name='', class='labeled-select', required=False) %}
     <div class="{{ class }}">
+
+        {% if label %}
         <label for="{{ name }}">{{ label }}</label>
+        {% endif %}
+
         <select id="{{ name }}" name="{{ name }}"
             {% if required %}required{% endif %}>
 
             {% for option in options %}
-               <option value="{{ option[0] }}">{{ option[1] }}</option> 
+                {% if option[0] == selected %}
+                <option value="{{ option[0] }}" selected>{{ option[1] }}</option> 
+                {% else %}
+                <option value="{{ option[0] }}">{{ option[1] }}</option> 
+                {% endif %}
             {% endfor %}
 
         </select>

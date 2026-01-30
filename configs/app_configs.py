@@ -6,6 +6,7 @@ import os
 from werkzeug.security import generate_password_hash
 from utils.generation_password import generate_password_for_user
 from functools import wraps
+from configs.filters import register_filters
 
 
 app = Flask(__name__)
@@ -38,6 +39,8 @@ app.config['SECURITY_FLASH_MESSAGES'] = False
 app.config['SECURITY_UNAUTHORIZED_VIEW'] = None
 app.config['SECURITY_LOGIN_USER_TEMPLATE'] = 'auth/login.html'
 app.config['SECURITY_PROFILE_URL'] = '/user_profile'
+
+register_filters(app)
 
 db.init_app(app)
 

@@ -7,7 +7,6 @@
     height: 100%;
     width: 100%;
     overflow-y: auto;
-    scroll-behavior: smooth;
 }
 
 .user {
@@ -23,9 +22,16 @@
     justify-content: space-between;
     height: 100%;
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     color: var(--text);
     text-decoration: none;
+    border: solid 2px transparent;
+    border-radius: var(--border-radius);
+    transition: border 0.1s ease-in-out;
+    
+    &:hover {
+        border: solid 2px var(--primary);
+    }
 }
 
 .user__top {

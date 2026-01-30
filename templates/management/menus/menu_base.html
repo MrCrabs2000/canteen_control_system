@@ -12,7 +12,7 @@
 
 
 {% block top_bar %}
-    {{ title(text='Пользователи', alignment='left') }}
+    {{ title(text='Меню', alignment='left') }}
 {% endblock %}
 
 
@@ -20,8 +20,8 @@
     {% call sidebar(header='Вкладки') %}
     <nav class="management-nav">
         <ul class="management-nav__list">
-            <li><a href="/manage/users">Список</a></li>
-            <li><a href="/manage/users/add">Добавить</a></li>
+            <li><a href="/manage/menus">Список</a></li>
+            <li><a href="/manage/menus/add">Добавить</a></li>
         </ul>
     </nav>
     {% endcall %}

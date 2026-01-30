@@ -1,0 +1,28 @@
+{% macro menu_tile(menu, delete_button=False) %}
+    <div class="menu">
+        <a href="menus/{{ menu.id }}" class="menu__link">
+
+            <div class="menu__top">
+                <h2 class="menu__header">{{ menu.date | date_Y_M_d }} | 
+                    <span class="menu__type">
+                        {% if menu.type == 'breakfast' %}
+                            Завтрак
+                        {% elif menu.type == 'lunch' %}
+                            Обед
+                        {% endif %}
+                    </span>
+                </h2>
+                
+                {% if delete_button %}
+                <button class="menu__delete-btn danger"><img style="height: 1.25em;" src='/static/images/buttons/delete_button.svg'></button>
+                {% endif %}
+            </div>
+
+            <ul class="menu__info">
+                <li>{{ menu.price }}₽</li>
+                <li>Блюд: {{ menu.dishes|length }}</li>
+            </ul>
+
+        </a>
+    </div>
+{% endmacro %}
