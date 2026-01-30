@@ -21,5 +21,6 @@ def receiving_view():
 
     if request.method == 'POST':
         history_ids = request.form.getlist('history_ids')
+
         return render_template('receiving.html', **context)
 
