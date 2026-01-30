@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash
 from flask_security import roles_accepted
+import uuid
 from configs.app_configs import db, login_required
 from datebase.classes import User, Role, Info
-import uuid
 
 
 add_user = Blueprint('add_user', __name__, template_folder='templates')

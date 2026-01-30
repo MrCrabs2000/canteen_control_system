@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import current_user, roles_accepted
+from datetime import datetime, date
 from configs.app_configs import db, login_required
 from datebase.classes import Info
-from datetime import datetime, date
 
 
 food_payment_main = Blueprint('food_payment_main', __name__, template_folder='templates')

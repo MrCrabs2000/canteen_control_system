@@ -5,7 +5,6 @@ from datebase.classes import db, Menu, Dish, Product, Requisition
 from configs.app_configs import login_required
 
 
-
 cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
 @cook_menu.route('/cook_menu')
 @login_required

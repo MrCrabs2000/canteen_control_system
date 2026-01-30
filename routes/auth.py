@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
+import uuid
 from datebase.classes import User, Info, Role
 from configs.app_configs import db, login_required
 from flask_security import login_user, logout_user
-import uuid
 
 
 register_page = Blueprint('register_page', __name__, template_folder='templates')

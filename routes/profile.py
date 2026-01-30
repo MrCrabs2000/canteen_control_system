@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import current_user
+from json import loads
 from configs.app_configs import db
 from datebase.classes import Info, User
-from json import loads
 from configs.app_configs import login_required
 
 
