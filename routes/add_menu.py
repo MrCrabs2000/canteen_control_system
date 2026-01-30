@@ -4,6 +4,7 @@ from configs.app_configs import db, login_required
 from datebase.classes import Menu, Dish
 from datetime import datetime, date
 
+
 add_menu = Blueprint('add_menu', __name__, template_folder='templates')
 @add_menu.route('/add_menu', methods=['GET', 'POST'])
 @login_required

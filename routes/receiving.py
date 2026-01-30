@@ -1,14 +1,15 @@
 from flask import Blueprint, request, redirect, render_template
 from flask_security import login_required, current_user, roles_accepted
+from datetime import datetime, date
 from configs.app_configs import db
-from datebase.classes import History
+from datebase.classes import Menu, Info, History
 
 
-receiving = Blueprint('receiving', __name__)
-@receiving.route('/receiving', methods=['GET', 'POST'])
+history = Blueprint('history', __name__)
+@history.route('/history', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('user')
-def receiving_view():
+def history_view():
     histtory = db.session.query(History).filter_by(user_id=current_user.id).all()
 
     context = {
@@ -17,10 +18,8 @@ def receiving_view():
 
     if request.method == 'GET':
         db.session.close()
-        return render_template('receiving.html', **context)
+        return render_template('history.html', **context)
 
     if request.method == 'POST':
-        history_ids = request.form.getlist('history_ids')
-
-        return render_template('receiving.html', **context)
+        return render_template('history.html', **context)
 
