@@ -22,11 +22,19 @@
             <tbody>
                 {% for history in history_list %}
                 <tr>
-                    <td>
-                        <input type="checkbox"
-                               name="history_ids"
-                               value="{{ history.id }}">
-                    </td>
+                    {% if history.status == True %}
+                        <td>
+                            <input type="checkbox"
+                                   name="history_ids"
+                                   value="{{ history.id }}" checked>
+                        </td>
+                    {% else %}
+                        <td>
+                            <input type="checkbox"
+                                   name="history_ids"
+                                   value="{{ history.id }}">
+                        </td>
+                    {% endif %}
                     <td>{{ history.eat_date }}</td>
                     <td>{{ history.type }}</td>
                     <td>{{ history.cost }}</td>

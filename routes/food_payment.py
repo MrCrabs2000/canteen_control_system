@@ -5,9 +5,9 @@ from datebase.classes import Info
 from datetime import datetime, date
 
 
-food_payment_main = Blueprint('food_payment_main', __name__, template_folder='templates')
+food_payment_main = Blueprint('payment_main', __name__, template_folder='templates')
 
-@food_payment_main.route('/food_payment', methods=['GET', 'POST'])
+@food_payment_main.route('/payment', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('user')
 def food_payment_main_page():
@@ -21,9 +21,9 @@ def food_payment_main_page():
     return render_template('food_payment.html', **context)
 
 
-edit_balance = Blueprint('edit_balance', __name__, template_folder='templates')
+balance_edit = Blueprint('edit_balance', __name__, template_folder='templates')
 
-@edit_balance.route("/edit_balance", methods=['GET', 'POST'])
+@balance_edit.route("/balance/edit", methods=['GET', 'POST'])
 @login_required
 @roles_accepted('user')
 def edit_balance_page():
