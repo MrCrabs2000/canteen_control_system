@@ -5,7 +5,7 @@ from configs.app_configs import login_required
 
 
 admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
-@admin_menu.route('/admin_menu')
+@admin_menu.route('/admin/menu')
 @login_required
 @roles_accepted('admin')
 def admin_menu_page():
@@ -23,7 +23,7 @@ def admin_menu_page():
 
 
 admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templates')
-@admin_read_dish.route('/admin_read_dish')
+@admin_read_dish.route('/admin/dishes')
 @login_required
 @roles_accepted('admin')
 def admin_read_dish_page():
@@ -48,7 +48,7 @@ def admin_read_dish_page():
 
 
 admin_read_product = Blueprint('admin_read_product', __name__, template_folder='templates')
-@admin_read_product.route('/admin_read_product')
+@admin_read_product.route('/admin/products')
 @login_required
 @roles_accepted('admin')
 def admin_read_product_page():
@@ -65,7 +65,7 @@ def admin_read_product_page():
 
 
 read_users = Blueprint('read_users', __name__, template_folder='templates')
-@read_users.route('/read_users')
+@read_users.route('/admin/users')
 @login_required
 @roles_accepted('admin')
 def read_users_page():

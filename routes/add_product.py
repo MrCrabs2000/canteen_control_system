@@ -5,7 +5,7 @@ from configs.app_configs import login_required
 
 
 add_product = Blueprint('add_product', __name__, template_folder='templates')
-@add_product.route('/add_product', methods=['GET', 'POST'])
+@add_product.route('/cook/product/add', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('cook')
 def add_product_page():
@@ -17,23 +17,23 @@ def add_product_page():
         measurement = request.form.get('measurement')
 
         if not name or not measurement:
-            return redirect('/add_product')
+            return redirect('/cook/product/add')
 
         other_product = db.session.query(Product).filter_by(name=name).first()
         if other_product:
-            return redirect('/add_product')
+            return redirect('/cook/product/add')
 
         new_product = Product(name=name, measurement=measurement)
         db.session.add(new_product)
         db.session.commit()
         db.session.close()
 
-        return redirect('/cook_menu')
+        return redirect('/cook/menu')
 
 
 
 edit_product = Blueprint('edit_product', __name__, template_folder='templates')
-@edit_product.route('/<id>/edit_product', methods=['GET', 'POST'])
+@edit_product.route('/cook/product/<id>/edit', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('cook')
 def edit_product_page(id):
@@ -51,7 +51,7 @@ def edit_product_page(id):
         measurement = request.form.get('measurement')
 
         if not all([name, measurement]):
-            return redirect(f'/{id}/edit_product')
+            return redirect(f'/cook/product/{id}/edit')
 
         product.name = name
         product.measurement = measurement
@@ -63,12 +63,12 @@ def edit_product_page(id):
         finally:
             db.session.close()
 
-        return redirect('/read_product')
+        return redirect('/cook/products')
 
 
 
 delete_product = Blueprint('delete_product', __name__, template_folder='templates')
-@delete_product.route('/<id>/delete_product')
+@delete_product.route('/cook/product/<id>/del')
 @login_required
 @roles_accepted('cook')
 def delete_product_page(id):
@@ -80,4 +80,4 @@ def delete_product_page(id):
         db.session.commit()
     db.session.close()
 
-    return redirect('/read_product')
+    return redirect('/cook/products')

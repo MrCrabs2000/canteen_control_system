@@ -7,7 +7,7 @@ from datebase.classes import User, Role, Info
 
 
 add_user = Blueprint('add_user', __name__, template_folder='templates')
-@add_user.route('/add_user', methods=['GET', 'POST'])
+@add_user.route('/admin/user/add', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('admin')
 def add_user_page():
@@ -23,7 +23,7 @@ def add_user_page():
         user = db.session.query(User).filter_by(login=login).first()
         fs_uniquifier = str(uuid.uuid4())
         if not all([name, surname, patronymic, login, role, password, second_password]) or password != second_password or len(password) < 6 or user:
-            return redirect('/add_user')
+            return redirect('/admin/user/add')
         if role == 'cook':
             role = [db.session.query(Role).filter_by(name='cook').first()]
         elif role == 'admin':
@@ -41,13 +41,13 @@ def add_user_page():
         finally:
             db.session.close()
 
-        return redirect('/admin_menu')
+        return redirect('/admin/menu')
     else:
         return render_template('add_user.html')
 
 
 edit_user = Blueprint('edit_user', __name__, template_folder='templates')
-@edit_user.route('/<id>/edit_user', methods=['GET', 'POST'])
+@edit_user.route('/admin/user/<id>/edit', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('admin')
 def edit_user_page(id):
@@ -74,10 +74,10 @@ def edit_user_page(id):
         if login != user.login:
             other_user = db.session.query(User).filter(User.login == login, User.id != id).first()
             if other_user:
-                return redirect(f'/{id}/edit_user')
+                return redirect(f'/admin/user/{id}/edit')
 
         if not all([name, surname, patronymic, login, role]) or not user:
-            return redirect(f'/{id}/edit_user')
+            return redirect(f'/admin/user/{id}/edit')
 
         user.name = name
         user.surname = surname
@@ -96,14 +96,14 @@ def edit_user_page(id):
         finally:
             db.session.close()
 
-        return redirect('/read_users')
+        return redirect('/admin/users')
 
     db.session.close()
     return render_template('edit_user.html')
 
 
 delete_user = Blueprint('delete_user', __name__, template_folder='templates')
-@delete_user.route('/<id>/delete_user')
+@delete_user.route('/admin/user/<id>/del')
 @login_required
 @roles_accepted('admin')
 def delete_user_page(id):
@@ -115,4 +115,4 @@ def delete_user_page(id):
     db.session.commit()
     db.session.close()
 
-    return redirect('/read_users')
+    return redirect('/admin/users')

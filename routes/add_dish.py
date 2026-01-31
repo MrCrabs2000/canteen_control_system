@@ -5,7 +5,7 @@ from configs.app_configs import login_required
 
 
 add_dish = Blueprint('add_dish', __name__, template_folder='templates')
-@add_dish.route('/add_dish', methods=['GET', 'POST'])
+@add_dish.route('/cook/dish/add', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('cook')
 def add_dish_page():
@@ -21,15 +21,15 @@ def add_dish_page():
         amounts = request.form.getlist('product_amount')
 
         if not all([name, category, ingredients, amounts]) or len(ingredients) != len(amounts):
-            return redirect('/add_dish')
+            return redirect('/cook/dish/add')
 
         for ingredient, amount in zip(ingredients, amounts):
             if not ingredient or not amount or int(amount) <= 0:
-                return redirect('/add_dish')
+                return redirect('/cook/dish/add')
 
         other_dish = db.session.query(Dish).filter_by(name=name).first()
         if other_dish:
-            return redirect('/add_dish')
+            return redirect('/cook/dish/add')
 
         try:
             new_dish = Dish(name=name, category=category)
@@ -42,14 +42,14 @@ def add_dish_page():
 
             db.session.commit()
 
-            return redirect('/cook_menu')
+            return redirect('/cook/menu')
         finally:
             db.session.close()
 
 
 
 edit_dish = Blueprint('edit_dish', __name__, template_folder='templates')
-@edit_dish.route('/<id>/edit_dish', methods=['GET', 'POST'])
+@edit_dish.route('/cook/dish/<id>/edit', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('cook')
 def edit_dish_page(id):
@@ -59,7 +59,7 @@ def edit_dish_page(id):
         category = request.form.get('category')
 
         if not all([name, category]):
-            return redirect(f'/{id}/edit_dish')
+            return redirect(f'/cook/dish/{id}/edit')
 
         dish.name = name
         dish.category = category
@@ -71,7 +71,7 @@ def edit_dish_page(id):
         finally:
             db.session.close()
 
-        return redirect('/read_dish')
+        return redirect('/cook/dishes')
 
     context = {
         'name': dish.name,
@@ -83,7 +83,7 @@ def edit_dish_page(id):
 
 
 delete_dish = Blueprint('delete_dish', __name__, template_folder='templates')
-@delete_dish.route('/<id>/delete_dish')
+@delete_dish.route('/cook/dish/<id>/del')
 @login_required
 @roles_accepted('cook')
 def delete_dish_page(id):
@@ -95,4 +95,4 @@ def delete_dish_page(id):
     db.session.commit()
     db.session.close()
 
-    return redirect('/read_dish')
+    return redirect('/cook/dishes')

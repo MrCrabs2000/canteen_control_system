@@ -6,7 +6,7 @@ from datebase.classes import Menu, Dish
 
 
 add_menu = Blueprint('add_menu', __name__, template_folder='templates')
-@add_menu.route('/add_menu', methods=['GET', 'POST'])
+@add_menu.route('/cook/menu/add', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('cook')
 def add_menu_page():
@@ -31,14 +31,14 @@ def add_menu_page():
 
         if not all([type, price, dish_name]) or date1 < date.today() or Menu.query.filter_by(type=type, date=date1).first():
             db.session.close()
-            return redirect('/add_menu')
+            return redirect('/cook/menu/add')
 
         try:
             dish1 = db.session.query(Dish).filter(Dish.name.in_(dish_name)).all()
             new_menu = Menu(type=type, dishes=dish1, price=price, date=date1)
             db.session.add(new_menu)
             db.session.commit()
-            return redirect('/cook_menu')
+            return redirect('/cook/menu')
 
         finally:
             db.session.close()

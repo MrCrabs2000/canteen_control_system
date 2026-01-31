@@ -5,7 +5,7 @@ from configs.app_configs import login_required
 
 
 cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
-@cook_menu.route('/cook_menu')
+@cook_menu.route('/cook/menu')
 @login_required
 @roles_accepted('cook')
 def cook_menu_page():
@@ -24,7 +24,7 @@ def cook_menu_page():
 
 
 read_dish = Blueprint('read_dish', __name__, template_folder='templates')
-@read_dish.route('/read_dish')
+@read_dish.route('/cook/dishes')
 @login_required
 @roles_accepted('cook')
 def read_dish_page():
@@ -49,7 +49,7 @@ def read_dish_page():
 
 
 read_product = Blueprint('read_product', __name__, template_folder='templates')
-@read_product.route('/read_product')
+@read_product.route('/cook/products')
 @login_required
 @roles_accepted('cook')
 def read_product_page():
@@ -66,7 +66,7 @@ def read_product_page():
 
 
 read_requisition = Blueprint('read_requisition', __name__, template_folder='templates')
-@read_requisition.route('/read_requisition')
+@read_requisition.route('/cook/requisitions')
 @login_required
 @roles_accepted('cook')
 def read_requisition_page():

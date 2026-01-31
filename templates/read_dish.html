@@ -24,8 +24,8 @@
                     {% else %}
                         <div>Состав не известен</div>
                     {% endif %}
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/edit_dish'">Изменить блюдо</button>
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/edit'">Изменить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/del'">Удалить блюдо</button>
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
@@ -45,8 +45,8 @@
                     {% else %}
                         <div>Состав не известен</div>
                     {% endif %}
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/edit_dish'">Изменить блюдо</button>
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/edit'">Изменить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/del'">Удалить блюдо</button>
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
@@ -66,8 +66,8 @@
                     {% else %}
                         <div>Состав не известен</div>
                     {% endif %}
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/edit_dish'">Изменить блюдо</button>
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/edit'">Изменить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/del'">Удалить блюдо</button>
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
@@ -87,8 +87,8 @@
                     {% else %}
                         <div>Состав не известен</div>
                     {% endif %}
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/edit_dish'">Изменить блюдо</button>
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/edit'">Изменить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/del'">Удалить блюдо</button>
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
@@ -108,8 +108,8 @@
                     {% else %}
                         <div>Состав не известен</div>
                     {% endif %}
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/edit_dish'">Изменить блюдо</button>
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/edit'">Изменить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/del'">Удалить блюдо</button>
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
@@ -129,8 +129,8 @@
                     {% else %}
                         <div>Состав не известен</div>
                     {% endif %}
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/edit_dish'">Изменить блюдо</button>
-                    <button type="button" onclick="window.location.href ='/{{ dish.id }}/delete_dish'">Удалить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/edit'">Изменить блюдо</button>
+                    <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/del'">Удалить блюдо</button>
                 {% endfor %}
             {% else %}
                 <div>Пусто</div>
@@ -138,7 +138,7 @@
 
     {% endblock content %}
 
-    <button onclick="document.location.href='/add_dish'">Создать блюдо</button>
-    <button onclick="document.location.href='/cook_menu'">Назад</button>
+    <button onclick="document.location.href='/cook/dish/add'">Создать блюдо</button>
+    <button onclick="document.location.href='/cook/menu'">Назад</button>
 </body>
 </html>
