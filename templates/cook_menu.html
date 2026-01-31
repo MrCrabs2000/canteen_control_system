@@ -8,28 +8,35 @@
     {% block title %}Список меню{% endblock title %}
 
     {% block content %}
-        {% for menu in menus %}
-            <div>{{ menu.date }}</div>
-            <div>{{ menu.type }}</div>
-            {% for dish in menu.dishes %}
-                <div>{{ dish.name }}</div>
-                {% if dish.products %}
-                    <div>Состав:</div>
-                    {% for product in dish.products %}
-                        {{ product.name }}
-                    {% endfor %}
-                {% else %}
-                     <div>Состав не известен</div>
-                {% endif %}
+        {% if menus %}
+            {% for menu in menus %}
+                <div>{{ menu.date }}</div>
+                <div>{{ menu.type }}</div>
+                {% for dish in menu.dishes %}
+                    <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
+                        {% endfor %}
+                    {% else %}
+                         <div>Состав не известен</div>
+                    {% endif %}
+                {% endfor %}
+                <div>{{ menu.price }} ₽</div>
             {% endfor %}
-            <div>{{ menu.price }}</div>
-        {% endfor %}
+        {% else %}
+            <div>Меню нет</div>
+        {% endif %}
     {% endblock content %}
 
     <button onclick="document.location.href='/add_product'">Добавить продукт</button>
     <button onclick="document.location.href='/read_product'">Смотреть список продуктов</button>
     <button onclick="document.location.href='/add_dish'">Создать блюдо</button>
     <button onclick="document.location.href='/read_dish'">Смотреть список блюд</button>
+    <button onclick="document.location.href='/add_menu'">Создать меню</button>
     <button onclick="document.location.href='/cook_requisition'">Подать заявку на закупку продуктов</button>
     <button onclick="document.location.href='/read_requisition'">Смотреть заявки на закупку продуктов</button>
 

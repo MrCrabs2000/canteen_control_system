@@ -34,7 +34,7 @@ def admin_requisition_page():
             requisition.coordination = coordination
             try:
                 db.session.commit()
-                return redirect('/admin_menu')
+                return redirect('/admin_requisition')
 
             finally:
                 db.session.close()

@@ -76,9 +76,8 @@ class Product(db.Model):
     measurement = db.Column(db.String, nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
 
-    dishes = db.relationship('Dish', secondary='dish_products', back_populates='products')
+    dishes = db.relationship('AssociationDishProduct', back_populates='product')
     requisitions = db.relationship('Requisition', back_populates='product')
-
 
 
 class Requisition(db.Model):
@@ -127,27 +126,20 @@ class Dish(db.Model):
     amount = db.Column(db.Integer, nullable=False, default=0)
     category = db.Column(db.String, nullable=False)
 
-
-    products = db.relationship('Product', secondary='dish_products', back_populates='dishes')
+    products = db.relationship('AssociationDishProduct', back_populates='dish')
     reviews = db.relationship('Review', back_populates='dish')
     menus = db.relationship('Menu', secondary='dish_menu', back_populates='dishes')
 
 
 class Notification(db.Model):
+    __tablename__ = 'notifications'
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     name = db.Column(db.String, nullable=False)
     text = db.Column(db.String, nullable=False)
     date = db.Column(db.Date, nullable=False, default=date.today())
 
-
     recevier_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-
-class AssociationDishMenu(db.Model):
-    __tablename__ = 'dish_menu'
-
-    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'), primary_key=True)
-    dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
 
 
 class AssociationDishProduct(db.Model):
@@ -155,6 +147,17 @@ class AssociationDishProduct(db.Model):
 
     dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
+    product_amount = db.Column(db.Integer, nullable=False)
+
+    dish = db.relationship('Dish', back_populates='products')
+    product = db.relationship('Product', back_populates='dishes')
+
+
+class AssociationDishMenu(db.Model):
+    __tablename__ = 'dish_menu'
+
+    menu_id = db.Column(db.Integer, db.ForeignKey('menus.id'), primary_key=True)
+    dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id'), primary_key=True)
 
 
 class AssociationUserMenus(db.Model):

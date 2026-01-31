@@ -16,8 +16,10 @@
                     <div>{{ dish.name }}</div>
                     {% if dish.products %}
                         <div>Состав:</div>
-                        {% for product in dish.products %}
-                            {{ product.name }}
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
                         {% endfor %}
                     {% else %}
                         <div>Состав не известен</div>
@@ -35,8 +37,10 @@
                     <div>{{ dish.name }}</div>
                     {% if dish.products %}
                         <div>Состав:</div>
-                        {% for product in dish.products %}
-                            {{ product.name }}
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
                         {% endfor %}
                     {% else %}
                         <div>Состав не известен</div>
@@ -54,8 +58,10 @@
                     <div>{{ dish.name }}</div>
                     {% if dish.products %}
                         <div>Состав:</div>
-                        {% for product in dish.products %}
-                            {{ product.name }}
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
                         {% endfor %}
                     {% else %}
                         <div>Состав не известен</div>
@@ -73,8 +79,10 @@
                     <div>{{ dish.name }}</div>
                     {% if dish.products %}
                         <div>Состав:</div>
-                        {% for product in dish.products %}
-                            {{ product.name }}
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
                         {% endfor %}
                     {% else %}
                         <div>Состав не известен</div>
@@ -92,8 +100,10 @@
                     <div>{{ dish.name }}</div>
                     {% if dish.products %}
                         <div>Состав:</div>
-                        {% for product in dish.products %}
-                            {{ product.name }}
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
                         {% endfor %}
                     {% else %}
                         <div>Состав не известен</div>
@@ -111,8 +121,10 @@
                     <div>{{ dish.name }}</div>
                     {% if dish.products %}
                         <div>Состав:</div>
-                        {% for product in dish.products %}
-                            {{ product.name }}
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
                         {% endfor %}
                     {% else %}
                         <div>Состав не известен</div>

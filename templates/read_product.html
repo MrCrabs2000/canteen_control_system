@@ -9,13 +9,17 @@
 
     {% block content %}
 
-        {% for product in products %}
-            <div>{{ product.name }}</div>
-            <div>{{ product.amount }}</div>
-            <div>{{ product.measurement }}</div>
-            <button onclick="document.location.href='/{{ product.id }}/edit_product'">Изменить продукт</button>
-            <button onclick="document.location.href='/{{ product.id }}/delete_product'">Удалить продукт</button>
-        {% endfor %}
+        {% if products %}
+            {% for product in products %}
+                <div>{{ product.name }}</div>
+                <div>{{ product.amount }}</div>
+                <div>{{ product.measurement }}</div>
+                <button onclick="document.location.href='/{{ product.id }}/edit_product'">Изменить продукт</button>
+                <button onclick="document.location.href='/{{ product.id }}/delete_product'">Удалить продукт</button>
+            {% endfor %}
+        {% else %}
+            <div>Продуктов нет</div>
+        {% endif %}
 
     {% endblock content%}
 

@@ -30,14 +30,16 @@
             </div>
 
             <div>
-                <label for="ingredients">Состав</label>
-                <select id="ingredients" name="ingredients" multiple required>
+                <label>Состав</label>
+                <select name="ingredients" required>
                     <option value=""></option>
                     {% for product in products %}
-                        <option value="{{ product.name }}">{{ product.name }}</option>
+                        <option value="{{ product.id }}">{{ product.name }} ({{ product.measurement }})</option>
                     {% endfor %}
                 </select>
+                <input name="product_amount" type="number" min="1" placeholder="Количество" required>
             </div>
+
             <button type="submit">Подтвердить</button>
 
         </form>

@@ -8,7 +8,7 @@ from datebase.classes import Menu, Dish
 add_menu = Blueprint('add_menu', __name__, template_folder='templates')
 @add_menu.route('/add_menu', methods=['GET', 'POST'])
 @login_required
-@roles_accepted('admin')
+@roles_accepted('cook')
 def add_menu_page():
     if request.method == 'GET':
         dishes = db.session.query(Dish).all()
@@ -38,7 +38,7 @@ def add_menu_page():
             new_menu = Menu(type=type, dishes=dish1, price=price, date=date1)
             db.session.add(new_menu)
             db.session.commit()
-            return redirect('/admin_menu')
+            return redirect('/cook_menu')
 
         finally:
             db.session.close()
