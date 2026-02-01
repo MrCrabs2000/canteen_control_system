@@ -4,9 +4,11 @@
             <a href='/profile'>Профиль</a>
         </li>
 
+        {% if current_user.is_authenticated and current_user.roles and current_user.roles[0].name == 'user' %}
         <li>
             <a href='/reviews'>Отзывы</a>
         </li>
+        {% endif %}
 
         <li>
             <a href='/logout'>Выйти</a>

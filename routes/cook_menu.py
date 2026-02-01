@@ -1,11 +1,15 @@
 from flask import Blueprint, render_template
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, Requisition
 from configs.app_configs import login_required
 
 
+
+
+
+
 cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
-@cook_menu.route('/cook/menu')
+@cook_menu.route('/cook/menu/')
 @login_required
 @roles_accepted('cook')
 def cook_menu_page():
@@ -14,9 +18,11 @@ def cook_menu_page():
     try:
         context = {
             'menus': menu,
+            'name': current_user.name,
+            'surname': current_user.surname,
         }
 
-        return render_template('cook_menu.html', **context)
+        return render_template('menus/list.html', **context)
 
     finally:
         db.session.close()

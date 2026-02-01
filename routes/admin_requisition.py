@@ -34,10 +34,12 @@ def admin_requisition_page():
             requisition.coordination = coordination
             try:
                 db.session.commit()
-                return redirect('/admin/requisitions')
-
+            except Exception as e:
+                print(e)
+                return redirect('/admin_menu')
             finally:
                 db.session.close()
+            return redirect('/admin_requisition')
         else:
             db.session.close()
             return redirect('/admin/requisitions')
