@@ -70,7 +70,8 @@ def admin_read_dish_page():
     db.session.close()
 
     return render_template('admin_read_dish.html', breakfasts=breakfasts, salads=salads, soups=soups,
-                           main_dishes=main_dishes, drinks=drinks, bread=bread)
+                           main_dishes=main_dishes, drinks=drinks, bread=bread, name=current_user.name,
+                           surname=current_user.surname)
 
 
 admin_read_product = Blueprint('admin_read_product', __name__, template_folder='templates')
