@@ -85,6 +85,8 @@ def admin_read_product_page():
     try:
         context = {
             'products': product,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
         return render_template('admin_read_product.html', **context)
 
