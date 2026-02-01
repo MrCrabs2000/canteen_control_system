@@ -14,6 +14,8 @@ def admin_menu_page():
             db.joinedload(Menu.dishes).joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
         context = {
             'menus': menu,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
         return render_template('admin_menu.html', **context)
 

@@ -1,44 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% block title %}Список меню{% endblock title %}
+{% extends 'layouts/base.html' %}
 
-    {% block content %}
-        {% if menus %}
-            {% for menu in menus %}
-                <div>{{ menu.date }}</div>
-                <div>{{ menu.type }}</div>
-                {% for dish in menu.dishes %}
-                    <div>{{ dish.name }}</div>
-                    {% if dish.products %}
-                        <div>Состав:</div>
-                        {% for association in dish.products %}
-                            {{ association.product.name }}
-                            {{ association.product_amount }}
-                            {{ association.product.measurement }}
+{% block title %}Админ-панель - Управление меню{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/menus/menu.css">
+    <link rel="stylesheet" href="/static/styles/menus/list.css">
+{% endblock %}
+
+{% block content %}
+    <div class="grid-wrapper" style="grid-template-columns: 1fr; grid-template-rows: auto auto 1fr;">
+        <div class="top-bar">
+            <div class="top-bar__left">
+                <h1 class="title left">Управление меню</h1>
+            </div>
+        </div>
+
+        <div class="top-bar">
+            <div class="top-bar__right" style="width: 100%; justify-content: center; gap: 12px;">
+                <button onclick="location.href='/admin/products'" class="accent">Список продуктов</button>
+                <button onclick="location.href='/admin/dishes'" class="accent">Список блюд</button>
+                <button onclick="location.href='/admin/requisitions'" class="accent">Согласование заявок</button>
+                <button onclick="location.href='/admin/user/add'" class="accent">Добавить пользователя</button>
+                <button onclick="location.href='/admin/users'" class="accent">Список пользователей</button>
+            </div>
+        </div>
+
+        <main style="grid-column: 1;">
+            <div class="menus-container" style="height: 100%;">
+                {% if menus %}
+                    <div class="menus-grid">
+                        {% for menu in menus %}
+                            <div class="menu">
+                                <div class="menu__link" style="cursor: default;">
+                                    <div class="menu__top">
+                                        <h3 class="menu__header">{{ menu.date }} - {{ menu.type|title }}</h3>
+                                        <button class="menu__delete-btn danger">×</button>
+                                    </div>
+                                    <div style="font-size: 1.4rem; font-weight: 700; color: var(--primary); margin: 8px 0;">
+                                        {{ menu.price }} ₽
+                                    </div>
+                                    <div class="products-section">
+                                        <div style="margin-bottom: 12px;">
+                                            <div class="section-title">Блюда:</div>
+                                            {% for dish in menu.dishes %}
+                                                <div class="dish-item">
+                                                    <div class="dish-name">{{ dish.name }}</div>
+                                                    {% if dish.products %}
+                                                        <div class="section-title" style="margin-top: 8px; font-size: 1rem;">Состав:</div>
+                                                        <ul class="dish__composition">
+                                                            {% for association in dish.products %}
+                                                                <li>{{ association.product.name }} - {{ association.product_amount }} {{ association.product.measurement }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% else %}
+                                                        <p class="unknown-composition">Состав не известен</p>
+                                                    {% endif %}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                                        <button class="accent">Редактировать</button>
+                                        <button class="danger">Удалить</button>
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
-                    {% else %}
-                         <div>Состав не известен</div>
-                    {% endif %}
-                {% endfor %}
-                <div>{{ menu.price }} ₽</div>
-            {% endfor %}
-        {% else %}
-            <div>Меню нет</div>
-        {% endif %}
-    {% endblock content %}
-
-    <button onclick="document.location.href='/admin/products'">Смотреть список продуктов</button>
-    <button onclick="document.location.href='/admin/dishes'">Смотреть список блюд</button>
-
-    <button onclick="document.location.href='/admin/requisitions'">Согласование заявок</button>
-    <button onclick="document.location.href='/admin/user/add'">Добавить пользователя</button>
-    <button onclick="document.location.href='/admin/users'">Смотреть список пользователей</button>
-    <button onclick="document.location.href='/logout'">Выйти</button>
-
-</body>
-</html>
+                    </div>
+                {% else %}
+                    <p class="no-menu-message">Меню нет</p>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+{% endblock %}
