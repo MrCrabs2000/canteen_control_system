@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 from sqlalchemy.orm import joinedload
 from datebase.classes import db, Menu, Dish, Product, Requisition
 from configs.app_configs import login_required
@@ -14,6 +14,8 @@ def cook_menu_page():
     try:
         context = {
             'menus': menu,
+            'name': current_user.name,
+            'surname': current_user.surname,
         }
 
         return render_template('cook_menu.html', **context)

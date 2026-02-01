@@ -14,6 +14,8 @@ def admin_menu_page():
         menu = db.session.query(Menu).order_by(Menu.date.asc()).all()
         context = {
             'menus': menu,
+            'name': current_user.name,
+            'surname': current_user.surname,
         }
         return render_template('admin_menu.html', **context)
 
