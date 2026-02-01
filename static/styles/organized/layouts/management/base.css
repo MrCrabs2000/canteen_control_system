@@ -1,0 +1,27 @@
+.management-nav__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.management-nav__list li a {
+    display: block;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    color: var(--text);
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.management-nav__list li:hover {
+    background: var(--bg-dark-hover);
+    border-radius: var(--border-radius);
+}
+
+.add-btn {
+    font-size: 1.2rem;
+}

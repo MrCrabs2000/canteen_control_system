@@ -1,0 +1,36 @@
+header {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    height: 52px;
+    min-height: 52px;
+    padding: 8px 8px;
+    background: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+header button, header a {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 600;
+    background: none;
+    border: 0;
+    border-radius: var(--border-radius-small);
+    box-shadow: none;
+}
+
+header button:hover, header a:hover {
+    background: var(--bg-dark-hover);
+}
+
+#app-menu {
+    display: flex;
+    gap: 8px;
+    font-size: 1.3rem;
+}
