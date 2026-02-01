@@ -18,8 +18,8 @@
                 <div>{{ user.surname }}</div>
                 <div>{{ user.name }}</div>
                 <div>{{ user.patronymic }}</div>
-                <button onclick="document.location.href='/{{ user.id }}/edit_user'">Изменить пользователя</button>
-                <button onclick="document.location.href='/{{ user.id }}/delete_user'">Удалить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/edit'">Изменить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/del'">Удалить пользователя</button>
             {% endif %}
         {% endfor %}
         {% if not ns.admin %}
@@ -35,8 +35,8 @@
                 <div>{{ user.surname }}</div>
                 <div>{{ user.name }}</div>
                 <div>{{ user.patronymic }}</div>
-                <button onclick="document.location.href='/{{ user.id }}/edit_user'">Изменить пользователя</button>
-                <button onclick="document.location.href='/{{ user.id }}/delete_user'">Удалить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/edit'">Изменить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/del'">Удалить пользователя</button>
             {% endif %}
         {% endfor %}
         {% if not ns.cook %}
@@ -52,8 +52,8 @@
                 <div>{{ user.surname }}</div>
                 <div>{{ user.name }}</div>
                 <div>{{ user.patronymic }}</div>
-                <button onclick="document.location.href='/{{ user.id }}/edit_user'">Изменить пользователя</button>
-                <button onclick="document.location.href='/{{ user.id }}/delete_user'">Удалить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/edit'">Изменить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/del'">Удалить пользователя</button>
             {% endif %}
         {% endfor %}
         {% if not ns.user %}
@@ -64,7 +64,7 @@
     {% endif %}
     {% endblock content%}
 
-    <button onclick="document.location.href='/add_user'">Добавить пользователя</button>
-    <button onclick="document.location.href='/admin_menu'">Назад</button>
+    <button onclick="document.location.href='/admin/user/add'">Добавить пользователя</button>
+    <button onclick="document.location.href='/admin/menu'">Назад</button>
 </body>
 </html>

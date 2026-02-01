@@ -45,13 +45,13 @@ def edit_balance_page():
         db.session.commit()
         db.session.close()
         db.session.close()
-        return redirect("/food_payment")
+        return redirect("/payment")
     db.session.close()
     return render_template('edit_balance.html')
 
 
 edit_abonement = Blueprint('edit_abonement', __name__, template_folder='templates')
-@edit_abonement.route('/edit_aboniment', methods=['GET', 'POST'])
+@edit_abonement.route('/abonement/edit', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('user')
 def edit_abonement_page():
@@ -93,7 +93,7 @@ def edit_abonement_page():
                 print("Недостаточно средств")
                 db.session.close()
 
-        return redirect("/food_payment")
+        return redirect("/payment")
 
     db.session.close()
     return render_template('edit_abonement.html')

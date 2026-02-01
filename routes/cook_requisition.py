@@ -5,7 +5,7 @@ from configs.app_configs import login_required
 
 
 cook_requisition = Blueprint('cook_requisition', __name__, template_folder='templates')
-@cook_requisition.route('/cook_requisition', methods=['GET', 'POST'])
+@cook_requisition.route('/cook/requisition/add', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('cook')
 def cook_requisition_page():
@@ -18,17 +18,16 @@ def cook_requisition_page():
         name = request.form.get('product_name')
         amount = request.form.get('amount')
 
-
         if not all([name, amount]):
             db.session.close()
-            return redirect('/cook_requisition')
+            return redirect('/cook/requisition/add')
 
         try:
             product1 = db.session.query(Product).filter(Product.name == name).first()
             new_requisition = Requisition(product=product1, amount=amount)
             db.session.add(new_requisition)
             db.session.commit()
-            return redirect('/cook_menu')
+            return redirect('/cook/menu')
 
         finally:
             db.session.close()

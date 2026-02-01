@@ -25,9 +25,9 @@ def inition():
         if current_user.roles[0].name == 'user':
             return redirect('/menu')
         elif current_user.roles[0].name == 'cook':
-            return redirect('/cook_menu')
+            return redirect('/cook/menu')
         elif current_user.roles[0].name == 'admin':
-            return redirect('/admin_menu')
+            return redirect('/admin/menu')
     return redirect('/login')
 
 

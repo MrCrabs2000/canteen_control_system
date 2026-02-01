@@ -78,7 +78,7 @@ def loginpage():
 
 
 exit_page = Blueprint('exit_page', __name__, template_folder='templates')
-@exit_page.route('/exit')
+@exit_page.route('/logout')
 @login_required
 def exitpage():
     logout_user()

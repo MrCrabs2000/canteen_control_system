@@ -9,14 +9,18 @@
 
     {% block content %}
 
-        {% for product in products %}
-            <div>{{ product.name }}</div>
-            <div>{{ product.amount }}</div>
-            <div>{{ product.measurement }}</div>
-        {% endfor %}
+        {% if products %}
+            {% for product in products %}
+                <div>{{ product.name }}</div>
+                <div>{{ product.amount }}</div>
+                <div>{{ product.measurement }}</div>
+            {% endfor %}
+        {% else %}
+            <div>Продуктов нет</div>
+        {% endif %}
 
     {% endblock content%}
 
-    <button onclick="document.location.href='/admin_menu'">Назад</button>
+    <button onclick="document.location.href='/admin/menu'">Назад</button>
 </body>
 </html>

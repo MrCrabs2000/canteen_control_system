@@ -5,7 +5,7 @@ from configs.app_configs import login_required
 
 
 admin_requisition = Blueprint('admin_requisition', __name__, template_folder='templates')
-@admin_requisition.route('/admin_requisition', methods=['GET', 'POST'])
+@admin_requisition.route('/admin/requisitions', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('admin')
 def admin_requisition_page():
@@ -24,7 +24,7 @@ def admin_requisition_page():
 
         if not all([coordination, requisition_id]):
             db.session.close()
-            return redirect('/admin_requisition')
+            return redirect('/admin/requisitions')
 
         requisition = db.session.query(Requisition).filter_by(id=requisition_id).first()
         product = db.session.query(Product).filter_by(id=requisition.product_id).first()
@@ -42,4 +42,4 @@ def admin_requisition_page():
             return redirect('/admin_requisition')
         else:
             db.session.close()
-            return redirect('/admin_requisition')
+            return redirect('/admin/requisitions')

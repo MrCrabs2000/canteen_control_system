@@ -68,19 +68,18 @@ def reviewview(review_id):
 
         try:
             db.session.commit()
+            return redirect(f'/reviews/{review.id}')
         except Exception as e:
             print(e)
             db.session.rollback()
         finally:
             db.session.close()
 
-        return redirect(f'/reviews/{review.id}')
-
 
 review_new = Blueprint('review_new', __name__)
 
 
-@review_new.route('/reviews/new', methods=["GET", "POST"])
+@review_new.route('/reviews/add', methods=["GET", "POST"])
 @login_required
 @roles_accepted('user')
 def reviewnew():

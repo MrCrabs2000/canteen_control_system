@@ -1,17 +1,17 @@
 from flask import Blueprint, render_template
 from flask_security import current_user, roles_accepted
-from sqlalchemy.orm import joinedload
-from datebase.classes import db, Menu, Dish, Product, User
+from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User
 from configs.app_configs import login_required
 
 
 admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
-@admin_menu.route('/admin_menu')
+@admin_menu.route('/admin/menu')
 @login_required
 @roles_accepted('admin')
 def admin_menu_page():
     try:
-        menu = db.session.query(Menu).order_by(Menu.date.asc()).all()
+        menu = db.session.query(Menu).order_by(Menu.date.asc()).options(
+            db.joinedload(Menu.dishes).joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
         context = {
             'menus': menu,
             'name': current_user.name,
@@ -25,16 +25,22 @@ def admin_menu_page():
 
 
 admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templates')
-@admin_read_dish.route('/admin_read_dish')
+@admin_read_dish.route('/admin/dishes')
 @login_required
 @roles_accepted('admin')
 def admin_read_dish_page():
-    breakfasts = db.session.query(Dish).filter_by(category='breakfasts').options(joinedload(Dish.products)).all()
-    salads = db.session.query(Dish).filter_by(category='salads').options(joinedload(Dish.products)).all()
-    soups = db.session.query(Dish).filter_by(category='soups').options(joinedload(Dish.products)).all()
-    main_dishes = db.session.query(Dish).filter_by(category='main_dishes').options(joinedload(Dish.products)).all()
-    drinks = db.session.query(Dish).filter_by(category='drinks').options(joinedload(Dish.products)).all()
-    bread = db.session.query(Dish).filter_by(category='bread').options(joinedload(Dish.products)).all()
+    breakfasts = db.session.query(Dish).filter_by(category='breakfasts').options(
+        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
+    salads = db.session.query(Dish).filter_by(category='salads').options(
+        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
+    soups = db.session.query(Dish).filter_by(category='soups').options(
+        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
+    main_dishes = db.session.query(Dish).filter_by(category='main_dishes').options(
+        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
+    drinks = db.session.query(Dish).filter_by(category='drinks').options(
+        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
+    bread = db.session.query(Dish).filter_by(category='bread').options(
+        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
 
     db.session.close()
 
@@ -44,7 +50,7 @@ def admin_read_dish_page():
 
 
 admin_read_product = Blueprint('admin_read_product', __name__, template_folder='templates')
-@admin_read_product.route('/admin_read_product')
+@admin_read_product.route('/admin/products')
 @login_required
 @roles_accepted('admin')
 def admin_read_product_page():
@@ -61,11 +67,11 @@ def admin_read_product_page():
 
 
 read_users = Blueprint('read_users', __name__, template_folder='templates')
-@read_users.route('/read_users')
+@read_users.route('/admin/users')
 @login_required
 @roles_accepted('admin')
 def read_users_page():
-    user = db.session.query(User).filter(User.id!=current_user.id).all()
+    user = db.session.query(User).filter(User.id != current_user.id).all()
     try:
         context = {
             'users': user,
