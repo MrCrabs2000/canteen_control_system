@@ -1,0 +1,12 @@
+{% extends 'layouts/management/base.html' %}
+
+{% from 'macros/sidebar.html' import sidebar %}
+
+
+{% block top_bar_title %}Продукты{% endblock %}
+
+
+{% block sidebar_tabs %}
+    <li><a href="/manage/products">Список</a></li>
+    <li><a href="/manage/products/add">Добавить</a></li>
+{% endblock %}

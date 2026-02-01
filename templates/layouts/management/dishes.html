@@ -1,0 +1,12 @@
+{% extends 'layouts/management/base.html' %}
+
+{% from 'macros/sidebar.html' import sidebar %}
+
+
+{% block top_bar_title %}Блюда{% endblock %}
+
+
+{% block sidebar_tabs %}
+    <li><a href="/manage/dishes">Список</a></li>
+    <li><a href="/manage/dishes/add">Добавить</a></li>
+{% endblock %}

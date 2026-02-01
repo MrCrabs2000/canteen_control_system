@@ -1,0 +1,10 @@
+<div class="dish">
+    <a class="dish__link" href="/dishes/{{ dish.id }}">
+        <div class="dish__name">{{ dish.name }}</div>
+        <ul class="dish__composition">
+            {% for product in dish.products %}
+                <li>{{ product.name }}</li>
+            {% endfor %}
+        </ul>
+    </a>
+</div>

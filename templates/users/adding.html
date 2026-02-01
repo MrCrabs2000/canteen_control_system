@@ -1,0 +1,34 @@
+{% extends 'layouts/management/users.html' %}
+
+{% from 'macros/labeled_fields.html' import labeled_input, labeled_select %}
+
+
+{% block title %}Добавить пользователя{% endblock %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/macros/labeled_fields.css">
+    <link rel="stylesheet" href="/static/styles/users/adding.css">
+{% endblock %}
+
+
+{% block top_bar %}
+    {{ super() }}
+    <button id="add-user-btn" form="add-user-form" class="add-btn accent">Добавить</button>
+{% endblock %}
+
+
+{% block main %}
+    <form id="add-user-form" class="add-user-form" method="post">
+        <div class="form-wrapper">
+            {{ labeled_input(name='login', label='Логин', required=True) }}
+            {{ labeled_input(name='surname', label='Фамилия', required=True) }}
+            {{ labeled_input(name='name', label='Имя', required=True) }}
+            {{ labeled_input(name='patronymic', label='Отчество', required=True) }}
+            {{ labeled_select(options = [('student', 'Ученик'), ('cook', 'Повар'), ('admin', 'Админ')], name='role', label='Роль', required=True) }}
+            {{ labeled_input(name='password', label='Пароль', type='password', required=True) }}
+            {{ labeled_input(name='second_password', label='Повтор пароля', type='password', required=True) }}
+        </div>
+    </form>
+{% endblock %}
