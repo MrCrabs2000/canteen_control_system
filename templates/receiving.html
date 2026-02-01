@@ -1,56 +1,66 @@
-<!-- templates/receiving.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>История</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}История получений{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/receiving.css">
+{% endblock %}
+
+{% block content %}
+<div class="receiving-container">
     <h1>История получений</h1>
 
+    <div class="filter-section">
+        <h2 class="filter-title">Фильтр по дате</h2>
+        <form method="GET" action="/receiving" class="filter-form">
+            <input type="date" name="date" id="date" class="filter-input"
+                   value="{{ filter_date }}">
+
+            <button type="submit" class="btn-apply">Найти</button>
+            {% if filter_date %}
+                <a href="/receiving" class="btn-clear">Очистить</a>
+            {% endif %}
+        </form>
+    </div>
+
     <form method="POST">
-        <table border="1" cellpadding="8" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Статус</th>
-                    <th>Дата</th>
-                    <th>Тип</th>
-                    <th>Цена</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for history in history_list %}
-                <tr>
-                    {% if history.status == True %}
+        {% if not history_list %}
+            <p class="no-history">Нет записей получения</p>
+        {% else %}
+            <table class="receiving-table">
+                <thead>
+                    <tr>
+                        <th>Статус</th>
+                        <th>Дата</th>
+                        <th>Тип</th>
+                        <th>Цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for history in history_list %}
+                    <tr>
                         <td>
-                            <input type="checkbox"
-                                   name="history_ids"
-                                   value="{{ history.id }}" checked>
+                            {% if history.status %}
+                                <span class="status-received">Получено</span>
+                            {% else %}
+                                <button type="submit" name="mark_received" value="{{ history.id }}" class="btn-mark">
+                                    Отметить полученным
+                                </button>
+                            {% endif %}
                         </td>
-                    {% else %}
-                        <td>
-                            <input type="checkbox"
-                                   name="history_ids"
-                                   value="{{ history.id }}">
-                        </td>
-                    {% endif %}
-                    <td>{{ history.eat_date }}</td>
-                    <td>{{ history.type }}</td>
-                    <td>{{ history.cost }}</td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="3">Нет записей получения</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <br>
-        <button type="submit">Отправить</button>
+                        <td>{{ history.eat_date }}</td>
+                        <td>{{ history.type }}</td>
+                        <td>{{ history.cost }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
     </form>
-    <a href="/">Назад к главной</a>
 
-</body>
-</html>
+    <div class="receiving-actions">
+        <a href="/" class="btn-back">Назад к главной</a>
+    </div>
+</div>
+{% endblock %}

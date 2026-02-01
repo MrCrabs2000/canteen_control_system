@@ -46,9 +46,9 @@
         </form>
 
     </div>
-{% endblock %}   
+{% endblock %}
 
-        
+
 {% block sidebar %}
     {% call sidebar(header='День') %}
     <ul id="daysList" class="days-list">
@@ -65,13 +65,13 @@
     </ul>
     {% endcall %}
 {% endblock %}
-            
-            
+
+
 {% block main %}
     {% if not menu or not menu.dishes %}
         <p class="no-menu-message"><strong>На эту дату нет меню.</strong></p>
     {% else %}
-        
+
     <div class="menu-grid">
         {% for dish in menu.dishes %}
         {{ dish_tile(dish) }}
@@ -80,8 +80,8 @@
 
     {% endif %}
 {% endblock %}
-    
-    
+
+
 {% block scripts %}
     <script>
         const menuTypeSelect = document.getElementById('menuTypeSelect');
@@ -90,5 +90,5 @@
         menuTypeSelect.addEventListener('change', function(event) {
             filtersForm.requestSubmit();
         });
-    </script>    
+    </script>
 {% endblock %}
