@@ -19,12 +19,5 @@ def date_fM_d(date: date):
 
 
 def date_Y_M_d(date: date):
-    formated_date = ''
-
-    try:
-        formated_date = date.strftime('%-d.%m.%Y')
-    except: 
-        formated_date = date.strftime('%#d.%m.%Y')
-
-    return formated_date
+    return date.strftime('%d.%m.%Y')
     

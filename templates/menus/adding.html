@@ -1,0 +1,22 @@
+{% extends 'layouts/management/menus.html' %}
+
+
+{% block title %}Добавить меню{% endblock %}
+
+
+{% block head %}    
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/macros/labeled_fields.css">
+    <link rel="stylesheet" href="/static/styles/includes/menus/menu_form.css">
+{% endblock %}
+
+
+{% block top_bar %}
+    {{ super() }}
+    <button id="add-menu-btn" form="add-menu-form" class="add-btn accent">Добавить</button>
+{% endblock %}
+
+
+{% block main %}
+    {% include 'includes/menus/menu_form.html' %}
+{% endblock %}
