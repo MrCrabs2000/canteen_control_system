@@ -22,12 +22,7 @@ except Exception as e:
 @app.route('/', methods=['GET', 'POST'])
 def inition():
     if current_user.is_authenticated:
-        if current_user.roles[0].name == 'user':
-            return redirect('/menu')
-        elif current_user.roles[0].name == 'cook':
-            return redirect('/cook/menu')
-        elif current_user.roles[0].name == 'admin':
-            return redirect('/admin/menu')
+        return redirect('/menu')
     return redirect('/login')
 
 

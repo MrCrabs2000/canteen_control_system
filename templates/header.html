@@ -7,12 +7,33 @@
 
     <div id="right-header">
         {% if current_user.is_authenticated %}
-        <nav id="app-menu">
-            <a href="/menu">Меню</a>
-            <a href="/payment">Оплата</a>
-            <a href="/receiving">Получение</a>
-            <button id="profile-btn">{{ surname }} {{ name[0] }}.</button>
-        </nav>
+            {% if current_user.roles[0].name == 'user' %}
+                <nav id="app-menu">
+                    <a href="/menu">Меню</a>
+                    <a href="/payment">Оплата</a>
+                    <a href="/receiving">Получение</a>
+                    <button id="profile-btn">{{ surname }} {{ name[0] }}.</button>
+                </nav>
+            {% elif current_user.roles[0].name == 'cook' %}
+                <nav id="app-menu">
+                    <a href="/cook_menu">Меню</a>
+                    <a href="/read_product'">Продукты</a>
+                    <a href="/read_dish">Блюда</a>
+                    <a href="/read_requisition">Закупки</a>
+                    <button id="profile-btn">{{ surname }} {{ name[0] }}.</button>
+                </nav>
+            {% else %}
+                <nav id="app-menu">
+                    <a href="/admin_menu">Меню</a>
+                    <a href="/admin_read_product">Продукты</a>
+                    <a href="/admin_read_dish">Блюда</a>
+                    <a href="/read_users">Пользователи</a>
+                    <a href="/admin_requisition">Закупки</a>
+                    <button id="profile-btn">{{ surname }} {{ name[0] }}.</button>
+                </nav>
+            {% endif %}
+        {% endif %}
+
         {% endif %}
     </div>
 </header>
