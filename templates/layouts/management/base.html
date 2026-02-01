@@ -1,0 +1,31 @@
+{% extends 'layouts/sidebar_w_header.html' %}
+{% from 'macros/sidebar.html' import sidebar %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+    <link rel="stylesheet" href="/static/styles/layouts/management/base.css">
+{% endblock %}
+
+
+{% block top_bar %}
+   <h1 class="title left">
+        {% block top_bar_title %}
+            
+        {% endblock %}
+   </h1>
+{% endblock %}
+
+
+{% block sidebar %}
+    {% call sidebar(header='Вкладки') %}
+        <nav class="management-nav">
+            <ul class="management-nav__list">
+                {% block sidebar_tabs %}
+                    
+                {% endblock %}
+            </ul>
+        </nav>
+    {% endcall %}
+{% endblock %}

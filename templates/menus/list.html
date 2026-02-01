@@ -1,0 +1,40 @@
+{% extends 'layouts/management/menus.html' %}
+
+
+{% block title %}Список меню{% endblock %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/menus/list.css">
+    <link rel="stylesheet" href="/static/styles/includes/menus/menu_tile.css">
+{% endblock %}
+
+
+{% block main %}
+    <div class="menus-grid">
+        {% for menu in menus %}
+            {% include 'includes/menus/menu_tile.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+        const menus = document.querySelectorAll('.menu');
+
+        menus.forEach(user => {
+            const deleteButton = user.querySelector('.menu__delete-btn');
+            const id = user.dataset.id;
+            
+            deleteButton.addEventListener('click', function() {
+                event.preventDefault();
+                isDeleting = confirm('Удалить меню?');
+                if (isDeleting) {
+                    
+                }
+            });
+        });
+    </script>
+{% endblock %}

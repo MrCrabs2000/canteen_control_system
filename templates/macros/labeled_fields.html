@@ -1,0 +1,49 @@
+{% macro labeled_input(label, name='', type='text', value='', class='labeled-input', 
+        readonly=False, required=False) %}
+    <div class="{{ class }}">
+        {% if label %}
+            <label for="{{ name }}">{{ label }}</label>
+        {% endif %}
+
+        <input id="{{ name }}" name="{{ name }}" type="{{ type }}" value="{{ value }}" placeholder="{{ label }}"
+         {% if required %}required{% endif %}
+         {% if readonly %}readonly{% endif %}>
+    </div>
+{% endmacro %}
+
+
+{% macro labeled_class_input(name="class", value='', label='Класс', required=False, readonly=False) %}
+    <div class="labeled-input">
+
+        {% if label %}
+            <label>{{ label }}</label>  
+        {% endif %}
+
+        <class-input name="{{ name }}" value="{{ value }}"
+        {% if readonly %}readonly{% endif %}
+        {% if required %}required{% endif %}></class-input>
+    </div>
+{% endmacro %}
+
+
+{% macro labeled_select(options, label, selected=None, name='', class='labeled-select', required=False) %}
+    <div class="{{ class }}">
+
+        {% if label %}
+            <label for="{{ name }}">{{ label }}</label>
+        {% endif %}
+
+        <select id="{{ name }}" name="{{ name }}"
+            {% if required %}required{% endif %}>
+
+            {% for option in options %}
+                {% if option[0] == selected %}
+                    <option value="{{ option[0] }}" selected>{{ option[1] }}</option> 
+                {% else %}
+                    <option value="{{ option[0] }}">{{ option[1] }}</option> 
+                {% endif %}
+            {% endfor %}
+
+        </select>
+    </div>
+{% endmacro %}
