@@ -1,7 +1,4 @@
-{% extends 'management/menus/menu_base.html' %}
-
-{% from 'macros/labeled_input.html' import labeled_input %}
-{% from 'macros/labeled_select.html' import labeled_select  %}
+{% extends 'layouts/management/menus.html' %}
 
 
 {% block title %}Добавить меню{% endblock %}
@@ -22,5 +19,5 @@
 
 
 {% block main %}
-    {% include 'management/menus/menu_form.html' %}
+    {% include 'includes/menus/menu_form.html' %}
 {% endblock %}

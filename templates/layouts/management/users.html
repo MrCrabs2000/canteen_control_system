@@ -1,0 +1,12 @@
+{% extends 'layouts/management/base.html' %}
+
+{% from 'macros/sidebar.html' import sidebar %}
+
+
+{% block top_bar_title %}Пользователи{% endblock %}
+
+
+{% block sidebar_tabs %}
+    <li><a href="/manage/users">Список</a></li>
+    <li><a href="/manage/users/add">Добавить</a></li>
+{% endblock %}

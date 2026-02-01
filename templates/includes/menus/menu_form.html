@@ -1,5 +1,4 @@
-{% from 'macros/labeled_input.html' import labeled_input %}
-{% from 'macros/labeled_select.html' import labeled_select %}
+{% from 'macros/labeled_fields.html' import labeled_input, labeled_select %}
 
 
 <form id="editMenuForm" class="menu-form" method="post">
@@ -29,7 +28,7 @@
                     {% endif %}
                 {% endfor %}
 
-            {{ labeled_select(options=[('', '...')] + categories[category], selected=ns.selected.name, name=category, label=category) }}
+                {{ labeled_select(options=[('', '...')] + categories[category], selected=ns.selected.name, name=category, label=category) }}
             {% endfor %}
         </div>
     </section>

@@ -1,9 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
 
-{% from 'macros/labeled_input.html' import labeled_input %}
-{% from 'macros/labeled_class_input.html' import labeled_class_input %}
+{% from 'macros/labeled_fields.html' import labeled_input, labeled_class_input %}
 {% from 'macros/scrollable_list.html' import scrollable_list %}
-{% from 'macros/title.html' import title %}
+
 
 {% block title %}Профиль{% endblock %}
 
@@ -21,6 +20,7 @@
     <main>
         <form id="profile-form" action="profile/edit" method="post">
             <div id="profile-top-bar">
+                <h1 class="title">Профиль</h1>
                 {{ title(text='Профиль') }}
                 <div id="btns-container">
                     <button id="edit-btn" type="button">Изменить</button>

@@ -1,6 +1,5 @@
-{% extends 'grid_w_sidebar_layout.html' %}
+{% extends 'layouts/sidebar_w_header.html' %}
 {% from 'macros/sidebar.html' import sidebar %}
-{% from 'macros/title.html' import title   %}
 
 
 {% block head %}
@@ -12,17 +11,22 @@
 
 
 {% block top_bar %}
-    {{ title(text='Пользователи', alignment='left') }}
+   <h1 class="title left">
+        {% block top_bar_title %}
+            
+        {% endblock %}
+   </h1>
 {% endblock %}
 
 
 {% block sidebar %}
     {% call sidebar(header='Вкладки') %}
-    <nav class="management-nav">
-        <ul class="management-nav__list">
-            <li><a href="/manage/users">Список</a></li>
-            <li><a href="/manage/users/add">Добавить</a></li>
-        </ul>
-    </nav>
+        <nav class="management-nav">
+            <ul class="management-nav__list">
+                {% block sidebar_tabs %}
+                    
+                {% endblock %}
+            </ul>
+        </nav>
     {% endcall %}
 {% endblock %}

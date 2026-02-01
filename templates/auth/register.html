@@ -1,8 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
 
-{% from 'macros/labeled_input.html' import labeled_input %}
-{% from 'macros/labeled_class_input.html' import labeled_class_input %}
-{% from 'macros/title.html' import title %}
+{% from 'macros/labeled_fields.html' import labeled_input, labeled_class_input %}
 
 
 {% block title %}Регистрация{% endblock %}
@@ -19,7 +17,7 @@
 {% block content %}
     <main>
         <form id="auth-form" method="post">
-            {{ title(text='Регистрация') }}
+            <h1 class="title">Регистрация</h1>
 
             <div id="fields">
 

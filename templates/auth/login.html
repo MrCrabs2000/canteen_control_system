@@ -1,7 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
 
-{% from 'macros/labeled_input.html' import labeled_input %}
-{% from 'macros/title.html' import title %}
+{% from 'macros/labeled_fields.html' import labeled_input %}
 
 
 {% block title %}Вход{% endblock %}
@@ -17,7 +16,7 @@
 {% block content %}
     <main>
         <form id="auth-form" method="post">
-            {{ title(text='Вход') }}
+            <h1 class="title">Вход</h1>
 
             <div id="fields">
                 {{ labeled_input(name='login', label='Логин', required=True) }}

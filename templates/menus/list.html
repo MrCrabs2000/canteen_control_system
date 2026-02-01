@@ -1,6 +1,5 @@
-{% extends 'management/menus/menu_base.html' %}
+{% extends 'layouts/management/menus.html' %}
 
-{% from 'macros/tiles/menu_tile.html' import menu_tile   %}
 
 {% block title %}Список меню{% endblock %}
 
@@ -15,7 +14,7 @@
 {% block main %}
     <div class="menus-grid">
         {% for menu in menus %}
-            {{ menu_tile(menu, delete_button=True) }}
+            {% include 'includes/menus/menu_tile.html' %}
         {% endfor %}
     </div>
 {% endblock %}
@@ -37,7 +36,5 @@
                 }
             });
         });
-
-
     </script>
 {% endblock %}
