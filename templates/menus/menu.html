@@ -1,7 +1,6 @@
-{% extends 'layouts/sidebar_w_topbar.html' %}
+{% extends 'layouts/sidebar_w_header.html' %}
 
 {% from 'macros/sidebar.html' import sidebar %}
-{% from 'macros/tiles/dish_tile.html' import dish_tile %}
 
 {% block title %}Меню{% endblock %}
 
@@ -10,7 +9,7 @@
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/menus/menu.css">
     <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
-    <link rel="stylesheet" href="/static/styles/includes/tiles/dish_tile.css">
+    <link rel="stylesheet" href="/static/styles/includes/dishes/dish_tile.css">
 {% endblock %}
 
 {% block top_bar %}
@@ -72,7 +71,7 @@
         
     <div class="menu-grid">
         {% for dish in menu.dishes %}
-            {{ dish_tile(dish) }}
+            {% include 'includes/dishes/dish_tile.html' %}
         {% endfor %}
     </div>
 
