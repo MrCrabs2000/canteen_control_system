@@ -6,7 +6,6 @@ from datebase.classes import Info
 
 
 food_payment_main = Blueprint('payment_main', __name__, template_folder='templates')
-
 @food_payment_main.route('/payment', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('user')
@@ -21,8 +20,8 @@ def food_payment_main_page():
     return render_template('food_payment.html', **context)
 
 
-balance_edit = Blueprint('edit_balance', __name__, template_folder='templates')
 
+balance_edit = Blueprint('edit_balance', __name__, template_folder='templates')
 @balance_edit.route("/balance/edit", methods=['GET', 'POST'])
 @login_required
 @roles_accepted('user')
@@ -48,6 +47,7 @@ def edit_balance_page():
         return redirect("/payment")
     db.session.close()
     return render_template('edit_balance.html')
+
 
 
 edit_abonement = Blueprint('edit_abonement', __name__, template_folder='templates')

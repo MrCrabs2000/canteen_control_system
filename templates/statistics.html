@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Просмотр статистики оплат и посещаемости{% endblock title %}
+
+
+    {% block content %}
+
+        <button onclick="document.location.href='/admin/statistic/payments'">Просмотр статистики оплат</button>
+        <button onclick="document.location.href='/admin/statistic/attendance'">Просмотр статистики посещений</button>
+        <button onclick="document.location.href='/admin/menu'">Назад</button>
+
+    {% endblock %}
+</body>
+</html>

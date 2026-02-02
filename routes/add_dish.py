@@ -129,6 +129,7 @@ def cook_dish_page(id):
 
         if cook:
             dish.amount += amount
+            dish.cook_amount += amount
             for association in dish.products:
                 product_dish_amount = int(association.product_amount)
                 product_amount = int(association.product.amount)

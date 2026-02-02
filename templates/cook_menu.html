@@ -12,6 +12,7 @@
             {% for menu in menus %}
                 <div>{{ menu.date }}</div>
                 <div>{{ menu.type }}</div>
+                <div>Выдано: {{ menu.get_amount }}</div>
                 {% for dish in menu.dishes %}
                     <div>{{ dish.name }}</div>
                     {% if dish.products %}
