@@ -1,12 +1,23 @@
+import os
+import uuid
+import locale
 from flask import Flask, redirect
 from flask_security import Security, SQLAlchemyUserDatastore, current_user
-from datebase.classes import db, User, Role
-import uuid
-import os
 from werkzeug.security import generate_password_hash
-from utils.generation_password import generate_password_for_user
 from functools import wraps
+
+from utils.generation_password import generate_password_for_user
+from datebase.classes import db, User, Role
 from configs.filters import register_filters
+
+
+try:
+    locale.setlocale(locale.LC_ALL, 'ru_RU.utf8')
+except locale.Error:
+    try:
+        locale.setlocale(locale.LC_ALL, 'rus_rus')
+    except locale.Error:
+        print("Выбранная локализация недоступна. Используется локализация по умолчанию.")
 
 
 app = Flask(__name__)
