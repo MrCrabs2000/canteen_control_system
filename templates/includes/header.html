@@ -16,19 +16,19 @@
                 </nav>
             {% elif current_user.roles[0].name == 'cook' %}
                 <nav id="app-menu">
-                    <a href="/cook_menu">Меню</a>
-                    <a href="/read_product'">Продукты</a>
-                    <a href="/read_dish">Блюда</a>
-                    <a href="/read_requisition">Закупки</a>
+                    <a href="/menu">Меню</a>
+                    <a href="/cook/products">Продукты</a>
+                    <a href="/cook/dishes">Блюда</a>
+                    <a href="/cook/requisitions">Закупки</a>
                     <button id="profile-btn">{{ surname }} {{ name[0] }}.</button>
                 </nav>
             {% else %}
                 <nav id="app-menu">
-                    <a href="/admin_menu">Меню</a>
-                    <a href="/admin_read_product">Продукты</a>
-                    <a href="/admin_read_dish">Блюда</a>
-                    <a href="/read_users">Пользователи</a>
-                    <a href="/admin_requisition">Закупки</a>
+                    <a href="/menu">Меню</a>
+                    <a href="/admin/products">Продукты</a>
+                    <a href="/admin/dishes">Блюда</a>
+                    <a href="/admin/users">Пользователи</a>
+                    <a href="/admin/requisitions">Закупки</a>
                     <button id="profile-btn">{{ surname }} {{ name[0] }}.</button>
                 </nav>
             {% endif %}

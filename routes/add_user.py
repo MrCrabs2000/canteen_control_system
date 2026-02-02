@@ -41,7 +41,7 @@ def add_user_page():
         finally:
             db.session.close()
 
-        return redirect('/admin/menu')
+        return redirect('/menu')
     else:
         return render_template('add_user.html')
 

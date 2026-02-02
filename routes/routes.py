@@ -4,7 +4,7 @@ from .menu import menu_page, menu_redirect
 from .main_pages import main_page
 from .admin_menu import admin_menu, admin_read_dish, admin_read_product, read_users
 from .add_menu import add_menu
-from .cook_menu import cook_menu, read_dish, read_product, read_requisition
+from .cook_menu import cook_menu, read_dish, read_product, read_requisition, cook_menus
 from .add_dish import add_dish, edit_dish, delete_dish
 from .add_product import add_product, edit_product, delete_product
 from .food_payment import food_payment_main, balance_edit, edit_abonement
@@ -53,3 +53,4 @@ def register_all_blueprints(app):
     app.register_blueprint(admin_requisition)
     app.register_blueprint(dish_view)
     app.register_blueprint(receiving)
+    app.register_blueprint(cook_menus)

@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 from datetime import datetime, date
 from configs.app_configs import db, login_required
 from datebase.classes import Menu, Dish
+from utils.templates_rendering.management.menu import get_dishes_in_categories
 
 
 add_menu = Blueprint('add_menu', __name__, template_folder='templates')
@@ -13,7 +14,15 @@ def add_menu_page():
     if request.method == 'GET':
         dishes = db.session.query(Dish).all()
         db.session.close()
-        return render_template('add_menu.html', dishes=dishes)
+
+        context = {
+            'dishes': dishes,
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'categories': get_dishes_in_categories(dishes)
+        }
+
+        return render_template('menus/adding.html', **context)
 
     elif request.method == 'POST':
         type = request.form.get('type')
