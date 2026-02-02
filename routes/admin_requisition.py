@@ -31,6 +31,7 @@ def admin_requisition_page():
         if requisition:
             if coordination == "1":
                 product.amount += requisition.amount
+                product.buy_amount += requisition.amount
             requisition.coordination = coordination
             try:
                 db.session.commit()

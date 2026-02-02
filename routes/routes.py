@@ -5,7 +5,7 @@ from .main_pages import main_page
 from .admin_menu import admin_menu, admin_read_dish, admin_read_product, read_users
 from .add_menu import add_menu
 from .cook_menu import cook_menu, read_dish, read_product, read_requisition
-from .add_dish import add_dish, edit_dish, delete_dish
+from .add_dish import add_dish, edit_dish, delete_dish, cook_dish
 from .add_product import add_product, edit_product, delete_product
 from .food_payment import food_payment_main, balance_edit, edit_abonement
 from .reviews import reviews_main, review_new, review_view
@@ -14,6 +14,7 @@ from .cook_requisition import cook_requisition
 from .admin_requisition import admin_requisition
 from .dish import dish_view
 from .receiving import receiving
+from .admin_reports import reports, reports_product
 
 
 def register_all_blueprints(app):
@@ -39,6 +40,7 @@ def register_all_blueprints(app):
     app.register_blueprint(add_dish)
     app.register_blueprint(edit_dish)
     app.register_blueprint(delete_dish)
+    app.register_blueprint(cook_dish)
     app.register_blueprint(add_product)
     app.register_blueprint(edit_product)
     app.register_blueprint(delete_product)
@@ -53,3 +55,5 @@ def register_all_blueprints(app):
     app.register_blueprint(admin_requisition)
     app.register_blueprint(dish_view)
     app.register_blueprint(receiving)
+    app.register_blueprint(reports)
+    app.register_blueprint(reports_product)
