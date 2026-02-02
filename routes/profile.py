@@ -24,7 +24,7 @@ def profilepage():
 
     db.session.close()
 
-    return render_template('profile/view.html', **context)
+    return render_template('users/profile.html', **context)
 
 
 

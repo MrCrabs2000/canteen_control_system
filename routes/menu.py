@@ -13,6 +13,7 @@ def menupage():
     return redirect(f'/menu/{date.today()}')
 
 
+
 menu_page = Blueprint('menu_page', __name__)
 
 @menu_page.route('/menu/<date_str>', methods=['GET', 'POST'])
@@ -67,6 +68,7 @@ def menupage(date_str):
 
                 for dish in menu2.dishes:
                     dish.amount -= 1
+                    dish.give_amount += 1
 
                 menu2.get_amount += 1
                 db.session.add(history)
@@ -94,6 +96,7 @@ def menupage(date_str):
 
                 for dish in menu2.dishes:
                     dish.amount -= 1
+                    dish.give_amount += 1
 
                 menu2.get_amount += 1
                 db.session.add(history)

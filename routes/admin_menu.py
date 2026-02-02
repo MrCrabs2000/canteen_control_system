@@ -80,23 +80,3 @@ def admin_read_product_page():
     finally:
         db.session.close()
 
-
-read_users = Blueprint('read_users', __name__, template_folder='templates')
-
-
-@read_users.route('/admin/users')
-@login_required
-@roles_accepted('admin')
-def read_users_page():
-    user = db.session.query(User).filter(User.id != current_user.id).all()
-    user_info = db.session.query(Info).filter(Info.user_id != current_user.id).all()
-    try:
-        context = {
-            'users': user,
-            'name': current_user.name,
-            'surname': current_user.surname
-        }
-        return render_template('users/list.html', **context)
-
-    finally:
-        db.session.close()

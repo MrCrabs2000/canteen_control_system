@@ -5,15 +5,17 @@ from .main_pages import main_page
 from .admin_menu import admin_menu, admin_read_dish, admin_read_product
 from .add_menu import add_menu
 from .cook_menu import cook_menu, read_dish, read_product, read_requisition
-from .add_dish import add_dish, edit_dish, delete_dish
+from .add_dish import add_dish, edit_dish, delete_dish, cook_dish
 from .add_product import add_product, edit_product, delete_product
 from .food_payment import food_payment_main, balance_edit, edit_abonement
 from .reviews import reviews_main, review_new, review_view
-from .add_user import read_users, user_del, user_manage, user_add, user_edit
+from .add_user import user_add, user_del, read_users, user_manage, user_edit
 from .cook_requisition import cook_requisition
 from .admin_requisition import admin_requisition
 from .dish import dish_view
 from .receiving import receiving
+from .admin_statistics import statistics, statistic_payments, statistic_attendance
+from .admin_reports import reports, reports_product, reports_dish, reports_menu
 
 
 def register_all_blueprints(app):
@@ -28,6 +30,10 @@ def register_all_blueprints(app):
     app.register_blueprint(admin_read_dish)
     app.register_blueprint(admin_read_product)
     app.register_blueprint(add_menu)
+    app.register_blueprint(user_manage)
+    app.register_blueprint(user_edit)
+    app.register_blueprint(user_del)
+    app.register_blueprint(user_add)
     app.register_blueprint(read_users)
     app.register_blueprint(cook_menu)
     app.register_blueprint(read_dish)
@@ -36,6 +42,7 @@ def register_all_blueprints(app):
     app.register_blueprint(add_dish)
     app.register_blueprint(edit_dish)
     app.register_blueprint(delete_dish)
+    app.register_blueprint(cook_dish)
     app.register_blueprint(add_product)
     app.register_blueprint(edit_product)
     app.register_blueprint(delete_product)
@@ -50,7 +57,10 @@ def register_all_blueprints(app):
     app.register_blueprint(admin_requisition)
     app.register_blueprint(dish_view)
     app.register_blueprint(receiving)
-    app.register_blueprint(user_manage)
-    app.register_blueprint(user_del)
-    app.register_blueprint(user_add)
-    app.register_blueprint(user_edit)
+    app.register_blueprint(statistics)
+    app.register_blueprint(statistic_payments)
+    app.register_blueprint(statistic_attendance)
+    app.register_blueprint(reports)
+    app.register_blueprint(reports_product)
+    app.register_blueprint(reports_dish)
+    app.register_blueprint(reports_menu)
