@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import current_user, roles_accepted
-from datetime import datetime, date, timedelta
-from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User
+from datetime import date
+from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User, Info
 from configs.app_configs import login_required
+
 
 admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
 
@@ -14,37 +15,23 @@ def admin_menu_redirect():
     return redirect(f'/admin/menu/{date.today()}')
 
 
-@admin_menu.route('/admin/menu/<date_str>')
+admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
+@admin_menu.route('/admin/menu')
 @login_required
 @roles_accepted('admin')
-def admin_menu_page(date_str):
+def admin_menu_page():
     try:
-        menu_type = request.args.get('type', 'breakfast')
-        selected_date = datetime.strptime(date_str, '%Y-%m-%d').date()
-    except ValueError:
-        selected_date = date.today()
-        menu_type = 'breakfast'
+        menu = db.session.query(Menu).order_by(Menu.date.asc()).options(
+            db.joinedload(Menu.dishes).joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
+        context = {
+            'menus': menu,
+            'name': current_user.name,
+            'surname': current_user.surname
+        }
+        return render_template('menus/list.html', **context)
 
-    menu = db.session.query(Menu).filter_by(date=selected_date, type=menu_type).first()
-
-    dates = []
-    today = date.today()
-
-    for i in range(-7, 8):
-        day_date = today + timedelta(days=i)
-        dates.append(day_date)
-
-    context = {
-        'menu': menu,
-        'menu_type': menu_type,
-        'selected_date': selected_date,
-        'dates': dates,
-        'today_date': today,
-        'name': current_user.name,
-        'surname': current_user.surname
-    }
-
-    return render_template('admin_menu.html', **context)
+    finally:
+        db.session.close()
 
 
 admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templates')
@@ -102,11 +89,14 @@ read_users = Blueprint('read_users', __name__, template_folder='templates')
 @roles_accepted('admin')
 def read_users_page():
     user = db.session.query(User).filter(User.id != current_user.id).all()
+    user_info = db.session.query(Info).filter(Info.user_id != current_user.id).all()
     try:
         context = {
             'users': user,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
-        return render_template('read_users.html', **context)
+        return render_template('users/list.html', **context)
 
     finally:
         db.session.close()

@@ -1,0 +1,79 @@
+{% extends 'layouts/management/users.html' %}
+
+{% block title %}Пользователь {{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.{% endblock %}
+
+{% block main %}
+    <div class="user-profile">
+        <div class="profile-header">
+            <div>
+                <h1 class="profile-title">
+                    {{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.
+                </h1>
+                <div class="user-id">ID пользователя: {{ user.id }}</div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>Основная информация</h3>
+            <div class="info-grid">
+                <div class="info-field">
+                    <label>Логин</label>
+                    <div class="info-value">{{ user.login }}</div>
+                </div>
+
+                <div class="info-field">
+                    <label>Роль</label>
+                    <div class="info-value">{{ roles[0].name }}</div>
+                </div>
+
+                <div class="info-field">
+                    <label>Фамилия</label>
+                    <div class="info-value">{{ user.surname }}</div>
+                </div>
+
+                <div class="info-field">
+                    <label>Имя</label>
+                    <div class="info-value">{{ user.name }}</div>
+                </div>
+
+                <div class="info-field">
+                    <label>Отчество</label>
+                    <div class="info-value">{{ user.patronymic }}</div>
+                </div>
+            </div>
+        </div>
+
+        {% if user_info %}
+        <div class="info-section">
+            <h3>Дополнительная информация</h3>
+            <div class="info-grid">
+                <div class="info-field">
+                    <label>Баланс</label>
+                    <div class="info-value">{{ user_info.balance }} ₽</div>
+                </div>
+
+                <div class="info-field">
+                    <label>Класс</label>
+                    <div class="info-value">{{ user_info.stud_class }}</div>
+                </div>
+
+                {% if user_info.abonement %}
+                <div class="info-field">
+                    <label>Абонемент до</label>
+                    <div class="info-value">{{ user_info.abonement.strftime('%d.%m.%Y') }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="action-buttons">
+            <button onclick="location.href='/manage/users/{{ user.id }}/edit'" class="accent">
+                Изменить
+            </button>
+            <button onclick="if(confirm('Вы уверены, что хотите удалить пользователя?')) location.href='/manage/users/{{ user.id }}/del'" class="danger">
+                Удалить
+            </button>
+        </div>
+    </div>
+{% endblock %}

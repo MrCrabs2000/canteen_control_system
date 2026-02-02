@@ -33,8 +33,7 @@ def menupage(date_str):
             'days_back': 7,
             'days_forward': 7
         }
-        db.session.close()
-        print(current_user.roles[0].name)
+
         return render_menu_template(**context)
 
     elif request.method == 'POST':
@@ -80,7 +79,6 @@ def menupage(date_str):
                 finally:
                     db.session.close()
 
-                db.session.close()
                 return render_menu_template(**context)
 
             elif user_info.balance >= menu2.price:
