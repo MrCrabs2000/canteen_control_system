@@ -53,15 +53,7 @@ def register_all_blueprints(app):
     app.register_blueprint(admin_requisition)
     app.register_blueprint(dish_view)
     app.register_blueprint(receiving)
-<<<<<<< HEAD
-<<<<<<< HEAD
     app.register_blueprint(cook_menus)
-=======
-    app.register_blueprint(reports)
-    app.register_blueprint(reports_product)
->>>>>>> origin/menu_management
-=======
     app.register_blueprint(cook_menus)
     app.register_blueprint(read_user)
     app.register_blueprint(admin_read_dish)
->>>>>>> origin/database_remake
