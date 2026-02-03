@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Статистика оплат{% endblock title %}
+
+    {% block content %}
+
+        {% if day_get_amount %}
+            <div>За сегодня получили {{ day_get_amount }} ₽</div>
+            <div>Куплено {{ day_amount }} меню</div>
+            <div>Оплатили с помощью абонемента: {{ day_abonement_amount }} ({{ (day_abonement_amount|int / day_amount|int * 100)|round(1) }}%)</div>
+            <div>Разовый платёж: {{ day_pay_amount }} ({{ (1 - (day_abonement_amount|int / day_amount|int * 100)|round(1)) }}%)</div>
+        {% else %}
+            <div>Сегодня меню не покупали</div>
+        {% endif %}
+
+        {% if week_get_amount %}
+            <div>За неделю получили {{ week_get_amount }} ₽</div>
+            <div>Куплено {{ week_amount }} меню</div>
+            <div>Оплатили с помощью абонемента: {{ week_abonement_amount }} ({{ (week_abonement_amount|int / week_amount|int * 100)|round(1) }}%)</div>
+            <div>Разовый платёж: {{ week_pay_amount }} ({{ (1 - (week_abonement_amount|int / week_amount|int * 100)|round(1)) }}%)</div>
+        {% else %}
+            <div>На этой неделе меню не покупали</div>
+        {% endif %}
+
+        {% if month_get_amount %}
+            <div>В этом месяце получили {{ month_get_amount }} ₽</div>
+            <div>Куплено {{ month_amount }} меню</div>
+            <div>Оплатили с помощью абонемента: {{ month_abonement_amount }} ({{ (month_abonement_amount|int / month_amount|int * 100)|round(1) }}%)</div>
+            <div>Разовый платёж: {{ month_pay_amount }} ({{ (1 - (month_abonement_amount|int / month_amount|int * 100)|round(1)) }}%)</div>
+        {% else %}
+            <div>В этом месяце меню не покупали</div>
+        {% endif %}
+
+        <button onclick="document.location.href='/admin/statistics'">Назад</button>
+
+    {% endblock content%}
+</body>
+</html>

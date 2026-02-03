@@ -56,9 +56,15 @@ edit_dish = Blueprint('edit_dish', __name__, template_folder='templates')
 def edit_dish_page(id):
     dish = db.session.query(Dish).filter_by(id=id).first()
     if request.method == 'GET':
+        menus = db.session.query(Menu).join(Menu.dishes).filter(Dish.id == id).all()
+        reviews = db.session.query(Review).filter_by(dish_id=id).all()
         context = {
+            'dish': dish,
             'name': dish.name,
             'category': dish.category,
+            'amount': dish.amount,
+            'menus': menus,
+            'reviews': reviews
         }
         db.session.close()
         return render_template('edit_dish.html', **context)

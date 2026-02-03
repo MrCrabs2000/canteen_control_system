@@ -17,17 +17,21 @@
         </div>
 
         <div>
-          <label for="measurement">Единицы измерения</label>
-          <select id="measurement" name="measurement" required>
-            <option value="кг" {% if measurement == 'кг' %} selected {% endif %}>кг</option>
-            <option value="л" {% if measurement == 'л' %} selected {% endif %}>л</option>
-          </select>
+            <label for="measurement">Единицы измерения</label>
+            <select id="measurement" name="measurement" required>
+                <option value="кг" {% if measurement == 'кг' %} selected {% endif %}>кг</option>
+                <option value="л" {% if measurement == 'л' %} selected {% endif %}>л</option>
+            </select>
         </div>
 
         <button type="submit">Подтвердить</button>
 
         </form>
     </main>
+
+    {% if amount == 0 and not dishes and not requisitions %}
+        <button type="button" onclick="window.location.href ='/cook/product/{{ product.id }}/del'">Удалить продукт</button>
+    {% endif %}
 
     {% endblock %}
 </body>

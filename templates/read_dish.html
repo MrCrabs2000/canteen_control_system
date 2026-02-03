@@ -54,7 +54,6 @@
             <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/cook'">Приготовить ещё</button>
         {% else %}
             <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/edit'">Изменить блюдо</button>
-            <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/del'">Удалить блюдо</button>
             <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/cook'">Приготовить блюдо</button>
         {% endif %}
     {% endmacro %}
