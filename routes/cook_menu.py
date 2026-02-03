@@ -101,4 +101,12 @@ def read_requisition_page():
         product = db.session.query(Product).filter_by(id=requisition.product_id).first()
         products[requisition.product_id] = product
     db.session.close()
-    return render_template('read_requisition.html', products=products, requisitions=requisitions)
+
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname,
+        'requisitions': requisitions,
+        'products': products
+    }
+    print(context)
+    return render_template('requisition/list.html', **context)
