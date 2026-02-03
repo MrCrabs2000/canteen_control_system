@@ -9,14 +9,13 @@
 
 
 .top-bar {
-    box-sizing: content-box;
+    box-sizing: border-box;
     position: sticky;
     top: 16px;
-    flex: 0 0 60px;
+    flex: 0 0 54px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
     margin: 0 16px;
     margin-bottom: 36px;
     padding: 0 10px;
@@ -29,4 +28,19 @@
 main {
     flex: 1 1;
     margin: 0 16px;
+}
+
+
+@media (min-width: 1100px) {
+    .top-bar {
+        width: 1100px;
+        margin: 0 auto;
+        margin-bottom: 36px;
+    }
+
+    main {
+        width: 1100px;
+        margin: 0 auto;
+    }
+
 }

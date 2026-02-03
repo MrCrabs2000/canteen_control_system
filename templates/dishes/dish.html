@@ -1,0 +1,28 @@
+{% extends 'layouts/header_layout.html' %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/dishes/dish.css">
+{% endblock %}
+
+
+{% block top_bar %}
+    <h1 class="title left">Potato |
+        <span class="dish__category">Главное</span>
+    </h1>
+{% endblock %}
+
+
+{% block main %}
+    <div class="dish__info">
+        <section class="info__section dish__composition-section">
+            <h2 class="section__header">Состав</h2>
+            <ul class="dish__composition">
+                <li>Potato</li>
+                <li>Potato</li>
+                <li>Potato</li>
+            </ul>
+        </section>
+    </div>
+{% endblock %}

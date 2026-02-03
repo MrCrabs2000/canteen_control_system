@@ -1,0 +1,26 @@
+.dish__info {
+    padding: 8px 10px;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+
+.dish__category {
+    color: var(--primary)
+}
+
+
+.section__header {
+    margin: 0;
+}
+
+
+.dish__composition {
+    margin: 4px;
+    padding: 0 28px;
+}
+
+.dish__composition li {
+    font-size: 1.1rem;
+}

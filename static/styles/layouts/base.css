@@ -10,7 +10,7 @@
     --text: hsl(0, 0%, 18%);
     --text-muted: hsl(0, 0%, 40%);
     --text-light: hsl(0, 0%, 100%);
-    --shadow-big: 0px 6px 12px hsla(0, 0%, 0%, 0.2);
+    --shadow-big: 0px 4px 10px hsla(0, 0%, 0%, 0.15);
     --shadow: 0px 3px 6px hsla(0, 0%, 0%, 0.1);
     --shadow-small: 0px 2px 4px hsla(0, 0%, 0%, 0.1);
     --border-color: hsl(0, 0%, 80%);
@@ -168,4 +168,8 @@ a {
         text-align: center;
     }
 
+}
+
+li::marker {
+    color: var(--primary)
 }
