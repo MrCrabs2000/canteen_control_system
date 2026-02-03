@@ -1,5 +1,3 @@
-from lib2to3.fixes.fix_input import context
-
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash
 from flask_security import roles_accepted, current_user

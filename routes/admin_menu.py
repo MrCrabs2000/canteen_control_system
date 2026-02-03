@@ -1,5 +1,3 @@
-from lib2to3.fixes.fix_input import context
-
 from flask import Blueprint, render_template
 from flask_security import current_user, roles_accepted
 from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User, Role
@@ -112,6 +110,26 @@ def read_user_page(user_id):
             'surname': current_user.surname
         }
         return render_template('users/user.html', **context)
+
+    finally:
+        db.session.close()
+
+
+admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templates')
+@admin_read_dish.route('/admin/dishes/<dish_id>')
+@login_required
+@roles_accepted('admin')
+def read_dish_page(dish_id):
+    dish = db.session.query(Dish).filter_by(id=dish_id).options(
+        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)
+    ).first()
+    try:
+        context = {
+            'dish': dish,
+            'name': current_user.name,
+            'surname': current_user.surname
+        }
+        return render_template('dishes/dish.html', **context)
 
     finally:
         db.session.close()
