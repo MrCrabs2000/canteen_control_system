@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/layouts/header_layout.css">
+{% endblock %}
+
+
+{% block content %}
+    <div class="header-layout-wrapper">
+
+        <div class="top-bar">
+            {% block top_bar %}
+                
+            {% endblock %}
+        </div>
+
+        <main>
+            {% block main %}
+                
+            {% endblock %}
+        </main>
+        
+    </div>
+{% endblock %}

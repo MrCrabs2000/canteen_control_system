@@ -1,0 +1,31 @@
+.header-layout-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    min-height: 0px;
+    overflow: auto;
+}
+
+
+.top-bar {
+    box-sizing: content-box;
+    position: sticky;
+    top: 16px;
+    flex: 0 0 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    margin: 0 16px;
+    margin-bottom: 36px;
+    padding: 0 10px;
+    background: var(--bg);
+    border: solid 2px var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-big);
+}
+
+main {
+    flex: 1 1;
+}

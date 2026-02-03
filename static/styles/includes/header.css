@@ -5,8 +5,8 @@ header {
     align-items: center;
     position: sticky;
     top: 0;
-    height: 52px;
-    min-height: 52px;
+    height: 54px;
+    min-height: 54px;
     padding: 8px 8px;
     background: var(--primary);
     box-shadow: var(--shadow);
