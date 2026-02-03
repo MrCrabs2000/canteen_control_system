@@ -2,7 +2,7 @@ from .auth import register_page, login_page, exit_page
 from .profile import profile_page, profile_edit_page
 from .menu import menu_page, menu_redirect
 from .main_pages import main_page
-from .admin_menu import admin_menu, admin_read_dish, admin_read_product, read_users
+from .admin_menu import admin_menu, admin_read_dishes, admin_read_products, read_users, read_user
 from .add_menu import add_menu
 from .cook_menu import cook_menu, read_dish, read_product, read_requisition, cook_menus
 from .add_dish import add_dish, edit_dish, delete_dish
@@ -25,8 +25,8 @@ def register_all_blueprints(app):
     app.register_blueprint(profile_edit_page)
     app.register_blueprint(menu_page)
     app.register_blueprint(admin_menu)
-    app.register_blueprint(admin_read_dish)
-    app.register_blueprint(admin_read_product)
+    app.register_blueprint(admin_read_dishes)
+    app.register_blueprint(admin_read_products)
     app.register_blueprint(add_menu)
     app.register_blueprint(add_user)
     app.register_blueprint(edit_user)
@@ -54,3 +54,4 @@ def register_all_blueprints(app):
     app.register_blueprint(dish_view)
     app.register_blueprint(receiving)
     app.register_blueprint(cook_menus)
+    app.register_blueprint(read_user)

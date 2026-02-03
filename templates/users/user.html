@@ -68,10 +68,10 @@
         {% endif %}
 
         <div class="action-buttons">
-            <button onclick="location.href='/manage/users/{{ user.id }}/edit'" class="accent">
+            <button onclick="location.href='/admin/user/{{ user.id }}/edit'" class="accent">
                 Изменить
             </button>
-            <button onclick="if(confirm('Вы уверены, что хотите удалить пользователя?')) location.href='/manage/users/{{ user.id }}/del'" class="danger">
+            <button onclick="if(confirm('Вы уверены, что хотите удалить пользователя?')) location.href='/admin/users/{{ user.id }}/del'" class="danger">
                 Удалить
             </button>
         </div>

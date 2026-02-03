@@ -1,6 +1,8 @@
+from lib2to3.fixes.fix_input import context
+
 from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 import uuid
 from configs.app_configs import db, login_required
 from datebase.classes import User, Role, Info
@@ -11,6 +13,11 @@ add_user = Blueprint('add_user', __name__, template_folder='templates')
 @login_required
 @roles_accepted('admin')
 def add_user_page():
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname
+    }
+
     if request.method == 'POST':
         name = request.form.get('name')
         surname = request.form.get('surname')
@@ -25,12 +32,16 @@ def add_user_page():
         if not all([name, surname, patronymic, login, role, password, second_password]) or password != second_password or len(password) < 6 or user:
             return redirect('/admin/user/add')
         if role == 'cook':
-            role = [db.session.query(Role).filter_by(name='cook').first()]
+            role = db.session.query(Role).filter_by(name='cook').first()
         elif role == 'admin':
-            role = [db.session.query(Role).filter_by(name='admin').first()]
+            role = db.session.query(Role).filter_by(name='admin').first()
+        else:
+            role = db.session.query(Role).filter_by(name='user').first()
 
-        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login, roles=role,
+        new_user = User(name=name, surname=surname, patronymic=patronymic, login=login,
                             password=generate_password_hash(password), active=True, fs_uniquifier=fs_uniquifier)
+
+        new_user.roles.append(role)
 
         db.session.add(new_user)
 
@@ -43,7 +54,7 @@ def add_user_page():
 
         return redirect('/admin/menu')
     else:
-        return render_template('add_user.html')
+        return render_template('users/adding.html', **context)
 
 
 edit_user = Blueprint('edit_user', __name__, template_folder='templates')
@@ -54,15 +65,14 @@ def edit_user_page(id):
     user = db.session.query(User).filter_by(id=id).first()
     if request.method == 'GET':
         context = {
-            'name': user.name,
-            'surname': user.surname,
-            'patronymic': user.patronymic,
-            'login': user.login,
-            'role': user.roles[0].name if user.roles else None,
+            'user': user,
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'roles': user.roles
         }
 
         db.session.close()
-        return render_template('edit_user.html', **context)
+        return render_template('users/edit.html', **context)
 
     if request.method == 'POST':
         name = request.form.get('name')
@@ -99,7 +109,7 @@ def edit_user_page(id):
         return redirect('/admin/users')
 
     db.session.close()
-    return render_template('edit_user.html')
+    return render_template('users/edit.html')
 
 
 delete_user = Blueprint('delete_user', __name__, template_folder='templates')

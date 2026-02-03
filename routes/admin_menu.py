@@ -1,6 +1,8 @@
+from lib2to3.fixes.fix_input import context
+
 from flask import Blueprint, render_template
 from flask_security import current_user, roles_accepted
-from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User
+from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User, Role
 from configs.app_configs import login_required
 
 
@@ -14,19 +16,21 @@ def admin_menu_page():
             db.joinedload(Menu.dishes).joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
         context = {
             'menus': menu,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
-        return render_template('admin_menu.html', **context)
+        return render_template('menus/list.html', **context)
 
     finally:
         db.session.close()
 
 
 
-admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templates')
-@admin_read_dish.route('/admin/dishes')
+admin_read_dishes = Blueprint('admin_read_dishes', __name__, template_folder='templates')
+@admin_read_dishes.route('/admin/dishes')
 @login_required
 @roles_accepted('admin')
-def admin_read_dish_page():
+def admin_read_dishes_page():
     breakfasts = db.session.query(Dish).filter_by(category='breakfasts').options(
         db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
     salads = db.session.query(Dish).filter_by(category='salads').options(
@@ -42,13 +46,23 @@ def admin_read_dish_page():
 
     db.session.close()
 
-    return render_template('admin_read_dish.html', breakfasts=breakfasts, salads=salads, soups=soups,
-                                main_dishes=main_dishes, drinks=drinks, bread=bread)
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname,
+        'breakfasts': breakfasts,
+        'salads': salads,
+        'soups': soups,
+        'main_dishes': main_dishes,
+        'drinks': drinks,
+        'bread': bread
+    }
+
+    return render_template('dishes/list.html', ** context)
 
 
 
-admin_read_product = Blueprint('admin_read_product', __name__, template_folder='templates')
-@admin_read_product.route('/admin/products')
+admin_read_products = Blueprint('admin_read_products', __name__, template_folder='templates')
+@admin_read_products.route('/admin/products')
 @login_required
 @roles_accepted('admin')
 def admin_read_product_page():
@@ -56,6 +70,8 @@ def admin_read_product_page():
     try:
         context = {
             'products': product,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
         return render_template('admin_read_product.html', **context)
 
@@ -73,8 +89,29 @@ def read_users_page():
     try:
         context = {
             'users': user,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
-        return render_template('read_users.html', **context)
+        return render_template('users/list.html', **context)
+
+    finally:
+        db.session.close()
+
+
+read_user = Blueprint('read_user', __name__, template_folder='templates')
+@read_user.route('/admin/users/<user_id>')
+@login_required
+@roles_accepted('admin')
+def read_user_page(user_id):
+    user = db.session.query(User).filter_by(id=user_id).first()
+    try:
+        context = {
+            'user': user,
+            'roles': user.roles,
+            'name': current_user.name,
+            'surname': current_user.surname
+        }
+        return render_template('users/user.html', **context)
 
     finally:
         db.session.close()

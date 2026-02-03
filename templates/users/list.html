@@ -1,6 +1,6 @@
 {% extends 'layouts/management/users.html' %}
 
-{% block title %}Пользователи{% endblock %}
+{% block title %}Админ: Пользователи{% endblock %}
 
 
 {% block head %}
@@ -13,7 +13,7 @@
     <div class="users-grid">
         {% for user in users %}
             <div class="user" data-id="{{ user.id }}">
-                <a href="/manage/users/{{ user.id }}" class="user__link">
+                <a href="/admin/users/{{ user.id }}" class="user__link">
                     <div class="user__top">
                         <h2 class="user__full-name">{{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.</h2>
                     </div>
