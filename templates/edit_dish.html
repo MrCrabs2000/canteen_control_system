@@ -45,6 +45,10 @@
         </form>
     </main>
 
+    {% if amount == 0 and not menus and not reviews %}
+        <button type="button" onclick="window.location.href ='/cook/dish/{{ dish.id }}/del'">Удалить блюдо</button>
+    {% endif %}
+
     {% endblock %}
 </body>
 </html>

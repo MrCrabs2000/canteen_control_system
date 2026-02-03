@@ -75,6 +75,8 @@ class Product(db.Model):
     name = db.Column(db.String, nullable=False)
     measurement = db.Column(db.String, nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
+    buy_amount = db.Column(db.Integer, nullable=False, default=0)
+    spend_amount = db.Column(db.Integer, nullable=False, default=0)
 
     dishes = db.relationship('AssociationDishProduct', back_populates='product')
     requisitions = db.relationship('Requisition', back_populates='product')
@@ -125,6 +127,8 @@ class Dish(db.Model):
     name = db.Column(db.String, nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
     category = db.Column(db.String, nullable=False)
+    cook_amount = db.Column(db.Integer, nullable=False, default=0)
+    give_amount = db.Column(db.Integer, nullable=False, default=0)
 
     products = db.relationship('AssociationDishProduct', back_populates='dish')
     reviews = db.relationship('Review', back_populates='dish')

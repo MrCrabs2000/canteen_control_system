@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Приготовить блюдо{% endblock %}
+
+    {% block content %}
+
+    <div>{{ dish.category }}:</div>
+    <div>{{ dish.name }}</div>
+    {% if dish.products %}
+        <div>Состав:</div>
+        {% for association in dish.products %}
+            {{ association.product.name }}
+            {{ association.product_amount }}
+            {{ association.product.measurement}}
+        {% endfor %}
+    {% else %}
+        <div>Состав не известен</div>
+    {% endif %}
+
+    <main>
+        <form method="post">
+
+            <div>
+                <label for="amount">Количество</label>
+                <input id="amount" name="amount" type="number" min="1" placeholder="Количество" required>
+            </div>
+
+        <button type="submit">Подтвердить</button>
+
+        </form>
+    </main>
+
+    <button onclick="document.location.href='/cook/dishes'">Назад</button>
+    {% endblock %}
+</body>
+</html>

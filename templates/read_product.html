@@ -15,7 +15,6 @@
                 <div>{{ product.amount }}</div>
                 <div>{{ product.measurement }}</div>
                 <button onclick="document.location.href='/cook/product/{{ product.id }}/edit'">Изменить продукт</button>
-                <button onclick="document.location.href='/cook/product/{{ product.id }}/del'">Удалить продукт</button>
             {% endfor %}
         {% else %}
             <div>Продуктов нет</div>

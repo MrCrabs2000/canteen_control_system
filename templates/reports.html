@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Формирование отчётов по питанию и затратам{% endblock title %}
+
+
+    {% block content %}
+        <div>
+            <div>
+                <div>Отчёты по питанию</div>
+                <button onclick="window.open('/admin/report/payments', '_blank')">
+                    Скачать таблицу по оплатам
+                </button>
+                <button onclick="window.open('/admin/report/attendance', '_blank')">
+                    Скачать таблицу по посещаемости
+                </button>
+
+                <div>Отчёты по затратам</div>
+                <button onclick="window.open('/admin/report/products', '_blank')">
+                    Скачать таблицу по продуктам
+                </button>
+
+                <button onclick="window.open('/admin/report/dishes', '_blank')">
+                    Скачать таблицу по блюдам
+                </button>
+
+                <button onclick="window.open('/admin/report/menus', '_blank')">
+                    Скачать таблицу по меню
+                </button>
+            </div>
+
+            <script>
+                const input = document.getElementById('upload-table');
+                const selectedFileContainer = document.getElementById('selected-file');
+
+                input.addEventListener('change', function (e) {
+                    const selectedFile = e.target.files[0];
+                    if (selectedFile) {
+                        selectedFileContainer.textContent = selectedFile.name;
+                    }
+                });
+            </script>
+
+            <button onclick="document.location.href='/admin/menu'">Назад</button>
+
+        </div>
+    {% endblock %}
+</body>
+</html>

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from flask_security import current_user, roles_accepted
-from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User
+from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User, Info
 from configs.app_configs import login_required
 
 
@@ -72,9 +72,19 @@ read_users = Blueprint('read_users', __name__, template_folder='templates')
 @roles_accepted('admin')
 def read_users_page():
     user = db.session.query(User).filter(User.id != current_user.id).all()
+    info = db.session.query(Info).all()
+
+    classes = {}
+    for i in info:
+        classes[i.user_id] = i.stud_class
+
+    inform = sorted(info, key=lambda x: x.stud_class)
+
     try:
         context = {
             'users': user,
+            'info': inform,
+            'student_classes': classes
         }
         return render_template('read_users.html', **context)
 
