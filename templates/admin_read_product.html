@@ -1,26 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% block title %}Список продуктов{% endblock title %}
+{% extends 'layouts/sidebar_w_header.html' %}
 
-    {% block content %}
+{% from 'macros/sidebar.html' import sidebar %}
 
-        {% if products %}
-            {% for product in products %}
-                <div>{{ product.name }}</div>
-                <div>{{ product.amount }}</div>
-                <div>{{ product.measurement }}</div>
-            {% endfor %}
-        {% else %}
-            <div>Продуктов нет</div>
-        {% endif %}
+{% block title %}Админ: Продукты{% endblock %}
 
-    {% endblock content%}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/menus/menu.css">
+    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+{% endblock %}
 
-    <button onclick="document.location.href='/admin/menu'">Назад</button>
-</body>
-</html>
+{% block top_bar %}
+    <div class="top-bar__left">
+        <h1 class="title left">Продукты</h1>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {% call sidebar(header='Единицы') %}
+    <ul class="days-list">
+        <li class="day">
+            <span class="day__link">Штуки</span>
+        </li>
+        <li class="day">
+            <span class="day__link">Граммы</span>
+        </li>
+        <li class="day">
+            <span class="day__link">Килограммы</span>
+        </li>
+        <li class="day">
+            <span class="day__link">Литры</span>
+        </li>
+    </ul>
+    {% endcall %}
+{% endblock %}
+
+{% block main %}
+<div class="products-container">
+    {% if products %}
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <div class="product-header">
+                <div class="product-name">{{ product.name }}</div>
+            </div>
+            <div class="product-details">
+                <div class="product-info">
+                    <span class="product-label">Количество:</span>
+                    <span class="product-value">{{ product.amount }}</span>
+                </div>
+                <div class="product-info">
+                    <span class="product-label">Единица:</span>
+                    <span class="product-value">{{ product.measurement }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-products-message">
+        <p><strong>Продуктов нет</strong></p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

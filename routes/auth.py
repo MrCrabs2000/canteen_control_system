@@ -71,7 +71,10 @@ def loginpage():
         login_user(user)
         db.session.close()
 
-        return redirect('/')
+        if user.roles[0].name != 'admin':
+            return redirect('/')
+        else:
+            return redirect('admin/menu')
     else:
         return render_template('auth/login.html', is_not_authenticated=True)
 

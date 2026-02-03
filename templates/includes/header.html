@@ -1,7 +1,7 @@
 <header>
     <div id="left-header">
         {% if current_user.is_authenticated %}
-            <button id="notifications-btn"><img alt="Уведомления"></button>
+            <button id="notifications-btn">Уведомления</button>
         {% endif %}
     </div>
 
@@ -24,7 +24,7 @@
                 </nav>
             {% else %}
                 <nav id="app-menu">
-                    <a href="/menu">Меню</a>
+                    <a href="/admin/menu">Меню</a>
                     <a href="/admin/products">Продукты</a>
                     <a href="/admin/dishes">Блюда</a>
                     <a href="/admin/users">Пользователи</a>

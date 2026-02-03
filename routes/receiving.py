@@ -1,40 +1,41 @@
-from flask import Blueprint, request, redirect, render_template
+from flask import Blueprint, request, render_template, redirect
 from flask_security import login_required, current_user, roles_accepted
-from datetime import datetime, date
 from configs.app_configs import db
 from datebase.classes import History
 
-
 receiving = Blueprint('receiving', __name__)
+
+
 @receiving.route('/receiving', methods=['GET', 'POST'])
 @login_required
 @roles_accepted('user')
 def receiving_view():
-    histtory = db.session.query(History).filter_by(user_id=current_user.id).all()
-
-    context = {
-        'history_list': histtory[::-1]
-    }
-
-    if request.method == 'GET':
-        db.session.close()
-        return render_template('receiving.html', **context)
+    filter_date = request.args.get('date', '')
 
     if request.method == 'POST':
-        history_ids = request.form.getlist('history_ids')
-        print(history_ids)
-        for idd in history_ids:
-            history = db.session.query(History).filter_by(id=idd).first()
+        received_id = request.form.get('mark_received')
+        if received_id:
+            history = db.session.query(History).filter_by(id=received_id, user_id=current_user.id).first()
+            if history:
+                history.status = True
+                db.session.commit()
 
-            history.status = False
+        if filter_date:
+            return redirect(f'/receiving?date={filter_date}')
+        else:
+            return redirect('/receiving')
 
-        try:
-            db.session.commit
-        except Exception as e:
-            print(f'Ошибка: {e}')
-        finally:
-            db.session.close()
+    query = db.session.query(History).filter_by(user_id=current_user.id)
+    if filter_date:
+        query = query.filter(History.eat_date == filter_date)
 
+    histories = query.order_by(History.id.desc()).all()
 
-        return render_template('receiving.html', **context)
+    context = {
+        'history_list': histories,
+        'filter_date': filter_date,
+        'name': current_user.name,
+        'surname': current_user.surname
+    }
 
+    return render_template('receiving.html', **context)

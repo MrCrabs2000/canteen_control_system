@@ -1,23 +1,46 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Список меню{% endblock title %}
 
-{% block title %}Список меню{% endblock title %}
-
-{% block content %}
-    {% for menu in menus %}
-        <div>{{ menu.date }}</div>
-        <div>{{ menu.type }}</div>
-        {% for dish in menu.dishes %}
-            <div>{{ dish.name }}</div>
-            {% if dish.products %}
-                <div>Состав:</div>
-                {% for product in dish.products %}
-                    {{ product.name }}
+    {% block content %}
+        {% if menus %}
+            {% for menu in menus %}
+                <div>{{ menu.date }}</div>
+                <div>{{ menu.type }}</div>
+                <div>Выдано: {{ menu.get_amount }}</div>
+                {% for dish in menu.dishes %}
+                    <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
+                        {% endfor %}
+                    {% else %}
+                         <div>Состав не известен</div>
+                    {% endif %}
                 {% endfor %}
-            {% else %}
-                    <div>Состав не известен</div>
-            {% endif %}
-        {% endfor %}
-        <div>{{ menu.price }}</div>
-    {% endfor %}
-{% endblock content %}
+                <div>{{ menu.price }} ₽</div>
+            {% endfor %}
+        {% else %}
+            <div>Меню нет</div>
+        {% endif %}
+    {% endblock content %}
 
+    <button onclick="document.location.href='/cook/product/add'">Добавить продукт</button>
+    <button onclick="document.location.href='/cook/products'">Смотреть список продуктов</button>
+    <button onclick="document.location.href='/cook/dish/add'">Создать блюдо</button>
+    <button onclick="document.location.href='/cook/dishes'">Смотреть список блюд</button>
+    <button onclick="document.location.href='/cook/menu/add'">Создать меню</button>
+    <button onclick="document.location.href='/cook/requisition/add'">Подать заявку на закупку продуктов</button>
+    <button onclick="document.location.href='/cook/requisitions'">Смотреть заявки на закупку продуктов</button>
+
+    <button onclick="document.location.href='/logout'">Выйти</button>
+</body>
+</html>

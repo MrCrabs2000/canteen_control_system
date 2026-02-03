@@ -1,17 +1,29 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Список меню{% endblock title %}
 
-{% block title %}Список меню{% endblock title %}
-
-{% block content %}
-    {% for menu in menus %}
-        <div>{{ menu.date }}</div>
-        <div>{{ menu.type }}</div>
-        {% for dish in menu.dishes %}
-            <div>{{ dish.name }}</div>
-            {% if dish.products %}
-                <div>Состав:</div>
-                {% for product in dish.products %}
-                    {{ product.name }}
+    {% block content %}
+        {% if menus %}
+            {% for menu in menus %}
+                <div>{{ menu.date }}</div>
+                <div>{{ menu.type }}</div>
+                {% for dish in menu.dishes %}
+                    <div>{{ dish.name }}</div>
+                    {% if dish.products %}
+                        <div>Состав:</div>
+                        {% for association in dish.products %}
+                            {{ association.product.name }}
+                            {{ association.product_amount }}
+                            {{ association.product.measurement }}
+                        {% endfor %}
+                    {% else %}
+                         <div>Состав не известен</div>
+                    {% endif %}
                 {% endfor %}
                 <div>{{ menu.price }} ₽</div>
             {% endfor %}
@@ -26,6 +38,7 @@
     <button onclick="document.location.href='/admin/requisitions'">Согласование заявок</button>
     <button onclick="document.location.href='/admin/user/add'">Добавить пользователя</button>
     <button onclick="document.location.href='/admin/users'">Смотреть список пользователей</button>
+    <button onclick="document.location.href='/admin/statistics'">Смотреть статистику оплат и посещаемости</button>
     <button onclick="document.location.href='/admin/reports'">Формирование отчётов</button>
     <button onclick="document.location.href='/logout'">Выйти</button>
 
