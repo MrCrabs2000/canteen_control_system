@@ -29,6 +29,20 @@ def cook_menu_page():
 
 
 
+cook_menus = Blueprint('cook_menus', __name__, template_folder='templates')
+@cook_menus.route('/cook/menus')
+@login_required
+@roles_accepted('cook')
+def cook_menus_page():
+
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname
+    }
+
+    return render_template('menus/list.html', **context)
+
+
 read_dish = Blueprint('read_dish', __name__, template_folder='templates')
 @read_dish.route('/cook/dishes')
 @login_required
@@ -63,8 +77,11 @@ def read_product_page():
     try:
         context = {
             'products': product,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
-        return render_template('read_product.html', **context)
+        print(product)
+        return render_template('products/list.html', **context)
 
     finally:
         db.session.close()

@@ -116,7 +116,8 @@ def useradd():
         finally:
             db.session.close()
 
-        return redirect('/admin/users')
+        return redirect('/menu')
+
     else:
         context = {
             'name': current_user.name,
