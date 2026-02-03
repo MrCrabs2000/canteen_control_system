@@ -1,34 +1,66 @@
 {% extends 'layouts/management/users.html' %}
 
-{% from 'macros/labeled_fields.html' import labeled_input, labeled_select %}
-
-
 {% block title %}Добавить пользователя{% endblock %}
 
-
-{% block head %}
-    {{ super() }}
-    <link rel="stylesheet" href="/static/styles/macros/labeled_fields.css">
-    <link rel="stylesheet" href="/static/styles/users/adding.css">
-{% endblock %}
-
-
-{% block top_bar %}
-    {{ super() }}
-    <button id="add-user-btn" form="add-user-form" class="add-btn accent">Добавить</button>
-{% endblock %}
-
-
 {% block main %}
-    <form id="add-user-form" class="add-user-form" method="post">
-        <div class="form-wrapper">
-            {{ labeled_input(name='login', label='Логин', required=True) }}
-            {{ labeled_input(name='surname', label='Фамилия', required=True) }}
-            {{ labeled_input(name='name', label='Имя', required=True) }}
-            {{ labeled_input(name='patronymic', label='Отчество', required=True) }}
-            {{ labeled_select(options = [('student', 'Ученик'), ('cook', 'Повар'), ('admin', 'Админ')], name='role', label='Роль', required=True) }}
-            {{ labeled_input(name='password', label='Пароль', type='password', required=True) }}
-            {{ labeled_input(name='second_password', label='Повтор пароля', type='password', required=True) }}
+    <div class="user-profile">
+        <div class="profile-header">
+            <div>
+                <h1 class="profile-title">
+                    Добавить пользователя
+                </h1>
+            </div>
         </div>
-    </form>
+
+        <form id="add-user-form" method="post">
+            <div class="info-section">
+                <h3>Основная информация</h3>
+                <div class="info-grid">
+                    <div class="form-field">
+                        <label>Логин *</label>
+                        <input type="text" name="login" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Роль *</label>
+                        <select name="role" required>
+                            <option value="">Выберите роль</option>
+                            <option value="user">Пользователь</option>
+                            <option value="cook">Повар</option>
+                            <option value="admin">Админ</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Фамилия *</label>
+                        <input type="text" name="surname" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Имя *</label>
+                        <input type="text" name="name" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Отчество *</label>
+                        <input type="text" name="patronymic" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Пароль *</label>
+                        <input type="password" name="password" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Повторите пароль *</label>
+                        <input type="password" name="second_password" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" class="accent">Добавить пользователя</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

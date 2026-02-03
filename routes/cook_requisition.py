@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 from datebase.classes import Product, Requisition, db
 from configs.app_configs import login_required
 
@@ -10,9 +10,18 @@ cook_requisition = Blueprint('cook_requisition', __name__, template_folder='temp
 @roles_accepted('cook')
 def cook_requisition_page():
     if request.method == 'GET':
-        product = db.session.query(Product).all()
+        products = db.session.query(Product).all()
+        products_formated = [(product.name, product.name) for product in products]
         db.session.close()
-        return render_template('cook_requisition.html', products=product)
+
+        context = {
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'products': products,
+            'products_formated': products_formated,
+        }
+
+        return render_template('requisition/adding.html', **context)
 
     elif request.method == 'POST':
         name = request.form.get('product_name')
@@ -27,7 +36,7 @@ def cook_requisition_page():
             new_requisition = Requisition(product=product1, amount=amount)
             db.session.add(new_requisition)
             db.session.commit()
-            return redirect('/cook/menu')
+            return redirect('/cook/requisition')
 
         finally:
             db.session.close()

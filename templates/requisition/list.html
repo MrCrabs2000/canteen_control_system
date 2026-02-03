@@ -1,0 +1,26 @@
+{% extends 'layouts/management/requisition.html' %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/requisitions/list.css">
+{% endblock %}
+
+
+{% block top_bar %}
+    <div class="top-bar__left">
+        <h1 class="title left">Закупки</h1>
+    </div>
+{% endblock %}
+
+{% block main %}
+    {% if requisitions %}
+        <div class="requisition-grid">
+            {% for requisition in requisitions %}
+                {% include 'includes/requisitions/requisition_tile.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-requisition-message"><strong>Нет запросов.</strong></p>
+    {% endif %}    
+{% endblock %}

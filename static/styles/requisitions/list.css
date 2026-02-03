@@ -1,4 +1,4 @@
-.product-grid {
+.requisition-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: 124px;
@@ -10,7 +10,7 @@
     scroll-behavior: smooth;
 }
 
-.product {
+.requisition {
     box-sizing: border-box;
     background: var(--bg);
     border: solid 2px transparent;
@@ -21,16 +21,16 @@
 
 }
 
-.product__name {
+.requisition__name {
     font-size: 1.75rem;
     font-weight: 600;   
 }
 
-.product__composition {
+.requisition__composition {
     margin: 7px;
     padding-left: 15px;
 }
 
-.product__composition li {
+.requisition__composition li {
     color: var(--text-muted)
 }

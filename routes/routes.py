@@ -2,10 +2,10 @@ from .auth import register_page, login_page, exit_page
 from .profile import profile_page, profile_edit_page
 from .menu import menu_page, menu_redirect
 from .main_pages import main_page
-from .admin_menu import admin_menu, admin_read_dish, admin_read_product, read_users
+from .admin_menu import admin_menu, admin_read_dishes, admin_read_products, read_users, read_user, admin_read_dish
 from .add_menu import add_menu
-from .cook_menu import cook_menu, read_dish, read_product, read_requisition
-from .add_dish import add_dish, edit_dish, delete_dish, cook_dish
+from .cook_menu import cook_menu, read_dish, read_product, read_requisition, cook_menus
+from .add_dish import add_dish, edit_dish, delete_dish
 from .add_product import add_product, edit_product, delete_product
 from .food_payment import food_payment_main, balance_edit, edit_abonement
 from .reviews import reviews_main, review_new, review_view
@@ -14,8 +14,6 @@ from .cook_requisition import cook_requisition
 from .admin_requisition import admin_requisition
 from .dish import dish_view
 from .receiving import receiving
-from .admin_statistics import statistics, statistic_payments, statistic_attendance
-from .admin_reports import reports, reports_payments, reports_attendance, reports_product, reports_dish, reports_menu
 
 
 def register_all_blueprints(app):
@@ -27,8 +25,8 @@ def register_all_blueprints(app):
     app.register_blueprint(profile_edit_page)
     app.register_blueprint(menu_page)
     app.register_blueprint(admin_menu)
-    app.register_blueprint(admin_read_dish)
-    app.register_blueprint(admin_read_product)
+    app.register_blueprint(admin_read_dishes)
+    app.register_blueprint(admin_read_products)
     app.register_blueprint(add_menu)
     app.register_blueprint(add_user)
     app.register_blueprint(edit_user)
@@ -41,7 +39,6 @@ def register_all_blueprints(app):
     app.register_blueprint(add_dish)
     app.register_blueprint(edit_dish)
     app.register_blueprint(delete_dish)
-    app.register_blueprint(cook_dish)
     app.register_blueprint(add_product)
     app.register_blueprint(edit_product)
     app.register_blueprint(delete_product)
@@ -56,12 +53,6 @@ def register_all_blueprints(app):
     app.register_blueprint(admin_requisition)
     app.register_blueprint(dish_view)
     app.register_blueprint(receiving)
-    app.register_blueprint(statistics)
-    app.register_blueprint(statistic_payments)
-    app.register_blueprint(statistic_attendance)
-    app.register_blueprint(reports)
-    app.register_blueprint(reports_payments)
-    app.register_blueprint(reports_attendance)
-    app.register_blueprint(reports_product)
-    app.register_blueprint(reports_dish)
-    app.register_blueprint(reports_menu)
+    app.register_blueprint(cook_menus)
+    app.register_blueprint(read_user)
+    app.register_blueprint(admin_read_dish)

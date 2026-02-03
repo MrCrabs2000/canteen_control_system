@@ -1,6 +1,6 @@
 from flask import render_template
 from datetime import date
-
+from flask_security import current_user
 from utils.get_dates import get_dates
 
 

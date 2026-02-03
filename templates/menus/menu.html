@@ -28,8 +28,8 @@
                     <option value="breakfast" selected>Завтрак</option>
                     <option value="lunch">Обед</option>
                 {% elif menu.type == "lunch" %}
-                    <option value="breakfast">Завтрак</option>
-                    <option value="lunch" selected>Обед</option>
+                    <option value="breakfast">Обед</option>
+                    <option value="lunch" selected>Завтрак</option>
                 {% else %}
                     <option value="breakfast">Завтрак</option>
                     <option value="lunch">Обед</option>
@@ -37,15 +37,22 @@
             </select>
         </div>
 
+        {% if current_user.roles[0].name == 'user' %}
         <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}">
             <input type="hidden" name="menu_id" value="{{ menu.id }}">
             <button class="buy-menu-btn accent" type="submit">Купить</button>
         </form>
+        {% elif current_user.roles[0].name == 'cook' %}
+        <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}">
+            <input type="hidden" name="menu_id" value="{{ menu.id }}">
+        </form>
+        <button class="buy-menu-btn accent" onclick="document.location='/cook/menu/add'">Добавить</button>
+        {% endif %}
 
     </div>
-{% endblock %}   
+{% endblock %}
 
-        
+
 {% block sidebar %}
     {% call sidebar(header='День') %}
     <ul id="daysList" class="days-list">
@@ -62,13 +69,13 @@
     </ul>
     {% endcall %}
 {% endblock %}
-            
-            
+
+
 {% block main %}
     {% if not menu or not menu.dishes %}
         <p class="no-menu-message"><strong>На эту дату нет меню.</strong></p>
     {% else %}
-        
+
     <div class="menu-grid">
         {% for dish in menu.dishes %}
             {% include 'includes/dishes/dish_tile.html' %}
@@ -77,8 +84,8 @@
 
     {% endif %}
 {% endblock %}
-    
-    
+
+
 {% block scripts %}
     <script>
         const menuTypeSelect = document.getElementById('menuTypeSelect');
@@ -87,5 +94,5 @@
         menuTypeSelect.addEventListener('change', function(event) {
             filtersForm.requestSubmit();
         });
-    </script>    
+    </script>
 {% endblock %}

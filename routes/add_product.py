@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_security import roles_accepted
-from datebase.classes import Product, AssociationDishProduct, Dish, Requisition, db
+from flask_security import roles_accepted, current_user
+from datebase.classes import Product, AssociationDishProduct, Requisition, db
 from configs.app_configs import login_required
 
 
@@ -10,7 +10,13 @@ add_product = Blueprint('add_product', __name__, template_folder='templates')
 @roles_accepted('cook')
 def add_product_page():
     if request.method == 'GET':
-        return render_template('add_product.html')
+
+        context = {
+            'name': current_user.name,
+            'surname': current_user.surname
+        }
+
+        return render_template('/products/adding.html', **context)
 
     elif request.method == 'POST':
         name = request.form.get('name')
@@ -28,7 +34,7 @@ def add_product_page():
         db.session.commit()
         db.session.close()
 
-        return redirect('/cook/menu')
+        return redirect('/cook/products')
 
 
 

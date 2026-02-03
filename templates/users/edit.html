@@ -1,0 +1,99 @@
+{% extends 'layouts/management/users.html' %}
+
+{% block title %}Редактировать пользователя {{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.{% endblock %}
+
+{% block main %}
+    <div class="user-profile edit-form">
+        <div class="profile-header">
+            <div>
+                <h1 class="profile-title">
+                    {{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.
+                </h1>
+                <div class="user-id">ID пользователя: {{ user.id }}</div>
+            </div>
+        </div>
+
+        <form id="edit-user-form" method="post">
+            <div class="info-section">
+                <h3>Основная информация</h3>
+                <div class="info-grid">
+                    <div class="form-field">
+                        <label>Логин</label>
+                        <input type="text" name="login" value="{{ user.login }}" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Роль</label>
+                        <select name="role" required>
+                            <option value="">Выберите роль</option>
+                            <option value="user" {% if roles[0].name == 'user' %}selected{% endif %}>Пользователь</option>
+                            <option value="cook" {% if roles[0].name == 'cook' %}selected{% endif %}>Повар</option>
+                            <option value="admin" {% if roles[0].name == 'admin' %}selected{% endif %}>Админ</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Фамилия</label>
+                        <input type="text" name="surname" value="{{ user.surname }}" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Имя</label>
+                        <input type="text" name="name" value="{{ user.name }}" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Отчество</label>
+                        <input type="text" name="patronymic" value="{{ user.patronymic }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Смена пароля</h3>
+                <div class="info-grid">
+                    <div class="form-field">
+                        <label>Новый пароль</label>
+                        <input type="password" name="password">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Повторите пароль</label>
+                        <input type="password" name="second_password">
+                    </div>
+                </div>
+            </div>
+
+            {% if user_info %}
+            <div class="info-section">
+                <h3>Дополнительная информация</h3>
+                <div class="info-grid">
+                    <div class="form-field">
+                        <label>Баланс</label>
+                        <input type="number" name="balance" value="{{ user_info.balance }}">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Класс</label>
+                        <input type="text" name="stud_class" value="{{ user_info.stud_class }}">
+                    </div>
+
+                    {% if user_info.abonement %}
+                    <div class="form-field">
+                        <label>Абонемент до</label>
+                        <input type="date" name="abonement" value="{{ user_info.abonement.strftime('%Y-%m-%d') }}">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="action-buttons">
+                <a href="/admin/users/{{ user.id }}">
+                    <button type="button">Отмена</button>
+                </a>
+                <button type="submit" class="accent">Сохранить изменения</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

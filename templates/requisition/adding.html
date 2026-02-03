@@ -1,0 +1,17 @@
+{% extends 'layouts/management/requisition.html' %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/requisitions/adding.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled_fields.css">
+{% endblock %}
+
+{% block top_bar %}
+    {{ super() }}
+    <button id="add-requisition-btn" form="editRequisitinForm" class="add-btn accent">Добавить</button>
+{% endblock %}
+
+{% block main %}
+    {% include 'includes/requisitions/requisition_form.html' %}
+{% endblock %}

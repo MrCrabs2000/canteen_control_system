@@ -4,8 +4,12 @@ from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, Re
 from configs.app_configs import login_required
 
 
+
+
+
+
 cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
-@cook_menu.route('/cook/menu')
+@cook_menu.route('/cook/menu/')
 @login_required
 @roles_accepted('cook')
 def cook_menu_page():
@@ -18,11 +22,27 @@ def cook_menu_page():
             'surname': current_user.surname,
         }
 
-        return render_template('cook_menu.html', **context)
+        return render_template('menus/list.html', **context)
 
     finally:
         db.session.close()
 
+
+
+cook_menus = Blueprint('cook_menus', __name__, template_folder='templates')
+@cook_menus.route('/cook/menus')
+@login_required
+@roles_accepted('cook')
+def cook_menus_page():
+    menus = db.session.query(Menu).order_by(Menu.date.asc()).options(
+        db.joinedload(Menu.dishes).joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
+    context = {
+        'menus': menus,
+        'name': current_user.name,
+        'surname': current_user.surname
+    }
+
+    return render_template('menus/list.html', **context)
 
 
 read_dish = Blueprint('read_dish', __name__, template_folder='templates')
@@ -59,8 +79,11 @@ def read_product_page():
     try:
         context = {
             'products': product,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
-        return render_template('read_product.html', **context)
+        print(product)
+        return render_template('products/list.html', **context)
 
     finally:
         db.session.close()
@@ -78,4 +101,12 @@ def read_requisition_page():
         product = db.session.query(Product).filter_by(id=requisition.product_id).first()
         products[requisition.product_id] = product
     db.session.close()
-    return render_template('read_requisition.html', products=products, requisitions=requisitions)
+
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname,
+        'requisitions': requisitions,
+        'products': products
+    }
+    print(context)
+    return render_template('requisition/list.html', **context)

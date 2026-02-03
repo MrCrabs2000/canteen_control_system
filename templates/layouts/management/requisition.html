@@ -1,0 +1,12 @@
+{% extends 'layouts/management/base.html' %}
+
+{% from 'macros/sidebar.html' import sidebar %}
+
+
+{% block top_bar_title %}Закупки{% endblock %}
+
+
+{% block sidebar_tabs %}
+    <li><a href="/cook/requisitions">Список</a></li>
+    <li><a href="/cook/requisition/add">Добавить</a></li>
+{% endblock %}
