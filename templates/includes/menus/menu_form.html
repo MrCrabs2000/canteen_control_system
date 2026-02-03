@@ -10,6 +10,7 @@
             {% set menu = menu if menu else None %}
             {{ labeled_select([('breakfast', 'Завтрак'), ('lunch', 'Обед')], selected=menu.type, label='Тип', name='type', required=True) }}
             {{ labeled_input(name='date', label='Дата', type='date', value=menu.date) }}
+            {{ labeled_input(name='price', label='Цена', type='number') }}
         </div>
 
     </section>

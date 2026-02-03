@@ -34,8 +34,10 @@ cook_menus = Blueprint('cook_menus', __name__, template_folder='templates')
 @login_required
 @roles_accepted('cook')
 def cook_menus_page():
-
+    menus = db.session.query(Menu).order_by(Menu.date.asc()).options(
+        db.joinedload(Menu.dishes).joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
     context = {
+        'menus': menus,
         'name': current_user.name,
         'surname': current_user.surname
     }
