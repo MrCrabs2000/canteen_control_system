@@ -13,10 +13,21 @@
                 {% for product in dish.products %}
                     {{ product.name }}
                 {% endfor %}
-            {% else %}
-                    <div>Состав не известен</div>
-            {% endif %}
-        {% endfor %}
-        <div>{{ menu.price }}</div>
-    {% endfor %}
-{% endblock content %}
+                <div>{{ menu.price }} ₽</div>
+            {% endfor %}
+        {% else %}
+            <div>Меню нет</div>
+        {% endif %}
+    {% endblock content %}
+
+    <button onclick="document.location.href='/admin/products'">Смотреть список продуктов</button>
+    <button onclick="document.location.href='/admin/dishes'">Смотреть список блюд</button>
+
+    <button onclick="document.location.href='/admin/requisitions'">Согласование заявок</button>
+    <button onclick="document.location.href='/admin/user/add'">Добавить пользователя</button>
+    <button onclick="document.location.href='/admin/users'">Смотреть список пользователей</button>
+    <button onclick="document.location.href='/admin/reports'">Формирование отчётов</button>
+    <button onclick="document.location.href='/logout'">Выйти</button>
+
+</body>
+</html>

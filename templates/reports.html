@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Формирование отчётов по питанию и затратам{% endblock title %}
+
+
+    {% block content %}
+        <div>
+            <div>
+                <button onclick="window.open('/admin/report/products', '_blank')">
+                    Скачать таблицу по продуктам
+                </button>
+            </div>
+
+            <script>
+                const input = document.getElementById('upload-table');
+                const selectedFileContainer = document.getElementById('selected-file');
+
+                input.addEventListener('change', function (e) {
+                    const selectedFile = e.target.files[0];
+                    if (selectedFile) {
+                        selectedFileContainer.textContent = selectedFile.name;
+                    }
+                });
+            </script>
+
+            <button onclick="document.location.href='/admin/menu'">Назад</button>
+
+        </div>
+    {% endblock %}
+</body>
+</html>

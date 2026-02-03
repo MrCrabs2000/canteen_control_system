@@ -75,6 +75,8 @@ class Product(db.Model):
     name = db.Column(db.String, nullable=False)
     measurement = db.Column(db.String, nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
+    buy_amount = db.Column(db.Integer, nullable=False, default=0)
+    spend_amount = db.Column(db.Integer, nullable=False, default=0)
 
     dishes = db.relationship('AssociationDishProduct', back_populates='product')
     requisitions = db.relationship('Requisition', back_populates='product')
