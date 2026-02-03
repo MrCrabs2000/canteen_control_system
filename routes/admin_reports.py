@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, send_file
 from flask_security import roles_accepted
 from configs.app_configs import login_required
-from exel import export_products, export_dishes, export_menus
+from exel import export_payments, export_attendance, export_products, export_dishes, export_menus
 
 
 reports = Blueprint('reports', __name__, template_folder='templates')
@@ -10,6 +10,46 @@ reports = Blueprint('reports', __name__, template_folder='templates')
 @roles_accepted('admin')
 def reports_list():
     return render_template('reports.html')
+
+
+
+reports_payments = Blueprint('reports_payments', __name__, template_folder='templates')
+@reports_payments.route('/admin/report/payments', methods=['GET'])
+@login_required
+@roles_accepted('admin')
+def reports_payments_page():
+    try:
+        filepath = export_payments()
+
+        return send_file(
+            str(filepath),
+            as_attachment=True,
+            download_name=filepath.name
+        )
+
+    except Exception as e:
+        print(f"Ошибка: {e}")
+        return f"Ошибка: {e}", 500
+
+
+
+reports_attendance = Blueprint('reports_attendance', __name__, template_folder='templates')
+@reports_attendance.route('/admin/report/attendance', methods=['GET'])
+@login_required
+@roles_accepted('admin')
+def reports_attendance_page():
+    try:
+        filepath = export_attendance()
+
+        return send_file(
+            str(filepath),
+            as_attachment=True,
+            download_name=filepath.name
+        )
+
+    except Exception as e:
+        print(f"Ошибка: {e}")
+        return f"Ошибка: {e}", 500
 
 
 

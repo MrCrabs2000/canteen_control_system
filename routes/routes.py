@@ -15,7 +15,7 @@ from .admin_requisition import admin_requisition
 from .dish import dish_view
 from .receiving import receiving
 from .admin_statistics import statistics, statistic_payments, statistic_attendance
-from .admin_reports import reports, reports_product, reports_dish, reports_menu
+from .admin_reports import reports, reports_payments, reports_attendance, reports_product, reports_dish, reports_menu
 
 
 def register_all_blueprints(app):
@@ -60,6 +60,8 @@ def register_all_blueprints(app):
     app.register_blueprint(statistic_payments)
     app.register_blueprint(statistic_attendance)
     app.register_blueprint(reports)
+    app.register_blueprint(reports_payments)
+    app.register_blueprint(reports_attendance)
     app.register_blueprint(reports_product)
     app.register_blueprint(reports_dish)
     app.register_blueprint(reports_menu)

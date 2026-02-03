@@ -11,6 +11,15 @@
     {% block content %}
         <div>
             <div>
+                <div>Отчёты по питанию</div>
+                <button onclick="window.open('/admin/report/payments', '_blank')">
+                    Скачать таблицу по оплатам
+                </button>
+                <button onclick="window.open('/admin/report/attendance', '_blank')">
+                    Скачать таблицу по посещаемости
+                </button>
+
+                <div>Отчёты по затратам</div>
                 <button onclick="window.open('/admin/report/products', '_blank')">
                     Скачать таблицу по продуктам
                 </button>

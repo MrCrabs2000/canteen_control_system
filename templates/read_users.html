@@ -44,10 +44,15 @@
         {% endif %}
 
         <div>Ученики</div>
-        {% set ns = namespace(user = False) %}
+        {% set ns = namespace(user = False, class = '') %}
         {% for user in users %}
             {% if user.roles[0].name == 'user' %}
-                {% set ns.user = True %}
+            {% set ns.user = True %}
+            {% set current_class = student_classes.get(user.id, '') %}
+                {% if ns.class != current_class %}
+                <div>{{ current_class }}</div>
+                {% set ns.class= current_class %}
+                {% endif %}
                 <div>{{ user.login }}</div>
                 <div>{{ user.surname }}</div>
                 <div>{{ user.name }}</div>
