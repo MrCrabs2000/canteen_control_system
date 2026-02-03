@@ -52,7 +52,7 @@ class ClassInput extends HTMLElement {
         
         this.letterInput.setAttribute('class', 'class-letter');
         this.letterInput.setAttribute('maxlength', '1');
-        this.letterInput.setAttribute('pattern', '[А-яЁё]+');
+        this.letterInput.setAttribute('pattern', '[А-ЯЁ]*');
         this.letterInput.addEventListener('input', this.updateValueOnInput.bind(this));
         this.letterInput.addEventListener('change', this.updateValueOnInput.bind(this));
         this.letterInput.addEventListener('blur', this.updateValueOnInput.bind(this));
