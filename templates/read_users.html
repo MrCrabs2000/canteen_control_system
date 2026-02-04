@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block title %}Список пользователей{% endblock title %}
+
+    {% block content %}
+    {% if users %}
+        <div>Админы</div>
+        {% set ns = namespace(admin = False) %}
+        {% for user in users %}
+            {% if user.roles[0].name == 'admin' %}
+                {% set ns.admin = True %}
+                <div>{{ user.login }}</div>
+                <div>{{ user.surname }}</div>
+                <div>{{ user.name }}</div>
+                <div>{{ user.patronymic }}</div>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/edit'">Изменить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/del'">Удалить пользователя</button>
+            {% endif %}
+        {% endfor %}
+        {% if not ns.admin %}
+            <div>Других админов нет</div>
+        {% endif %}
+
+        <div>Повара</div>
+        {% set ns = namespace(cook = False) %}
+        {% for user in users %}
+            {% if user.roles[0].name == 'cook' %}
+                {% set ns.cook = True %}
+                <div>{{ user.login }}</div>
+                <div>{{ user.surname }}</div>
+                <div>{{ user.name }}</div>
+                <div>{{ user.patronymic }}</div>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/edit'">Изменить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/del'">Удалить пользователя</button>
+            {% endif %}
+        {% endfor %}
+        {% if not ns.cook %}
+            <div>Поваров нет</div>
+        {% endif %}
+
+        <div>Ученики</div>
+        {% set ns = namespace(user = False, class = '') %}
+        {% for user in users %}
+            {% if user.roles[0].name == 'user' %}
+            {% set ns.user = True %}
+            {% set current_class = student_classes.get(user.id, '') %}
+                {% if ns.class != current_class %}
+                <div>{{ current_class }}</div>
+                {% set ns.class= current_class %}
+                {% endif %}
+                <div>{{ user.login }}</div>
+                <div>{{ user.surname }}</div>
+                <div>{{ user.name }}</div>
+                <div>{{ user.patronymic }}</div>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/edit'">Изменить пользователя</button>
+                <button onclick="document.location.href='/admin/user/{{ user.id }}/del'">Удалить пользователя</button>
+            {% endif %}
+        {% endfor %}
+        {% if not ns.user %}
+            <div>Учеников нет</div>
+        {% endif %}
+    {% else %}
+        <div>Других пользователей нет</div>
+    {% endif %}
+    {% endblock content%}
+
+    <button onclick="document.location.href='/admin/user/add'">Добавить пользователя</button>
+    <button onclick="document.location.href='/admin/menu'">Назад</button>
+</body>
+</html>

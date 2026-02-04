@@ -45,9 +45,15 @@ edit_product = Blueprint('edit_product', __name__, template_folder='templates')
 def edit_product_page(id):
     product = db.session.query(Product).filter_by(id=id).first()
     if request.method == 'GET':
+        dishes = db.session.query(Dish).join(AssociationDishProduct).filter(AssociationDishProduct.product_id == id).all()
+        requisitions = db.session.query(Requisition).filter_by(product_id=id).all()
         context = {
+            'product': product,
             'name': product.name,
             'measurement': product.measurement,
+            'amount': product.amount,
+            'dishes': dishes,
+            'requisitions': requisitions,
         }
         db.session.close()
         return render_template('edit_product.html', **context)
