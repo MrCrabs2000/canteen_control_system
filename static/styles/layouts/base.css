@@ -12,7 +12,7 @@
     --text-light: hsl(0, 0%, 100%);
     --shadow-big: 0px 4px 10px hsla(0, 0%, 0%, 0.15);
     --shadow: 0px 3px 6px hsla(0, 0%, 0%, 0.1);
-    --shadow-small: 0px 2px 4px hsla(0, 0%, 0%, 0.1);
+    --shadow-small: 0px 2px 4px hsla(0, 0%, 0%, 0.15);
     --border-color: hsl(0, 0%, 80%);
     --border-radius: 16px;
     --border-radius-small: 12px;
@@ -48,7 +48,7 @@ label {
 }
 
 
-input {
+input, textarea {
     padding: 4px 12px;
     font-family: inherit;
     border: 2px solid transparent;

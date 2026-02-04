@@ -8,21 +8,44 @@
 
 
 {% block top_bar %}
-    <h1 class="title left">Potato |
-        <span class="dish__category">Главное</span>
+    <h1 class="title left">{{ dish.name }} |
+        <span class="dish__category">{{ dish.category }}</span>
     </h1>
 {% endblock %}
 
 
 {% block main %}
     <div class="dish__info">
-        <section class="info__section dish__composition-section">
-            <h2 class="section__header">Состав</h2>
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">Состав</h2>
+            </div>
+
             <ul class="dish__composition">
-                <li>Potato</li>
-                <li>Potato</li>
-                <li>Potato</li>
+                {% for product in dish.products %}
+                    <li>{{ product.name }}</li>
+                {% endfor %}
             </ul>
+        </section>
+
+        <section class="info__section">
+            <form action="/reviews/add" id="newReviewForm" method="post" style="display: none;"></form>
+            <div class="section__top">
+                <h2 class="section__header">Ваш отзыв</h2>
+                {% if not review %}
+                    <button class="accent" form="newReviewForm">Сохранить</button>
+                {% endif %}
+            </div>
+
+            {% if not review %}
+                <div class="dish__new-review">
+                    <textarea class="new-review__textarea" name="" placeholder="Новый отзыв"></textarea>
+                </div>  
+            {% else %}
+                <div class="dish__review">
+                    <p class="review">Test review Test review Test review Test review Test reviewTest reviewTest review</p>
+                </div>
+            {% endif %}
         </section>
     </div>
 {% endblock %}
