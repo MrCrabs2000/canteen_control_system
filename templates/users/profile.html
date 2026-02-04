@@ -1,7 +1,9 @@
 {% extends 'layouts/base.html' %}
 
 {% from 'macros/labeled_fields.html' import labeled_input, labeled_class_input %}
+{% if current_user.roles[0].name == 'user' %}
 {% from 'macros/scrollable_list.html' import scrollable_list %}
+{% endif %}
 
 
 {% block title %}Профиль{% endblock %}
@@ -34,17 +36,17 @@
                     {{ labeled_input(name='patronymic', label='Отчество', value=patronymic, readonly=True, required=True) }}
                     {{ labeled_class_input(value=class, readonly=True, required=True) }}
                 </div>
-    
-                {{ scrollable_list(label='Аллергии', id='allergies', items=allergies) }}
-                {{ scrollable_list(label='Предпочтения', id='preferences', items=preferences) }}
-
+                {% if current_user.roles[0].name == 'user' %}
+                    {{ scrollable_list(label='Аллергии', id='allergies', items=allergies) }}
+                    {{ scrollable_list(label='Предпочтения', id='preferences', items=preferences) }}
+                {% endif %}
             </div>
-
-            <div id="hidden-inputs" style="display: none;">
-                <input name="allergies" type="hidden">
-                <input name="preferences" type="hidden">
-            </div>
-
+            {% if current_user.roles[0].name == 'user' %}
+                <div id="hidden-inputs" style="display: none;">
+                    <input name="allergies" type="hidden">
+                    <input name="preferences" type="hidden">
+                </div>
+            {% endif %}
         </form>
     </main>
 

@@ -11,16 +11,26 @@ profile_page = Blueprint('profile_page', __name__, template_folder='templates')
 @login_required
 def profilepage():
     info = db.session.query(Info).filter_by(user_id=current_user.id).first()
-    context = {
-        'name': current_user.name,
-        'surname': current_user.surname,
-        'patronymic':  current_user.patronymic,
-        'login': current_user.login,
-        'balance': info.balance if info else '0 рублей',
-        'class': info.stud_class if info else 'не указан',
-        'allergies': loads(info.allergies) if info.allergies and loads(info.allergies) != '' else '',
-        'preferences': loads(info.preferences) if info.preferences and loads(info.preferences) != '' else '',
-    }
+
+    if current_user.roles[0].name == 'user':
+        context = {
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'patronymic':  current_user.patronymic,
+            'login': current_user.login,
+            'balance': info.balance if info else '0 рублей',
+            'class': info.stud_class if info else 'не указан',
+            'allergies': loads(info.allergies) if info.allergies and loads(info.allergies) != '' else '',
+            'preferences': loads(info.preferences) if info.preferences and loads(info.preferences) != '' else '',
+        }
+    else:
+        context = {
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'patronymic':  current_user.patronymic,
+            'login': current_user.login,
+            'balance': info.balance if info else '0 рублей',
+        }
 
     db.session.close()
 
