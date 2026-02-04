@@ -26,7 +26,6 @@
                         <label>Роль</label>
                         <select name="role" required>
                             <option value="">Выберите роль</option>
-                            <option value="user" {% if roles[0].name == 'user' %}selected{% endif %}>Пользователь</option>
                             <option value="cook" {% if roles[0].name == 'cook' %}selected{% endif %}>Повар</option>
                             <option value="admin" {% if roles[0].name == 'admin' %}selected{% endif %}>Админ</option>
                         </select>
