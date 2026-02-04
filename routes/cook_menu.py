@@ -108,5 +108,4 @@ def read_requisition_page():
         'requisitions': requisitions,
         'products': products
     }
-    print(context)
     return render_template('requisition/list.html', **context)

@@ -87,7 +87,7 @@ class Requisition(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id', name='requisition_products'), nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    date = db.Column(db.Date, nullable=False, default=date.today())
     coordination = db.Column(db.Integer, nullable=False, default=0)
 
     product = db.relationship('Product', back_populates='requisitions')
@@ -146,6 +146,8 @@ class Notification(db.Model):
     date = db.Column(db.Date, nullable=False, default=date.today())
 
     recevier_id = db.Column(db.Integer, db.ForeignKey('users.id', name='notification_users'), nullable=False)
+    requisition_id = db.Column(db.Integer, db.ForeignKey('requisitions.id', name='notification_requisitions'),
+                            nullable=False)
 
 
 class AssociationDishProduct(db.Model):

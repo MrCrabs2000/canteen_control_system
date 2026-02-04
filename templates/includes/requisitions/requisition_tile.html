@@ -2,6 +2,13 @@
     <div class="requisition__name">{{ products[requisition.product_id].name }}</div>
     <ul class="requisition__composition">
         <li>Запрошено {{ requisition.amount }} {{ products[requisition.product_id].measurement }}</li>
+        {% if requisition.coordination == 1 %}
+            <li>Статус: Подтверждена</li>
+        {% elif requisition.coordination == 2 %}
+            <li>Статус: Отклонена</li>
+        {% else %}
+            <li>Статус: Ожидает</li>
+        {% endif %}
     </ul>
 </div>
 

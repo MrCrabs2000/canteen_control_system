@@ -1,6 +1,6 @@
 .requisition-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     grid-auto-rows: 124px;
     row-gap: 0.5rem;
     column-gap: 0.5rem;

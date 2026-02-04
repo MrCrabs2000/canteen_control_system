@@ -40,7 +40,7 @@ def admin_requisition_page():
                 return redirect('/admin_menu')
             finally:
                 db.session.close()
-            return redirect('/admin/requisition')
+            return redirect('/admin/requisitions')
         else:
             db.session.close()
             return redirect('/admin/requisitions')
