@@ -34,8 +34,10 @@ cook_menus = Blueprint('cook_menus', __name__, template_folder='templates')
 @login_required
 @roles_accepted('cook')
 def cook_menus_page():
-
+    menus = db.session.query(Menu).order_by(Menu.date.asc()).options(
+        db.joinedload(Menu.dishes).joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
     context = {
+        'menus': menus,
         'name': current_user.name,
         'surname': current_user.surname
     }
@@ -99,4 +101,12 @@ def read_requisition_page():
         product = db.session.query(Product).filter_by(id=requisition.product_id).first()
         products[requisition.product_id] = product
     db.session.close()
-    return render_template('read_requisition.html', products=products, requisitions=requisitions)
+
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname,
+        'requisitions': requisitions,
+        'products': products
+    }
+    print(context)
+    return render_template('requisition/list.html', **context)
