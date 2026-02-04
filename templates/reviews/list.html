@@ -1,0 +1,34 @@
+{% extends 'layouts/header_layout.html' %}
+
+
+{% block title %}Отзывы{% endblock %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/reviews/list.css">
+{% endblock %}
+
+
+{% block top_bar %}
+    <h1 class="title left">
+        Отзывы
+        <span class="reviews__amount">{{ reviews | length }}</span>
+    </h1>
+{% endblock %}
+
+
+{% block main %}
+    <div class="reviews">
+        {% for review in reviews %}
+            <div class="review">
+                <a href="/dishes/{{ review.dish.id }}" class="review__link">
+                    <h2 class="review__dish">{{ review.dish.name }}</h2>
+                    <p class="review__content">{{ review.content }}</p>
+                </a>
+            </div> 
+        {% else %}
+            <p class="no-reviews">Вы не оставили ни одного отзыва</p>
+        {% endfor %}
+    </div>
+{% endblock %}

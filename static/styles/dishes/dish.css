@@ -1,0 +1,62 @@
+.dish__info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.dish__category {
+    color: var(--primary)
+}
+
+
+.info__section {
+    padding: 12px;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+
+.section__top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+
+.section__header {
+    margin: 0;
+}
+
+
+.dish__composition {
+    display: flex;
+    gap: 40px;
+    margin: 4px;
+    padding: 0 28px;
+}
+
+.dish__composition li {
+    font-size: 1.2rem;
+}
+
+
+.dish__new-review {
+    display: flex;
+    gap: 8px
+}
+
+
+.new-review__textarea {
+    font-size: 1.2rem;
+    width: 100%;
+    min-height: 1.5rem;
+    resize: vertical;
+}
+
+
+.review {
+    margin: 0;
+    font-size: 1.2rem;
+}
