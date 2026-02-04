@@ -2,6 +2,18 @@
 
 {% block title %}Пользователь {{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.{% endblock %}
 
+{% block top_bar %}
+{{ super() }}
+<div>
+    <button onclick="location.href='/admin/user/{{ user.id }}/edit'" class="accent">
+        Изменить
+    </button>
+    <button onclick="if(confirm('Вы уверены, что хотите удалить пользователя?')) location.href='/admin/user/{{ user.id }}/del'" class="danger">
+        Удалить
+    </button>
+</div>
+{% endblock %}
+
 {% block main %}
     <div class="user-profile">
         <div class="profile-header">
@@ -66,14 +78,5 @@
             </div>
         </div>
         {% endif %}
-
-        <div class="action-buttons">
-            <button onclick="location.href='/admin/user/{{ user.id }}/edit'" class="accent">
-                Изменить
-            </button>
-            <button onclick="if(confirm('Вы уверены, что хотите удалить пользователя?')) location.href='/admin/user/{{ user.id }}/del'" class="danger">
-                Удалить
-            </button>
-        </div>
     </div>
 {% endblock %}

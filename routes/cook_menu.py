@@ -106,6 +106,7 @@ def read_requisition_page():
         'name': current_user.name,
         'surname': current_user.surname,
         'requisitions': requisitions,
-        'products': products
+        'products': products,
+        'role': current_user.roles[0].name
     }
     return render_template('requisition/list.html', **context)

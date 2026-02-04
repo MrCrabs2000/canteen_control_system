@@ -1,7 +1,8 @@
+{% if role == 'cook' %}
 <div class="requisition">
     <div class="requisition__name">{{ products[requisition.product_id].name }}</div>
     <ul class="requisition__composition">
-        <li>Запрошено {{ requisition.amount }} {{ products[requisition.product_id].measurement }}</li>
+        <li>Запрошено: {{ requisition.amount }} {{ products[requisition.product_id].measurement }}</li>
         {% if requisition.coordination == 1 %}
             <li>Статус: Подтверждена</li>
         {% elif requisition.coordination == 2 %}
@@ -12,4 +13,12 @@
     </ul>
 </div>
 
-
+{% elif role == 'admin' %}
+<div class="requisition_admin">
+    <div class="requisition__name">{{ products[requisition.product_id].name }}</div>
+    <ul class="requisition__composition">
+        <li>Запрошено: {{ requisition.amount }} {{ products[requisition.product_id].measurement }}</li>
+        <li>Статус: Ожидает</li>
+    </ul>
+</div>
+{% endif %}

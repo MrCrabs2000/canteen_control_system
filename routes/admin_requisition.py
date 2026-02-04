@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 from datebase.classes import Product, Requisition, db
 from configs.app_configs import login_required
 
@@ -16,7 +16,15 @@ def admin_requisition_page():
             product = db.session.query(Product).filter_by(id=requisition.product_id).first()
             products[requisition.product_id] = product
         db.session.close()
-        return render_template('admin_requisition.html', products=products, requisitions=requisitions)
+
+        context = {
+            'products': products,
+            'requisitions': requisitions,
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'role': current_user.roles[0].name
+        }
+        return render_template('requisition/admin.html', **context)
 
     elif request.method == 'POST':
         coordination = request.form.get('coordination')
@@ -37,7 +45,7 @@ def admin_requisition_page():
                 db.session.commit()
             except Exception as e:
                 print(e)
-                return redirect('/admin_menu')
+                return redirect('/admin/menu')
             finally:
                 db.session.close()
             return redirect('/admin/requisitions')

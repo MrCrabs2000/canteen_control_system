@@ -50,7 +50,7 @@ def add_user_page():
         finally:
             db.session.close()
 
-        return redirect('/admin/menu')
+        return redirect('/admin/users')
     else:
         return render_template('users/adding.html', **context)
 

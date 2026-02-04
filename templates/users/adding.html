@@ -2,6 +2,12 @@
 
 {% block title %}Добавить пользователя{% endblock %}
 
+{% block top_bar %}
+{{ super() }}
+ <button type="submit" class="accent">Добавить</button>
+{% endblock %}
+
+
 {% block main %}
     <div class="user-profile">
         <div class="profile-header">
@@ -11,6 +17,7 @@
                 </h1>
             </div>
         </div>
+
 
         <form id="add-user-form" method="post">
             <div class="info-section">
@@ -55,10 +62,6 @@
                         <input type="password" name="second_password" required>
                     </div>
                 </div>
-            </div>
-
-            <div class="action-buttons">
-                <button type="submit" class="accent">Добавить пользователя</button>
             </div>
         </form>
     </div>

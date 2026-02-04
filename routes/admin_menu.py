@@ -55,7 +55,7 @@ def admin_read_dishes_page():
         'bread': bread
     }
 
-    return render_template('dishes/list.html', ** context)
+    return render_template('dishes/admin.html', ** context)
 
 
 
@@ -71,7 +71,7 @@ def admin_read_product_page():
             'name': current_user.name,
             'surname': current_user.surname
         }
-        return render_template('admin_read_product.html', **context)
+        return render_template('products/admin.html', **context)
 
     finally:
         db.session.close()
