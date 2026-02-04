@@ -1,0 +1,20 @@
+<div class="{% if role == 'cook' %}requisition{% else %}requisition_admin{% endif %}">
+    <div class="requisition__name">{{ notification.name }}</div>
+    <ul class="requisition__composition">
+        <li><strong>Дата:</strong> {{ notification.date.strftime('%d.%m.%Y') }}</li>
+        <li>
+            {% if notification.status %}
+            Просмотрено
+            {% else %}
+            Новое
+            {% endif %}
+        </li>
+        <li>{{ notification.text }}</li>
+        {% if role == 'admin' and notification.requisition_id %}
+        <li><strong>ID заявки:</strong> {{ notification.requisition_id }}</li>
+        {% endif %}
+    </ul>
+    <a href="/{{ role }}/requisitions" class="btn accent">
+        Перейти к заявкам
+    </a>
+</div>

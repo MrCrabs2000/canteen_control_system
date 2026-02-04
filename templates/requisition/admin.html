@@ -1,8 +1,4 @@
-{% extends 'layouts/sidebar_w_header.html' %}
-
-{% from 'macros/sidebar.html' import sidebar %}
-
-{% block title %}Админ: Закупки{% endblock %}
+{% extends 'layouts/management/requisition.html' %}
 
 
 {% block head %}
@@ -11,18 +7,6 @@
     <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
 {% endblock %}
 
-{% block sidebar %}
-    {% call sidebar(header='Возможности') %}
-    <ul class="days-list">
-        <li class="day">
-            <span class="day__link">Одобрить</span>
-        </li>
-        <li class="day">
-            <span class="day__link">Отклонить</span>
-        </li>
-    </ul>
-    {% endcall %}
-{% endblock %}
 
 {% block top_bar %}
     <div class="top-bar__left">
@@ -32,11 +16,12 @@
 
 {% block main %}
     {% if requisitions %}
-        <div class="requisition-grid">
+        <div class="requisition_admin-grid">
             {% for requisition in requisitions %}
                 {% include 'includes/requisitions/requisition_tile.html' %}
             {% endfor %}
         </div>
+
     {% else %}
         <p class="no-requisition-message"><strong>Нет запросов.</strong></p>
     {% endif %}    

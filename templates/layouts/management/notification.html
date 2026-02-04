@@ -1,0 +1,11 @@
+{% extends 'layouts/management/base.html' %}
+
+{% from 'macros/sidebar.html' import sidebar %}
+
+
+{% block top_bar_title %}Уведомления{% endblock %}
+
+
+{% block sidebar_tabs %}
+    <li><a href="/{{ role }}/requisitions">К заявкам</a></li>
+{% endblock %}

@@ -1,3 +1,5 @@
+from email.policy import default
+
 from flask_security import UserMixin, RoleMixin
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date, datetime
@@ -144,6 +146,7 @@ class Notification(db.Model):
     name = db.Column(db.String, nullable=False)
     text = db.Column(db.String, nullable=False)
     date = db.Column(db.Date, nullable=False, default=date.today())
+    status = db.Column(db.Boolean, nullable=False, default=False)
 
     recevier_id = db.Column(db.Integer, db.ForeignKey('users.id', name='notification_users'), nullable=False)
     requisition_id = db.Column(db.Integer, db.ForeignKey('requisitions.id', name='notification_requisitions'),
