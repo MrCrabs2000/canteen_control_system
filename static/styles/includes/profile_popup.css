@@ -1,7 +1,7 @@
 #profile-popup {
     visibility: hidden;
     position: absolute;
-    padding: 12px 20px;
+    padding: 12px 16px;
     top: 60px;
     right: 8px;
     z-index: 1000;
@@ -16,6 +16,9 @@
 }
 
 #profile-options {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     list-style-type: none;
     padding: 0;
     margin: 0;
