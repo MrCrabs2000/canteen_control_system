@@ -1,66 +1,61 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/header_layout.html' %}
 
-{% block title %}История получений{% endblock %}
+
+{% block title %}Получение питания{% endblock %}
+
 
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="/static/styles/receiving.css">
+    <link rel="stylesheet" href="/static/styles/menus/receiving.css">
 {% endblock %}
 
-{% block content %}
-<div class="receiving-container">
-    <h1>История получений</h1>
 
-    <div class="filter-section">
-        <h2 class="filter-title">Фильтр по дате</h2>
-        <form method="GET" action="/receiving" class="filter-form">
-            <input type="date" name="date" id="date" class="filter-input"
-                   value="{{ filter_date }}">
-
-            <button type="submit" class="btn-apply">Найти</button>
-            {% if filter_date %}
-                <a href="/receiving" class="btn-clear">Очистить</a>
-            {% endif %}
-        </form>
+{% block top_bar %}
+    <div class="top-bar__left">
+        <h1 class="title left">Получение питания</h1>
     </div>
 
-    <form method="POST">
-        {% if not history_list %}
-            <p class="no-history">Нет записей получения</p>
-        {% else %}
-            <table class="receiving-table">
-                <thead>
-                    <tr>
-                        <th>Статус</th>
-                        <th>Дата</th>
-                        <th>Тип</th>
-                        <th>Цена</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for history in history_list %}
-                    <tr>
-                        <td>
-                            {% if history.status %}
-                                <span class="status-received">Получено</span>
-                            {% else %}
-                                <button type="submit" name="mark_received" value="{{ history.id }}" class="btn-mark">
-                                    Отметить полученным
-                                </button>
-                            {% endif %}
-                        </td>
-                        <td>{{ history.eat_date }}</td>
-                        <td>{{ history.type }}</td>
-                        <td>{{ history.cost }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
-    </form>
+    <div class="top-bar__right">
 
-    <div class="receiving-actions">
-        <a href="/" class="btn-back">Назад к главной</a>
     </div>
-</div>
+{% endblock %}
+
+
+
+{% block main %}
+    <div class="menus">
+        <ul class="menus__list">
+            {% for history in history_list %}
+
+                {% set received = "menu--received" if history.status else "" %}
+
+                <li class="menu {{ received }}">
+                    <h2 class="menu__header">
+                        <span class="menu__date">{{ history.eat_date | date_Y_M_d}}</span>
+                        <div class="menu__text-separator"></div>
+                        {% if history.type == 'breakfast' %}
+                            <span class="menu__type">Завтрак</span>
+                        {% elif history.type == 'lunch' %}
+                            <span class="menu__type">Обед</span>
+                        {% endif %}
+                    </h2>
+
+                    <div class="menu__right-container">
+                        <span class="menu__price">{{ history.cost }}₽</span>
+
+                        {% if history.status %}
+                            <div class="menu__received-status">Получено</div>
+                        {% else %}
+                            <form id="receiveMenuForm" method="post" style="display: none;">
+                                <input type="hidden" name="mark_received" value="{{ history.id }}">
+                            </form>
+
+                            <button class="menu__receive-button accent" form="receiveMenuForm" type="submit">Получить</button>
+                        {% endif %}
+                    </div>
+                </li>
+
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
