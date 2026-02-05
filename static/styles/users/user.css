@@ -1,0 +1,143 @@
+.user-profile {
+    width: 100%;
+    height: fit-content;
+    max-height: 100%;
+    padding: 12px;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow-y: auto;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.user-id {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-light);
+    color: var(--text);
+    text-decoration: none;
+    border-radius: var(--border-radius-small);
+    box-shadow: var(--shadow-small);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.info-section {
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    border-left: 2px solid var(--primary);
+}
+
+.info-section h3 {
+    margin: 0 0 10px 0;
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.info-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.info-field label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-left: 2px;
+}
+
+.info-value {
+    padding: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    font-size: 0.95rem;
+    color: var(--text);
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-field label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-left: 2px;
+}
+
+.edit-form input,
+.edit-form select {
+    font-size: 0.95rem;
+    padding: 8px;
+}
+
+.form-field input,
+.form-field select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.user-profile input,
+.user-profile select {
+    font-size: 0.95rem;
+    padding: 8px;
+}
+
+.top-bar-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.top-bar-actions button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    min-width: auto;
+}

@@ -109,7 +109,9 @@ read_user = Blueprint('read_user', __name__, template_folder='templates')
 @login_required
 @roles_accepted('admin')
 def read_user_page(user_id):
-    user = db.session.query(User).filter_by(id=user_id).first()
+    user = db.session.query(User).filter_by(id=user_id).options(
+        db.joinedload(User.student_info)
+    ).first()
     try:
         context = {
             'user': user,

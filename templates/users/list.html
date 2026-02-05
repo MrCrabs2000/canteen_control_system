@@ -2,12 +2,11 @@
 
 {% block title %}Админ: Пользователи{% endblock %}
 
-
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/users/list.css">
+    <link rel="stylesheet" href="/static/styles/users/user.css">
 {% endblock %}
-
 
 {% block main %}
     <div class="users-grid">
@@ -17,10 +16,9 @@
                     <div class="user__top">
                         <h2 class="user__full-name">{{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.</h2>
                     </div>
-
-                    <ul class="user__special-info">
-                        <li class="user__role">{{ user.roles[0].name }}</li>
-                    </ul>
+                    <div class="role-badge">
+                        {{ user.roles[0].name }}
+                    </div>
                 </a>
             </div>
         {% endfor %}

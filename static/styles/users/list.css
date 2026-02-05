@@ -28,7 +28,6 @@
     border: solid 2px transparent;
     border-radius: var(--border-radius);
     transition: border 0.1s ease-in-out;
-    
     &:hover {
         border: solid 2px var(--primary);
     }
