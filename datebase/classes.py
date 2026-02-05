@@ -146,7 +146,7 @@ class Notification(db.Model):
     name = db.Column(db.String, nullable=False)
     text = db.Column(db.String, nullable=False)
     date = db.Column(db.Date, nullable=False, default=date.today())
-    status = db.Column(db.Boolean, nullable=False, default=False)
+    status = db.Column(db.Integer, nullable=False, default=False)
 
     recevier_id = db.Column(db.Integer, db.ForeignKey('users.id', name='notification_users'), nullable=False)
     requisition_id = db.Column(db.Integer, db.ForeignKey('requisitions.id', name='notification_requisitions'),

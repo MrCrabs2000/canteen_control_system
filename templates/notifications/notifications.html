@@ -7,12 +7,13 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/notifications/notification.css">
+    <link rel="stylesheet" href="/static/styles/requisitions/list.css">
 {% endblock %}
 
 {% block top_bar_title %}Уведомления{% endblock %}
 
 {% block sidebar_tabs %}
-    <li><a href="/{{ role }}/requisitions">К заявкам</a></li>
+    <li><a href="/{{ role }}/requisitions">К закупкам</a></li>
 {% endblock %}
 
 {% block main %}

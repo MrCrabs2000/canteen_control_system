@@ -3,18 +3,22 @@
     <ul class="requisition__composition">
         <li><strong>Дата:</strong> {{ notification.date.strftime('%d.%m.%Y') }}</li>
         <li>
-            {% if notification.status %}
-            Просмотрено
-            {% else %}
+            {% if notification.status == 1 %}
             Новое
+            {% else %}
+            Просмотрено
             {% endif %}
         </li>
         <li>{{ notification.text }}</li>
-        {% if role == 'admin' and notification.requisition_id %}
-        <li><strong>ID заявки:</strong> {{ notification.requisition_id }}</li>
+        {% if role == 'admin' and notification.requisition_id and notification.status != 2 %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
         {% endif %}
     </ul>
-    <a href="/{{ role }}/requisitions" class="btn accent">
-        Перейти к заявкам
-    </a>
 </div>

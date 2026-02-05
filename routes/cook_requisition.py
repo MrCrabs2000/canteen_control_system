@@ -42,7 +42,7 @@ def cook_requisition_page():
             db.session.flush()
             for admin in admins:
                 new_notification = Notification(name='Заявка', text='Вам пришла заявка на покупку продуктов', date=date.today(),
-                                        recevier_id=admin.id, requisition_id=new_requisition.id)
+                                        recevier_id=admin.id, requisition_id=new_requisition.id, status=1)
                 db.session.add(new_notification)
             db.session.commit()
             return redirect('/cook/requisitions')
