@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted, current_user
-from datebase.classes import Product, Requisition, db
+from datebase.classes import Product, Requisition, db, Notification
 from configs.app_configs import login_required
+from datetime import date
 
 admin_requisition = Blueprint('admin_requisition', __name__, template_folder='templates')
 
@@ -44,10 +45,17 @@ def admin_requisition_page():
             db.session.close()
             return redirect('/admin/requisitions')
 
+
+
         requisition = db.session.query(Requisition).filter_by(id=requisition_id).first()
 
         if requisition:
             requisition.coordination = coordination
+
+            new_notification = Notification(name='Заявка', text='У вас изменения в статусе заявки',
+                                                date=date.today(),
+                                                recevier_id=requisition.recevier_id, requisition_id=requisition_id, status=1)
+            db.session.add(new_notification)
 
             try:
                 db.session.commit()

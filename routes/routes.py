@@ -14,7 +14,7 @@ from .cook_requisition import cook_requisition
 from .admin_requisition import admin_requisition
 from .dish import dish_view
 from .receiving import receiving
-from .notifications import notifications_admin
+from .notifications import notifications
 
 
 def register_all_blueprints(app):
@@ -57,4 +57,4 @@ def register_all_blueprints(app):
     app.register_blueprint(cook_menus)
     app.register_blueprint(read_user)
     app.register_blueprint(admin_read_dish)
-    app.register_blueprint(notifications_admin)
+    app.register_blueprint(notifications)

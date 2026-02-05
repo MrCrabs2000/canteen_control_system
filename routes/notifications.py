@@ -3,16 +3,25 @@ from flask_security import current_user, roles_accepted
 from datebase.classes import db, Notification
 from configs.app_configs import login_required
 
-notifications_admin = Blueprint('notifications_admin', __name__, template_folder='templates')
+notifications = Blueprint('notifications_admin', __name__, template_folder='templates')
 
 
-@notifications_admin.route('/notifications', methods=["GET", "POST"])
+@notifications.route('/notifications', methods=["GET", "POST"])
 @login_required
 @roles_accepted('admin', 'cook')
-def admin_notifications_page():
+def notifications_page():
     try:
-        notifications = db.session.query(Notification).filter_by(recevier_id=current_user.id).order_by(
+        notifications_not_checked = db.session.query(Notification).filter_by(recevier_id=current_user.id).order_by(
             Notification.date.desc()).all()
+        notifications = []
+        cnt = 0
+
+        for notification in notifications_not_checked:
+            if notification.status == 1:
+                notifications.append(notification)
+            elif cnt < 10:
+                cnt += 1
+                notifications.append(notification)
 
         db.session.commit()
         if request.method == 'POST':
@@ -24,8 +33,14 @@ def admin_notifications_page():
             except Exception as e:
                 print(f'У нас ошибка в изменении статуса уведома: {e}')
             finally:
-                db.session.close()
-                return redirect('/admin/requisitions')
+                if current_user.roles[0].name == 'admin':
+                    db.session.close()
+                    print('1')
+                    return redirect('/admin/requisitions')
+                elif current_user.roles[0].name == 'cook':
+                    db.session.close()
+                    print('2')
+                    return redirect('/cook/requisitions')
 
         context = {
             'notifications': notifications,
@@ -38,7 +53,7 @@ def admin_notifications_page():
 
     except Exception as e:
         db.session.rollback()
-        print(f"Error updating notifications: {e}")
+        print(f"Ошибка в обновлении статуса уведома: {e}")
         return redirect('/')
 
     finally:

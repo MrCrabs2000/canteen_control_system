@@ -88,6 +88,7 @@ class Requisition(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id', name='requisition_products'), nullable=False)
+    recevier_id = db.Column(db.Integer, db.ForeignKey('users.id', name='requisition_users'), nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
     date = db.Column(db.Date, nullable=False, default=date.today())
     coordination = db.Column(db.Integer, nullable=False, default=0)

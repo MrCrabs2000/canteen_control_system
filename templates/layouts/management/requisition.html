@@ -8,4 +8,9 @@
 
 {% block sidebar_tabs %}
     <li><a href="/notifications">К уведомлениям</a></li>
+{% if role == 'cook' %}
+    <li><a href="/cook/requisitions">Список</a></li>
+    <li><a href="/cook/requisition/add">Добавить</a></li>
+{% endif %}
 {% endblock %}
+
