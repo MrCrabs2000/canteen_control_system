@@ -74,7 +74,8 @@ def read_dish_page():
         'soups': soups,
         'main_dishes': main_dishes,
         'drinks': drinks,
-        'bread': bread
+        'bread': bread,
+        'current_user': current_user
     }
 
     return render_template('dishes/list.html', **context)

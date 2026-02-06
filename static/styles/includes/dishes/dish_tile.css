@@ -25,6 +25,13 @@
     font-weight: 600;
 }
 
+
+.dish__category {
+    color: var(--primary);
+}
+
+
+
 .dish__composition {
     margin: 0;
     padding-left: 20px;

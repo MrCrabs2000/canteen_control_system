@@ -1,67 +1,54 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/header_layout.html' %}
 
-{% block title %}Блюдо: {{ dish.name }}{% endblock %}
+
+{% block title %}{{ dish.name }}{% endblock %}
+
 
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="/static/styles/includes/forms/labeled_fields.css">
+    <link rel="stylesheet" href="/static/styles/dishes/dish.css">
 {% endblock %}
 
-{% block content %}
-<div class="user-profile">
-    <div class="profile-header">
-        <div>
-            <h1 class="profile-title">{{ dish.name }}</h1>
-            <div class="user-id">ID: {{ dish.id }}</div>
-        </div>
-    </div>
 
-    <div class="info-section">
-        <h3>Основная информация</h3>
-        <div class="info-grid">
-            <div class="info-field">
-                <label>Название</label>
-                <div class="info-value">{{ dish.name }}</div>
-            </div>
-            <div class="info-field">
-                <label>Категория</label>
-                <div class="info-value">{{ dish.category }}</div>
-            </div>
-            <div class="info-field">
-                <label>Количество приготовлений</label>
-                <div class="info-value">{{ dish.cook_amount }}</div>
-            </div>
-            <div class="info-field">
-                <label>Количество раздач</label>
-                <div class="info-value">{{ dish.give_amount }}</div>
-            </div>
-            <div class="info-field">
-                <label>Общее количество</label>
-                <div class="info-value">{{ dish.amount }}</div>
-            </div>
-        </div>
-    </div>
+{% block top_bar %}
+    <h1 class="title left">{{ dish.name }} |
+        <span class="dish__category">{{ dish.category }}</span>
+    </h1>
+{% endblock %}
 
-    <div class="info-section">
-        <h3>Состав блюда</h3>
-        {% if dish.products %}
-        <div class="info-grid">
-            {% for association in dish.products %}
-            <div class="info-field">
-                <label>{{ association.product.name }}</label>
-                <div class="info-value">На складе: {{ association.product_amount }} {{ association.product.measurement }}</div>
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <div class="info-value" style="text-align: center; padding: 20px; color: var(--text-muted);">
-            Состав не указан
-        </div>
-        {% endif %}
-    </div>
 
-    <div class="action-buttons" style="justify-content: flex-start;">
-        <a href="/admin/dishes" class="back-button">Назад</a>
+{% block main %}
+    <div class="dish__info">
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">Состав</h2>
+            </div>
+
+            <ul class="dish__composition">
+                {% for product in dish.products %}
+                    <li>{{ product.name }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section class="info__section">
+            <form action="/reviews/add" id="newReviewForm" method="post" style="display: none;"></form>
+            <div class="section__top">
+                <h2 class="section__header">Ваш отзыв</h2>
+                {% if not review %}
+                    <button class="accent" form="newReviewForm">Сохранить</button>
+                {% endif %}
+            </div>
+
+            {% if not review %}
+                <div class="dish__new-review">
+                    <textarea class="new-review__textarea" name="" placeholder="Новый отзыв"></textarea>
+                </div>  
+            {% else %}
+                <div class="dish__review">
+                    <p class="review">Test review Test review Test review Test review Test reviewTest reviewTest review</p>
+                </div>
+            {% endif %}
+        </section>
     </div>
-</div>
 {% endblock %}

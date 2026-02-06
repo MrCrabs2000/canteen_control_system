@@ -43,7 +43,7 @@
 }
 
 .menu__type {
-    color: var(--text-muted);
+    color: var(--primary);
 }
 
 .menu__info {
