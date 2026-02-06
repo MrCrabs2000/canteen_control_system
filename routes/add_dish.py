@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 from datebase.classes import Menu, Dish, Product, AssociationDishProduct, Review, db
 from configs.app_configs import login_required
 
@@ -11,10 +11,19 @@ add_dish = Blueprint('add_dish', __name__, template_folder='templates')
 def add_dish_page():
     if request.method == 'GET':
         products = db.session.query(Product).all()
+        products_form = [(product.name, product.name) for product in products]
         db.session.close()
-        return render_template('add_dish.html', products=products)
 
-    elif request.method == 'POST':
+        context = {
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'products': products,
+            'products_form': products_form
+        }
+
+        return render_template('dishes/adding.html', **context)
+
+    elif request.method == 'POST':  
         name = request.form.get('name')
         category = request.form.get('category')
         ingredients = request.form.getlist('ingredients')
@@ -22,7 +31,7 @@ def add_dish_page():
 
         if not all([name, category, ingredients, amounts]) or len(ingredients) != len(amounts):
             return redirect('/cook/dish/add')
-
+        
         for ingredient, amount in zip(ingredients, amounts):
             if not ingredient or not amount or int(amount) <= 0:
                 return redirect('/cook/dish/add')
@@ -37,13 +46,14 @@ def add_dish_page():
             db.session.flush()
 
             for ingredient, amount in zip(ingredients, amounts):
-                dish_products = AssociationDishProduct(dish_id=new_dish.id, product_id=int(ingredient),
+                id_product = db.session.query(Product).filter_by(name=ingredient).first()
+                dish_products = AssociationDishProduct(dish_id=new_dish.id, product_id=int(id_product.id),
                                                        product_amount=int(amount))
                 db.session.add(dish_products)
-
+            print(dish_products)
             db.session.commit()
 
-            return redirect('/cook/menu')
+            return redirect('/cook/dishes')
         finally:
             db.session.close()
 

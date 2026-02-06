@@ -1,13 +1,12 @@
-{% extends 'layouts/sidebar_w_header.html' %}
+{% extends 'layouts/management/dishes.html' %}
 
 {% from 'macros/sidebar.html' import sidebar %}
 
-{% block title %}Админ: Блюда{% endblock %}
+{% block title %}Блюда{% endblock %}
 
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="/static/styles/menus/menu.css">
-    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+    <link rel="stylesheet" href="/static/styles/dishes/list.css">
     <link rel="stylesheet" href="/static/styles/includes/dishes/dish_tile.css">
 {% endblock %}
 
@@ -17,31 +16,6 @@
     </div>
 {% endblock %}
 
-{% block sidebar %}
-    {% call sidebar(header='Категории') %}
-    <ul class="days-list">
-        <li class="day">
-            <a class="day__link" href="#breakfasts">Завтраки</a>
-        </li>
-        <li class="day">
-            <a class="day__link" href="#salads">Салаты</a>
-        </li>
-        <li class="day">
-            <a class="day__link" href="#soups">Супы</a>
-        </li>
-        <li class="day">
-            <a class="day__link" href="#main_dishes">Основные блюда</a>
-        </li>
-        <li class="day">
-            <a class="day__link" href="#drinks">Напитки</a>
-        </li>
-        <li class="day">
-            <a class="day__link" href="#bread">Хлеб</a>
-        </li>
-    </ul>
-    {% endcall %}
-{% endblock %}
-
 {% block main %}
 <div class="dishes-container">
     {% if breakfasts %}
@@ -49,16 +23,7 @@
         <h2 class="category-title">Завтраки</h2>
         <div class="menu-grid">
             {% for dish in breakfasts %}
-                <div class="dish">
-                    <a class="dish__link" href="/admin/dishes/{{ dish.id }}">
-                        <div class="dish__name">{{ dish.name }}</div>
-                        <ul class="dish__composition">
-                            {% for association in dish.products %}
-                                <li>{{ association.product.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </a>
-                </div>
+                {% include 'includes/dishes/dish_tile.html' %}
             {% endfor %}
         </div>
     </section>
@@ -69,16 +34,7 @@
         <h2 class="category-title">Салаты</h2>
         <div class="menu-grid">
             {% for dish in salads %}
-                <div class="dish">
-                    <a class="dish__link" href="/admin/dishes/{{ dish.id }}">
-                        <div class="dish__name">{{ dish.name }}</div>
-                        <ul class="dish__composition">
-                            {% for association in dish.products %}
-                                <li>{{ association.product.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </a>
-                </div>
+                {% include 'includes/dishes/dish_tile.html' %}
             {% endfor %}
         </div>
     </section>
@@ -89,16 +45,7 @@
         <h2 class="category-title">Супы</h2>
         <div class="menu-grid">
             {% for dish in soups %}
-                <div class="dish">
-                    <a class="dish__link" href="/admin/dishes/{{ dish.id }}">
-                        <div class="dish__name">{{ dish.name }}</div>
-                        <ul class="dish__composition">
-                            {% for association in dish.products %}
-                                <li>{{ association.product.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </a>
-                </div>
+                {% include 'includes/dishes/dish_tile.html' %}
             {% endfor %}
         </div>
     </section>
@@ -109,16 +56,7 @@
         <h2 class="category-title">Основные блюда</h2>
         <div class="menu-grid">
             {% for dish in main_dishes %}
-                <div class="dish">
-                    <a class="dish__link" href="/admin/dishes/{{ dish.id }}">
-                        <div class="dish__name">{{ dish.name }}</div>
-                        <ul class="dish__composition">
-                            {% for association in dish.products %}
-                                <li>{{ association.product.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </a>
-                </div>
+                {% include 'includes/dishes/dish_tile.html' %}
             {% endfor %}
         </div>
     </section>
@@ -129,16 +67,7 @@
         <h2 class="category-title">Напитки</h2>
         <div class="menu-grid">
             {% for dish in drinks %}
-                <div class="dish">
-                    <a class="dish__link" href="/admin/dishes/{{ dish.id }}">
-                        <div class="dish__name">{{ dish.name }}</div>
-                        <ul class="dish__composition">
-                            {% for association in dish.products %}
-                                <li>{{ association.product.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </a>
-                </div>
+                {% include 'includes/dishes/dish_tile.html' %}
             {% endfor %}
         </div>
     </section>
@@ -149,16 +78,7 @@
         <h2 class="category-title">Хлеб</h2>
         <div class="menu-grid">
             {% for dish in bread %}
-                <div class="dish">
-                    <a class="dish__link" href="/admin/dishes/{{ dish.id }}">
-                        <div class="dish__name">{{ dish.name }}</div>
-                        <ul class="dish__composition">
-                            {% for association in dish.products %}
-                                <li>{{ association.product.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    </a>
-                </div>
+                {% include 'includes/dishes/dish_tile.html' %}
             {% endfor %}
         </div>
     </section>

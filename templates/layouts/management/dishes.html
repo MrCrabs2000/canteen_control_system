@@ -7,6 +7,33 @@
 
 
 {% block sidebar_tabs %}
-    <li><a href="/manage/dishes">Список</a></li>
-    <li><a href="/manage/dishes/add">Добавить</a></li>
+    {% if current_user.roles[0].name == 'cook' %}
+    <nav class="manage-buttons">
+        <ul class="control-buttons">
+            <li class="dish-control-button"><a href="/cook/dishes">Список</a></li>
+            <li class="dish-control-button"><a href="/cook/dish/add">Добавить</a></li>
+        </ul>
+    </nav>
+    <h2 class="sidebar__header">Типы блюд</h2>
+    {% endif %}
+    <ul class="days-list">
+        <li class="day">
+            <a class="day__link" href="#breakfasts">Завтраки</a>
+        </li>
+        <li class="day">
+            <a class="day__link" href="#salads">Салаты</a>
+        </li>
+        <li class="day">
+            <a class="day__link" href="#soups">Супы</a>
+        </li>
+        <li class="day">
+            <a class="day__link" href="#main_dishes">Основные блюда</a>
+        </li>
+        <li class="day">
+            <a class="day__link" href="#drinks">Напитки</a>
+        </li>
+        <li class="day">
+            <a class="day__link" href="#bread">Хлеб</a>
+        </li>
+    </ul>
 {% endblock %}
