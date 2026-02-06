@@ -1,0 +1,42 @@
+<div class="{% if role == 'cook' %}requisition{% else %}requisition_admin{% endif %}">
+    <div class="requisition__name">{{ notification.name }}</div>
+    <ul class="requisition__composition">
+        <li><strong>Дата:</strong> {{ notification.date.strftime('%d.%m.%Y') }}</li>
+        <li>
+            {% if notification.status == 1 %}
+            Новое
+            {% else %}
+            Просмотрено
+            {% endif %}
+        </li>
+        <li>{{ notification.text }}</li>
+        {% if role == 'admin' and notification.requisition_id and notification.status != 2 and notification.type == 'requisition' %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
+        {% elif role == 'cook' and notification.requisition_id and notification.status != 2 and notification.type == 'requisition' %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
+        {% elif role == 'user' and notification.type == 'profile' and notification.status != 2 %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+    </ul>
+</div>

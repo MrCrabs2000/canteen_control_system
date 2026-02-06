@@ -4,6 +4,7 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/requisitions/list.css">
+    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
 {% endblock %}
 
 
@@ -15,11 +16,12 @@
 
 {% block main %}
     {% if requisitions %}
-        <div class="requisition-grid">
+        <div class="requisition_admin-grid">
             {% for requisition in requisitions %}
                 {% include 'includes/requisitions/requisition_tile.html' %}
             {% endfor %}
         </div>
+
     {% else %}
         <p class="no-requisition-message"><strong>Нет заявок.</strong></p>
     {% endif %}    

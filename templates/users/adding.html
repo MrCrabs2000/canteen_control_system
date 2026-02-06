@@ -2,64 +2,90 @@
 
 {% block title %}Добавить пользователя{% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/users/user.css">
+{% endblock %}
+
+{% block top_bar %}
+{{ super() }}
+<div class="top-bar-actions">
+    <button onclick="location.href='/admin/users'" type="button">Отмена</button>
+    <button type="submit" form="add-user-form" class="accent">Добавить</button>
+</div>
+{% endblock %}
+
 {% block main %}
     <div class="user-profile">
         <div class="profile-header">
             <div>
-                <h1 class="profile-title">
-                    Добавить пользователя
-                </h1>
+                <h1 class="profile-title">Добавление нового пользователя</h1>
             </div>
         </div>
 
-        <form id="add-user-form" method="post">
+        <form id="add-user-form" method="post" class="edit-form">
             <div class="info-section">
                 <h3>Основная информация</h3>
-                <div class="info-grid">
-                    <div class="form-field">
-                        <label>Логин *</label>
-                        <input type="text" name="login" required>
-                    </div>
-
+                <div class="form-grid">
                     <div class="form-field">
                         <label>Роль *</label>
-                        <select name="role" required>
+                        <select name="role" required id="role-select">
                             <option value="">Выберите роль</option>
-                            <option value="user">Пользователь</option>
                             <option value="cook">Повар</option>
-                            <option value="admin">Админ</option>
+                            <option value="admin">Администратор</option>
                         </select>
                     </div>
 
                     <div class="form-field">
+                        <label>Логин *</label>
+                        <input type="text" name="login" required placeholder="Введите логин">
+                    </div>
+
+                    <div class="form-field">
                         <label>Фамилия *</label>
-                        <input type="text" name="surname" required>
+                        <input type="text" name="surname" required placeholder="Введите фамилию">
                     </div>
 
                     <div class="form-field">
                         <label>Имя *</label>
-                        <input type="text" name="name" required>
+                        <input type="text" name="name" required placeholder="Введите имя">
                     </div>
 
                     <div class="form-field">
                         <label>Отчество *</label>
-                        <input type="text" name="patronymic" required>
+                        <input type="text" name="patronymic" required placeholder="Введите отчество">
                     </div>
 
                     <div class="form-field">
                         <label>Пароль *</label>
-                        <input type="password" name="password" required>
+                        <input type="password" name="password" required placeholder="Минимум 6 символов">
                     </div>
 
                     <div class="form-field">
                         <label>Повторите пароль *</label>
-                        <input type="password" name="second_password" required>
+                        <input type="password" name="second_password" required placeholder="Повторите пароль">
                     </div>
                 </div>
             </div>
 
-            <div class="action-buttons">
-                <button type="submit" class="accent">Добавить пользователя</button>
+            <div class="info-section" id="user-info-fields" style="display: none;">
+                <h3>Информация для пользователя</h3>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label>Класс</label>
+                        <input type="text" name="stud_class" placeholder="Например: 10А">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Начальный баланс (руб.)</label>
+                        <input type="number" name="balance" value="0" min="0" placeholder="0">
+                    </div>
+
+                    <div class="form-field">
+                        <label>Абонемент до</label>
+                        <input type="date" name="abonement">
+                    </div>
+                </div>
             </div>
         </form>
     </div>

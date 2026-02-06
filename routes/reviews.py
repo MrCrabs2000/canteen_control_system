@@ -14,10 +14,13 @@ reviews_main = Blueprint('reviews_main', __name__)
 def reviewsmain():
     reviews = db.session.query(Review).filter_by(user_id=current_user.id).all()
 
-    if not reviews:
-        reviews = False
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname,
+        'reviews': reviews
+    }
 
-    return render_template('reviews_main.html', reviews=reviews)
+    return render_template('reviews/list.html', **context)
 
 
 review_view = Blueprint('review_view', __name__)

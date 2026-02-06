@@ -1,0 +1,34 @@
+{% extends 'layouts/management/notification.html' %}
+
+{% from 'macros/sidebar.html' import sidebar %}
+
+{% block title %}Уведомления{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/notifications/notification.css">
+    <link rel="stylesheet" href="/static/styles/requisitions/list.css">
+{% endblock %}
+
+{% block top_bar_title %}Уведомления{% endblock %}
+
+{% block sidebar_tabs %}
+{% if role == 'admin' or role == 'cook' %}
+    <li><a href="/{{ role }}/requisitions">Закупкам</a></li>
+{% endif %}
+{% if role == 'user' %}
+    <li><a href="/">Профиль</a></li>
+{% endif %}
+{% endblock %}
+
+{% block main %}
+    {% if notifications %}
+        <div class="requisition_admin-grid">
+            {% for notification in notifications %}
+                {% include 'includes/notifications/notification_tile.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-notification-message"><strong>Нет уведомлений.</strong></p>
+    {% endif %}
+{% endblock %}

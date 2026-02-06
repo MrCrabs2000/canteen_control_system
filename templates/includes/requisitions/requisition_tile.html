@@ -1,8 +1,42 @@
+{% if role == 'cook' %}
 <div class="requisition">
     <div class="requisition__name">{{ products[requisition.product_id].name }}</div>
     <ul class="requisition__composition">
-        <li>Запрошено {{ requisition.amount }} {{ products[requisition.product_id].measurement }}</li>
+        <li>Запрошено: {{ requisition.amount }} {{ products[requisition.product_id].measurement }}</li>
+        {% if requisition.coordination == 1 %}
+            <li>Статус: Подтверждена</li>
+        {% elif requisition.coordination == 2 %}
+            <li>Статус: Отклонена</li>
+        {% else %}
+            <li>Статус: Ожидает</li>
+        {% endif %}
     </ul>
 </div>
 
-
+{% elif role == 'admin' %}
+<div class="requisition_admin">
+    <div class="requisition__name">{{ products[requisition.product_id].name }}</div>
+    <ul class="requisition__composition">
+        <li>ID: {{ requisition.id }}</li>
+        <li>Запрошено: {{ requisition.amount }} {{ products[requisition.product_id].measurement }}</li>
+        {% if requisition.coordination == 1 %}
+            <li>Статус: Подтверждено</li>
+        {% elif requisition.coordination == 2 %}
+            <li>Статус: Отклонено</li>
+        {% else %}
+            <li>Статус: Ожидает</li>
+            <form method="POST" action="/admin/requisitions" class="action-form">
+                <input type="hidden" name="requisition_id" value="{{ requisition.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="approved" class="btn accent">
+                        Одобрить
+                    </button>
+                    <button type="submit" name="action" value="rejected" class="btn danger">
+                        Отклонить
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}

@@ -1,0 +1,17 @@
+{% extends 'layouts/header_layout.html' %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+    <link rel="stylesheet" href="/static/styles/layouts/management/base.css">
+{% endblock %}
+
+
+{% block top_bar %}
+   <h1 class="title left">
+        {% block top_bar_title %}
+
+        {% endblock %}
+   </h1>
+{% endblock %}

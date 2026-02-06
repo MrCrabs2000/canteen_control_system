@@ -18,11 +18,14 @@ except Exception as e:
     print(f'У нас ошибка в функции поймана:{e}')
 
 
-
 @app.route('/', methods=['GET', 'POST'])
 def inition():
     if current_user.is_authenticated:
-        return redirect('/menu')
+        if current_user.roles[0].name != 'admin':
+            return redirect('/menu')
+        elif current_user.roles[0].name == 'admin':
+            return redirect('/admin/menu')
+
     return redirect('/login')
 
 

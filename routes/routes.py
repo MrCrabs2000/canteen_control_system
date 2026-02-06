@@ -11,9 +11,10 @@ from .food_payment import food_payment_main, balance_edit, edit_abonement
 from .reviews import reviews_main, review_new, review_view
 from .add_user import add_user, edit_user, delete_user
 from .cook_requisition import cook_requisition
-from .admin_requisition import admin_requisition
+from .admin_requisition import admin_requisition, admin_requisition_history
 from .dish import dish_view
 from .receiving import receiving
+from .notifications import notifications
 
 
 def register_all_blueprints(app):
@@ -51,8 +52,10 @@ def register_all_blueprints(app):
     app.register_blueprint(menu_redirect)
     app.register_blueprint(cook_requisition)
     app.register_blueprint(admin_requisition)
+    app.register_blueprint(admin_requisition_history)
     app.register_blueprint(dish_view)
     app.register_blueprint(receiving)
     app.register_blueprint(cook_menus)
     app.register_blueprint(read_user)
     app.register_blueprint(admin_read_dish)
+    app.register_blueprint(notifications)

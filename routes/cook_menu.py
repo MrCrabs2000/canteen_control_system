@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from flask_security import roles_accepted, current_user
 from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, Requisition
 from configs.app_configs import login_required
@@ -103,10 +103,11 @@ def read_product_page():
 
 
 read_requisition = Blueprint('read_requisition', __name__, template_folder='templates')
-@read_requisition.route('/cook/requisitions')
+@read_requisition.route('/cook/requisitions', methods=["GET", 'POST'])
 @login_required
 @roles_accepted('cook')
 def read_requisition_page():
+
     requisitions = db.session.query(Requisition).order_by(Requisition.date.desc()).all()
     products = {}
     for requisition in requisitions:
@@ -118,7 +119,10 @@ def read_requisition_page():
         'name': current_user.name,
         'surname': current_user.surname,
         'requisitions': requisitions,
-        'products': products
+        'products': products,
+        'role': current_user.roles[0].name
     }
-    print(context)
+
+    if request.method == 'POST':
+        return
     return render_template('requisition/list.html', **context)
