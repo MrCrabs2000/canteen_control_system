@@ -21,9 +21,12 @@
                 {{ labeled_input(name='login', label='Логин', required=True) }}
                 {{ labeled_input(name='password', label='Пароль', type='password', required=True) }}    
             </div>
-            <a href="/register">Регистрация</a>
-
+            
             <button id="submit-btn" class="accent" type="submit">Войти</button>
+            <p class="auth__question">
+                Нет аккаунта?<br>
+                <a href="/register" class="auth__link">Регистрация</a>
+            </p>
         </form>
     </main>
 {% endblock %}

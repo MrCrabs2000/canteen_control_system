@@ -64,9 +64,21 @@ def read_dish_page():
         db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
 
     db.session.close()
+    print(breakfasts[0].id)
 
-    return render_template('read_dish.html', breakfasts=breakfasts, salads=salads, soups=soups,
-                            main_dishes=main_dishes, drinks=drinks, bread=bread)
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname,
+        'breakfasts': breakfasts,
+        'salads': salads,
+        'soups': soups,
+        'main_dishes': main_dishes,
+        'drinks': drinks,
+        'bread': bread,
+        'current_user': current_user
+    }
+
+    return render_template('dishes/list.html', **context)
 
 
 

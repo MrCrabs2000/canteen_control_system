@@ -1,13 +1,11 @@
 .top-bar__left, .top-bar__right {
     display: flex;
-    gap: 8px;
+    gap: 16px;
     align-items: center;
 }
 
 .price {
-    margin-left: 8px;
     color: var(--primary);
-    font-size: 2rem;
     font-weight: 600;
 }
 
@@ -15,7 +13,7 @@
     font-size: 1.25rem;
 }
 
-.buy-menu-btn {
+.buy-menu-btn add-menu-btn {
     font-size: 1.1rem;
 }
 

@@ -23,10 +23,12 @@ def add_product_page():
         measurement = request.form.get('measurement')
 
         if not name or not measurement:
+            print(name, measurement)
             return redirect('/cook/product/add')
 
         other_product = db.session.query(Product).filter_by(name=name).first()
         if other_product:
+            print(2)
             return redirect('/cook/product/add')
 
         new_product = Product(name=name, measurement=measurement)

@@ -1,0 +1,58 @@
+{% extends 'layouts/management/dishes.html' %}
+
+{% from 'macros/sidebar.html' import sidebar %}
+{% from 'macros/labeled_fields.html' import labeled_input, labeled_select %}
+
+{% block title %}Блюда{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/dishes/adding.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled_fields.css">
+{% endblock %}
+
+{% block top_bar %}
+    {{ super() }}
+    <button id="add-dish-btn" form="editDishForm" class="add-btn accent">Добавить</button>
+{% endblock %}
+
+{% block main %}
+    {% include 'includes/dishes/dish_form.html' %} 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        let inputId = 1;
+        
+        function addInput() {
+            const container = document.getElementById('container');
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group';
+            inputGroup.innerHTML = `
+                {{ labeled_select(products_form, label='Продукт', name='ingredients', required=True) }}
+                {{ labeled_input(name='product_amount', label='Количество', type='number') }}
+                <button class="remove-btn" onclick="removeInput(this)" type="button">Удалить</button>
+            `;
+            container.appendChild(inputGroup);
+            inputId++;
+
+            const removeButtons = document.querySelectorAll('.remove-btn');
+            if (removeButtons.length > 1) {
+                removeButtons[0].disabled = false;
+            }
+
+            const newInput = inputGroup.querySelector('input');
+            newInput.focus();
+        }
+        
+        function removeInput(button) {
+            console.log(this);
+            const container = document.getElementById('container');
+            const inputGroup = button.parentElement;
+
+            if (container.children.length > 1) {
+                inputGroup.remove();
+            }
+        }
+    </script>
+{% endblock %}

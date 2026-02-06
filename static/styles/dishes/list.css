@@ -1,0 +1,46 @@
+.dish-control-button {
+    font-size: 1.2rem;
+}
+
+.dish-control-button li a {
+  display: block;
+  box-sizing: border-box;
+  padding: 6px 12px;
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sidebar__content {
+  min-height: 10px;
+  height: auto;
+  overflow: auto;
+}
+
+.management-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 15px;
+  padding: 0;
+  list-style: none;
+}
+
+.days-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
