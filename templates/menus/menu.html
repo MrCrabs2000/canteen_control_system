@@ -2,13 +2,17 @@
 
 {% from 'macros/sidebar.html' import sidebar %}
 
+
+{% set menu_type = request.args.get('type', '') %}
+
+
 {% block title %}Меню{% endblock %}
 
 
 {% block head %}
-    {{ super() }}
-    <link rel="stylesheet" href="/static/styles/menus/menu.css">
-    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+{{ super() }}
+<link rel="stylesheet" href="/static/styles/menus/menu.css">
+<link rel="stylesheet" href="/static/styles/macros/sidebar.css">
     <link rel="stylesheet" href="/static/styles/includes/dishes/dish_tile.css">
 {% endblock %}
 
@@ -28,7 +32,6 @@
     <div class="top-bar__right">
         <div class="filters">
             <select name="type" id="menuTypeSelect" class="menu-type" form="filtersForm">
-                {% set menu_type = request.args.get('type', '') %}
                 {% if menu_type == "breakfast" %}
                     <option value="breakfast" selected>Завтрак</option>
                     <option value="lunch">Обед</option>
@@ -42,12 +45,12 @@
             </select>
         </div>
 
-        {% if current_user.roles[0].name == 'user' %}
+        {% if current_user.roles[0].name == 'user' and menu %}
             <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}">
                 <input type="hidden" name="menu_id" value="{{ menu.id }}">
                 <button class="buy-menu-btn accent" type="submit">Купить</button>
             </form>
-        {% elif current_user.roles[0].name == 'cook' %}
+        {% elif current_user.roles[0].name == 'cook' and menu %}
             <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}">
                 <input type="hidden" name="menu_id" value="{{ menu.id }}">
             </form>
@@ -64,10 +67,9 @@
         {% for date in dates %}
             {% set selected = 'day--selected' if date == selected_date else '' %}
             {% set today = ' (сегодня)' if date == today_date else '' %}
-            {% set type = menu.type %}
 
             <li class="day {{ selected }}" data-day="{{ date }}">
-                <a class="day__link" href="/menu/{{ date }}?type={{ type }}">{{ date | date_fM_d }}{{ today }}</a>
+                <a class="day__link" href="/menu/{{ date }}?type={{ menu_type }}">{{ date | date_fM_d }}{{ today }}</a>
             </li>
         {% endfor %}
 
