@@ -3,7 +3,7 @@
 {% from 'macros/sidebar.html' import sidebar %}
 
 
-{% set menu_type = request.args.get('type', '') %}
+{% set menu_type = request.args.get('type', 'breakfast') %}
 
 
 {% block title %}Меню{% endblock %}
