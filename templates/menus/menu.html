@@ -10,9 +10,9 @@
 
 
 {% block head %}
-{{ super() }}
-<link rel="stylesheet" href="/static/styles/menus/menu.css">
-<link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/menus/menu.css">
+    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
     <link rel="stylesheet" href="/static/styles/includes/dishes/dish_tile.css">
 {% endblock %}
 
@@ -54,7 +54,10 @@
             <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}">
                 <input type="hidden" name="menu_id" value="{{ menu.id }}">
             </form>
-            <button class="buy-menu-btn accent" onclick="document.location='/cook/menu/add'">Добавить</button>
+        {% endif %}
+        
+        {% if current_user.roles[0].name == 'cook' %}
+            <button class="add-menu-btn accent" onclick="document.location='/cook/menu/add'">Добавить</button>
         {% endif %}
 
     </div>
