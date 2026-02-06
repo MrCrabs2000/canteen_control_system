@@ -3,7 +3,8 @@ from werkzeug.security import generate_password_hash
 from flask_security import roles_accepted, current_user
 import uuid
 from configs.app_configs import db, login_required
-from datebase.classes import User, Role, Info
+from datebase.classes import User, Role, Info, Notification
+from datetime import date
 
 add_user = Blueprint('add_user', __name__, template_folder='templates')
 
@@ -98,7 +99,7 @@ def edit_user_page(id):
             'user': user,
             'name': current_user.name,
             'surname': current_user.surname,
-            'roles': user.roles
+            'role': user.roles[0].name
         }
 
         try:
@@ -130,10 +131,14 @@ def edit_user_page(id):
         if not all([name, surname, patronymic, login, role]) or not user:
             return redirect(f'/admin/user/{id}/edit')
 
+        role_accepted = db.session.query(Role).filter_by(name=role).first()
+
         user.name = name
         user.surname = surname
         user.patronymic = patronymic
         user.login = login
+        user.roles = []
+        user.roles.append(role_accepted)
 
         if new_password and confirm_password:
             if new_password == confirm_password and len(new_password) >= 6:
@@ -160,11 +165,18 @@ def edit_user_page(id):
             else:
                 info.abonement = None
 
+        notification = Notification(
+            name='Изменение данных', text='У вас изменения в данных профиля',
+            date=date.today(),
+            receiver_id=user.id, status=1
+        )
+
         try:
+            db.session.add(notification)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            print(f'Ошибка при обновлении пользователя: {e}')
+            print(f'Ошибка при обновлении пользователя или создании уведомления: {e}')
             return redirect(f'/admin/user/{id}/edit')
         finally:
             db.session.close()

@@ -48,7 +48,7 @@
                         <label>Логин *</label>
                         <input type="text" name="login" value="{{ user.login }}" required>
                     </div>
-
+                    {% if role == 'user' %}
                     <div class="form-field">
                         <label>Роль</label>
                         <input type="text"
@@ -59,9 +59,23 @@
                                readonly>
                         <input type="hidden" name="role" value="{{ user.roles[0].name }}">
                     </div>
+                    {% elif role != 'user' %}
+                    <div class="form-field">
+                        <label>Роль *</label>
+                        <select name="role" required id="role-select">
+                            <option value="">Выберите роль</option>
+                            {% if role == 'cook' %}
+                                <option value="cook" selected>Повар</option>
+                                <option value="admin">Администратор</option>
+                            {% elif role == 'admin' %}
+                                <option value="cook">Повар</option>
+                                <option value="admin" selected>Администратор</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
-
             {% if user.roles[0].name == 'user' and user.student_info %}
             <div class="info-section">
                 <h3>Информация о пользователе</h3>

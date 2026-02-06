@@ -37,8 +37,8 @@
 
 .requisition_admin-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    grid-auto-rows: 180px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: min-content;
     row-gap: 0.5rem;
     column-gap: 0.5rem;
     height: 100%;

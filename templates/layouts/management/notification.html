@@ -1,11 +1,17 @@
-{% extends 'layouts/management/base.html' %}
-
-{% from 'macros/sidebar.html' import sidebar %}
+{% extends 'layouts/header_layout.html' %}
 
 
-{% block top_bar_title %}Уведомления{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
+    <link rel="stylesheet" href="/static/styles/layouts/management/base.css">
+{% endblock %}
 
 
-{% block sidebar_tabs %}
-    <li><a href="/{{ role }}/requisitions">К заявкам</a></li>
+{% block top_bar %}
+   <h1 class="title left">
+        {% block top_bar_title %}
+
+        {% endblock %}
+   </h1>
 {% endblock %}

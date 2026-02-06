@@ -1,11 +1,9 @@
 <header>
     <div id="left-header">
         {% if current_user.is_authenticated %}
-        {% if current_user.roles[0].name != 'user' %}
             <nav id="app-menu">
                 <a href="/notifications">Уведомления</a>
             </nav>
-        {% endif %}
         {% endif %}
     </div>
     <div id="right-header">

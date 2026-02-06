@@ -1,4 +1,4 @@
-{% extends 'layouts/management/base.html' %}
+{% extends 'layouts/management/notification.html' %}
 
 {% from 'macros/sidebar.html' import sidebar %}
 
@@ -13,7 +13,12 @@
 {% block top_bar_title %}Уведомления{% endblock %}
 
 {% block sidebar_tabs %}
-    <li><a href="/{{ role }}/requisitions">К закупкам</a></li>
+{% if role == 'admin' or role == 'cook' %}
+    <li><a href="/{{ role }}/requisitions">Закупкам</a></li>
+{% endif %}
+{% if role == 'user' %}
+    <li><a href="/">Профиль</a></li>
+{% endif %}
 {% endblock %}
 
 {% block main %}

@@ -8,11 +8,15 @@ notifications = Blueprint('notifications_admin', __name__, template_folder='temp
 
 @notifications.route('/notifications', methods=["GET", "POST"])
 @login_required
-@roles_accepted('admin', 'cook')
+@roles_accepted('admin', 'cook', 'user')
 def notifications_page():
     try:
-        notifications_not_checked = db.session.query(Notification).filter_by(recevier_id=current_user.id).order_by(
-            Notification.date.desc()).all()
+        notifications_not_checked = db.session.query(Notification).filter_by(
+            receiver_id=current_user.id
+        ).order_by(
+            Notification.status == 1,
+            Notification.date.desc()
+        ).all()
         notifications = []
         cnt = 0
 
@@ -33,17 +37,17 @@ def notifications_page():
             except Exception as e:
                 print(f'У нас ошибка в изменении статуса уведома: {e}')
             finally:
-                if current_user.roles[0].name == 'admin':
+                if current_user.roles[0].name == 'admin' and notification_viewed.type == 'requisition':
                     db.session.close()
-                    print('1')
                     return redirect('/admin/requisitions')
-                elif current_user.roles[0].name == 'cook':
+                elif current_user.roles[0].name == 'cook' and notification_viewed.type == 'requisition':
                     db.session.close()
-                    print('2')
                     return redirect('/cook/requisitions')
-
+                elif current_user.roles[0].name in ['cook', 'admin', 'user'] and notification_viewed.type == 'profile':
+                    db.session.close()
+                    return redirect('/profile')
         context = {
-            'notifications': notifications,
+            'notifications': notifications[::-1],
             'name': current_user.name,
             'surname': current_user.surname,
             'role': current_user.roles[0].name

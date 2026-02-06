@@ -37,12 +37,13 @@ def cook_requisition_page():
 
         try:
             product1 = db.session.query(Product).filter(Product.name == name).first()
-            new_requisition = Requisition(product=product1, amount=amount, date=date.today(), recevier_id=current_user.id)
+            new_requisition = Requisition(product=product1, amount=amount, date=date.today(), receiver_id=current_user.id)
             db.session.add(new_requisition)
             db.session.flush()
             for admin in admins:
                 new_notification = Notification(name='Заявка', text='Вам пришла заявка на покупку продуктов', date=date.today(),
-                                        recevier_id=admin.id, requisition_id=new_requisition.id, status=1)
+                                        receiver_id=admin.id, requisition_id=new_requisition.id, status=1,
+                                        type='requisition')
                 db.session.add(new_notification)
             db.session.commit()
             return redirect('/cook/requisitions')

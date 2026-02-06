@@ -21,6 +21,8 @@ menu_page = Blueprint('menu_page', __name__)
 @login_required
 def menupage(date_str):
     ttype = request.args.get('type', 'breakfast')
+    date_today = datetime.strptime(str(date.today()), '%Y-%m-%d').date()
+    date_ = datetime.strptime(date_str, '%Y-%m-%d').date()
 
     try:
         datte = datetime.strptime(date_str, '%Y-%m-%d').date()
@@ -28,6 +30,8 @@ def menupage(date_str):
         return redirect(url_for('menu_page.menupage', date_str=str(date.today())))
 
     menu = db.session.query(Menu).filter_by(date=datte, type=ttype).first()
+    print(datte, type(datte))
+    print(menu)
     user_info = db.session.query(Info).filter_by(user_id=current_user.id).first()
 
     if request.method == 'GET':
@@ -42,9 +46,8 @@ def menupage(date_str):
 
         return render_menu_template(**context)
 
-    elif request.method == 'POST':
+    elif request.method == 'POST' and date_ >= date_today:
         menu_id = request.form.get('menu_id')
-        date_today = datetime.strptime(str(date.today()), '%Y-%m-%d').date()
 
         if not menu_id:
             return redirect(url_for('menu_page.menupage', date_str=date_str))
@@ -95,3 +98,5 @@ def menupage(date_str):
 
         finally:
             db.session.close()
+    else:
+        return redirect(url_for('menu_page.menupage', date_str=date_str))

@@ -1,3 +1,5 @@
+from itertools import product
+
 from flask import Blueprint, render_template
 from flask_security import current_user, roles_accepted
 from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User, Info
@@ -130,15 +132,23 @@ admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templa
 @login_required
 @roles_accepted('admin')
 def read_dish_page(dish_id):
-    dish = db.session.query(Dish).filter_by(id=dish_id).options(
-        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)
-    ).first()
+    dish = db.session.query(Dish).filter_by(id=dish_id).first()
+
+    products_list = []
+
+    for idd in dish.product_ids:
+        productt = db.session.query(Product).filter_by(id=idd).first()
+        products_list.append(productt)
+
     try:
         context = {
             'dish': dish,
+            'products': products_list,
             'name': current_user.name,
             'surname': current_user.surname
         }
+
+
         return render_template('dishes/dish.html', **context)
 
     finally:

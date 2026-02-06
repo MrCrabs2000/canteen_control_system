@@ -108,6 +108,8 @@ class Menu(db.Model):
     history = db.relationship('History', back_populates='menu', cascade='all, delete-orphan')
 
 
+
+
 class History(db.Model):
     __tablename__ = 'history'
 
@@ -137,6 +139,9 @@ class Dish(db.Model):
     reviews = db.relationship('Review', back_populates='dish', cascade='all, delete-orphan')
     menus = db.relationship('Menu', secondary='dish_menu', back_populates='dishes')
 
+    @property
+    def product_ids(self):
+        return [assoc.product_id for assoc in self.products]
 
 class Notification(db.Model):
     __tablename__ = 'notifications'
@@ -146,9 +151,10 @@ class Notification(db.Model):
     text = db.Column(db.String, nullable=False)
     date = db.Column(db.Date, nullable=False, default=date.today())
     status = db.Column(db.Integer, nullable=False, default=False)
+    type = db.Column(db.String, nullable=True)
 
-    recevier_id = db.Column(db.Integer, db.ForeignKey('users.id', name='notification_users', ondelete='CASCADE'), nullable=False)
-    requisition_id = db.Column(db.Integer, db.ForeignKey('requisitions.id', name='notification_requisitions', ondelete='CASCADE'), nullable=False)
+    receiver_id = db.Column(db.Integer, db.ForeignKey('users.id', name='notification_users', ondelete='CASCADE'), nullable=False)
+    requisition_id = db.Column(db.Integer, db.ForeignKey('requisitions.id', name='notification_requisitions', ondelete='CASCADE'), nullable=True)
 
 
 class AssociationDishProduct(db.Model):
