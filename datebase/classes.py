@@ -143,6 +143,10 @@ class Dish(db.Model):
     def product_ids(self):
         return [assoc.product_id for assoc in self.products]
 
+    @property
+    def products_name(self):
+        return [assoc.product for assoc in self.products if assoc.product]
+
 class Notification(db.Model):
     __tablename__ = 'notifications'
 
