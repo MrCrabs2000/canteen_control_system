@@ -6,6 +6,7 @@
 
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="/static/styles/menus/menu.css">
     <link rel="stylesheet" href="/static/styles/products/list.css">
 {% endblock %}
 
@@ -17,13 +18,15 @@
 {% endblock %}
 
 {% block main %}
-    {% if products%}
+    {% if products %}
         <div class="product-grid">
             {% for product in products %}
                 {% include 'includes/products/product_tile.html' %}
             {% endfor %}
         </div>
     {% else %}
-        <p class="no-product-message"><strong>Нет продуктов.</strong></p>
+        <div class="no-products-message">
+            <p><strong>Продуктов нет</strong></p>
+        </div>
     {% endif %}
 {% endblock %}
