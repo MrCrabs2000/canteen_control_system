@@ -139,9 +139,27 @@ class Dish(db.Model):
     reviews = db.relationship('Review', back_populates='dish', cascade='all, delete-orphan')
     menus = db.relationship('Menu', secondary='dish_menu', back_populates='dishes')
 
+    CATEGORIES = {
+        'breakfasts': 'Завтраки',
+        'salads': 'Салаты',
+        'soups': 'Супы',
+        'main_dishes': 'Основные блюда',
+        'drinks': 'Напитки',
+        'bread': 'Хлеб'
+    }
+
     @property
     def product_ids(self):
         return [assoc.product_id for assoc in self.products]
+
+    @property
+    def category_name(self):
+        return self.CATEGORIES.get(self.category, self.category)
+
+    @classmethod
+    def get_category_name(cls, category):
+        return cls.CATEGORIES.get(category, category)
+
 
 class Notification(db.Model):
     __tablename__ = 'notifications'

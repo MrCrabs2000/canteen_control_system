@@ -9,18 +9,24 @@
 {% endblock %}
 
 {% block main %}
-    <div class="users-grid">
-        {% for user in users %}
-            <div class="user" data-id="{{ user.id }}">
-                <a href="/admin/users/{{ user.id }}" class="user__link">
-                    <div class="user__top">
-                        <h2 class="user__full-name">{{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.</h2>
-                    </div>
-                    <div class="role-badge">
-                        {{ user.roles[0].name }}
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
-    </div>
+    {% if users %}
+        <div class="users-grid">
+            {% for user in users %}
+                <div class="user" data-id="{{ user.id }}">
+                    <a href="/admin/users/{{ user.id }}" class="user__link">
+                        <div class="user__top">
+                            <h2 class="user__full-name">{{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.</h2>
+                        </div>
+                        <div class="role-badge">
+                            {{ user.roles[0].name }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-users-message">
+            <p><strong>Других пользователей нет</strong></p>
+        </div>
+    {% endif %}
 {% endblock %}

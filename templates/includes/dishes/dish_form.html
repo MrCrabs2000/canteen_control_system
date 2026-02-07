@@ -6,9 +6,9 @@
 
         <div class="section__content">
             {{ labeled_input(name='name', label='Название', type='text') }}
-            {{ labeled_select([('', 'Выберете тип блюда'), ('breakfasts', 'завтраки'), ('salads', 'салаты'), ('soups', 'супы'),
+            {{ labeled_select([('', 'Выберите тип блюда'), ('breakfasts', 'завтраки'), ('salads', 'салаты'), ('soups', 'супы'),
              ('main_dishes', 'основные блюда'), ('drinks', 'напитки'), ('bread', 'хлеб')],
-              label='Измерение', name='category', required=True) }}
+              label='Категория', name='category', required=True) }}
         </div>
     </section>
 

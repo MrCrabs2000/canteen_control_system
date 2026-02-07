@@ -29,7 +29,7 @@
                     {% endif %}
                 {% endfor %}
 
-                {{ labeled_select(options=[('', '...')] + categories[category], selected=ns.selected.name, name=category, label=category) }}
+                {{ labeled_select(options=[('', '...')] + categories[category], selected=ns.selected.name, name=category, label=get_category_name(category)) }}
             {% endfor %}
         </div>
     </section>

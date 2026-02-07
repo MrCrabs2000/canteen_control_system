@@ -6,6 +6,7 @@
 
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="/static/styles/menus/menu.css">
     <link rel="stylesheet" href="/static/styles/dishes/list.css">
     <link rel="stylesheet" href="/static/styles/includes/dishes/dish_tile.css">
 {% endblock %}
@@ -17,71 +18,77 @@
 {% endblock %}
 
 {% block main %}
-<div class="dishes-container">
-    {% if breakfasts %}
-    <section id="breakfasts" class="dish-category">
-        <h2 class="category-title">Завтраки</h2>
-        <div class="menu-grid">
-            {% for dish in breakfasts %}
-                {% include 'includes/dishes/dish_tile.html' %}
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+{% if breakfasts or salads or soups or main_dishes or drinks or bread %}
+    <div class="dishes-container">
+        {% if breakfasts %}
+        <section id="breakfasts" class="dish-category">
+            <h2 class="category-title">Завтраки</h2>
+            <div class="menu-grid">
+                {% for dish in breakfasts %}
+                    {% include 'includes/dishes/dish_tile.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
-    {% if salads %}
-    <section id="salads" class="dish-category">
-        <h2 class="category-title">Салаты</h2>
-        <div class="menu-grid">
-            {% for dish in salads %}
-                {% include 'includes/dishes/dish_tile.html' %}
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+        {% if salads %}
+        <section id="salads" class="dish-category">
+            <h2 class="category-title">Салаты</h2>
+            <div class="menu-grid">
+                {% for dish in salads %}
+                    {% include 'includes/dishes/dish_tile.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
-    {% if soups %}
-    <section id="soups" class="dish-category">
-        <h2 class="category-title">Супы</h2>
-        <div class="menu-grid">
-            {% for dish in soups %}
-                {% include 'includes/dishes/dish_tile.html' %}
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+        {% if soups %}
+        <section id="soups" class="dish-category">
+            <h2 class="category-title">Супы</h2>
+            <div class="menu-grid">
+                {% for dish in soups %}
+                    {% include 'includes/dishes/dish_tile.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
-    {% if main_dishes %}
-    <section id="main_dishes" class="dish-category">
-        <h2 class="category-title">Основные блюда</h2>
-        <div class="menu-grid">
-            {% for dish in main_dishes %}
-                {% include 'includes/dishes/dish_tile.html' %}
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+        {% if main_dishes %}
+        <section id="main_dishes" class="dish-category">
+            <h2 class="category-title">Основные блюда</h2>
+            <div class="menu-grid">
+                {% for dish in main_dishes %}
+                    {% include 'includes/dishes/dish_tile.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
-    {% if drinks %}
-    <section id="drinks" class="dish-category">
-        <h2 class="category-title">Напитки</h2>
-        <div class="menu-grid">
-            {% for dish in drinks %}
-                {% include 'includes/dishes/dish_tile.html' %}
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
+        {% if drinks %}
+        <section id="drinks" class="dish-category">
+            <h2 class="category-title">Напитки</h2>
+            <div class="menu-grid">
+                {% for dish in drinks %}
+                    {% include 'includes/dishes/dish_tile.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
-    {% if bread %}
-    <section id="bread" class="dish-category">
-        <h2 class="category-title">Хлеб</h2>
-        <div class="menu-grid">
-            {% for dish in bread %}
-                {% include 'includes/dishes/dish_tile.html' %}
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-</div>
+        {% if bread %}
+        <section id="bread" class="dish-category">
+            <h2 class="category-title">Хлеб</h2>
+            <div class="menu-grid">
+                {% for dish in bread %}
+                    {% include 'includes/dishes/dish_tile.html' %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+{% else %}
+    <div class="no-dishes-message">
+        <p><strong>Блюд нет</strong></p>
+    </div>
+{% endif %}
 {% endblock %}

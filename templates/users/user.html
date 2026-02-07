@@ -12,7 +12,7 @@
 <div class="top-bar-actions">
     <button onclick="location.href='/admin/users'" type="button">Отмена</button>
     <button onclick="location.href='/admin/user/{{ user.id }}/edit'" type="button" class="accent">Изменить</button>
-    <button type="button" class="danger">Удалить</button>
+    <button onclick="location.href='/admin/user/{{ user.id }}/del'" type="button" class="danger">Удалить</button>
 </div>
 {% endblock %}
 
