@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted, current_user
-from datebase.classes import Menu, Dish, Product, AssociationDishProduct, Review, db
+from datebase.classes import Menu, Dish, Product, AssociationDishProduct, Review, db, Role, User, Notification
 from configs.app_configs import login_required
+from datetime import date
 
 
 add_dish = Blueprint('add_dish', __name__, template_folder='templates')
@@ -39,6 +40,24 @@ def add_dish_page():
         other_dish = db.session.query(Dish).filter_by(name=name).first()
         if other_dish:
             return redirect('/cook/dish/add')
+
+        cook_role = Role.query.filter_by(name='cook').first()
+        cooks = None
+        if cook_role:
+            cooks = db.session.query(User).filter(User.roles.contains(cook_role)).all()
+        if cooks:
+            for cook in cooks:
+                if cook.id != current_user.id:
+                    try:
+                        new_notification = Notification(name='Добавление',
+                                                        text=f'Повар {current_user.name} добавил блюдо',
+                                                        date=date.today(),
+                                                        receiver_id=cook.id, status=1,
+                                                        type='add_dish')
+                        db.session.add(new_notification)
+                    except Exception as e:
+                        print(f'У нас ошибочка уведома при создании Блюда: {e}')
+                        db.session.rollback()
 
         try:
             new_dish = Dish(name=name, category=category)

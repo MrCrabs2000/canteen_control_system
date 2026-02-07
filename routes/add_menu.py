@@ -52,11 +52,9 @@ def add_menu_page():
         cooks = None
         if cook_role:
             cooks = db.session.query(User).filter(User.roles.contains(cook_role)).all()
-        print(cooks)
         if cooks:
             for cook in cooks:
                 if cook.id != current_user.id:
-                    print('Что-то сработало')
                     try:
                         new_notification = Notification(name='Добавление', text=f'Повар {current_user.name} добавил меню',
                                         date=date.today(),

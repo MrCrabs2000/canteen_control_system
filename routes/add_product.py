@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted, current_user
-from datebase.classes import Product, AssociationDishProduct, Requisition, db
+from datebase.classes import Product, AssociationDishProduct, Requisition, db, Role, User, Notification, Dish
 from configs.app_configs import login_required
+from datetime import date
 
 
 add_product = Blueprint('add_product', __name__, template_folder='templates')
@@ -23,20 +24,40 @@ def add_product_page():
         measurement = request.form.get('measurement')
 
         if not name or not measurement:
-            print(name, measurement)
             return redirect('/cook/product/add')
 
         other_product = db.session.query(Product).filter_by(name=name).first()
         if other_product:
-            print(2)
             return redirect('/cook/product/add')
 
-        new_product = Product(name=name, measurement=measurement)
-        db.session.add(new_product)
-        db.session.commit()
-        db.session.close()
+        cook_role = Role.query.filter_by(name='cook').first()
+        cooks = None
+        if cook_role:
+            cooks = db.session.query(User).filter(User.roles.contains(cook_role)).all()
+        if cooks:
+            for cook in cooks:
+                if cook.id != current_user.id:
+                    try:
+                        new_notification = Notification(name='Добавление',
+                                                        text=f'Повар {current_user.name} добавил продукт',
+                                                        date=date.today(),
+                                                        receiver_id=cook.id, status=1,
+                                                        type='add_product')
+                        db.session.add(new_notification)
+                    except Exception as e:
+                        print(f'У нас ошибочка уведома при создании продукта: {e}')
+                        db.session.rollback()
 
-        return redirect('/cook/products')
+        try:
+            new_product = Product(name=name, measurement=measurement)
+            db.session.add(new_product)
+            db.session.commit()
+        except Exception as e:
+            print(f'Ошибка при создании блюда: {e}')
+            db.session.rollback()
+        finally:
+            db.session.close()
+            return redirect('/cook/products')
 
 
 
