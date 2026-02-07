@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, send_file
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 from configs.app_configs import login_required
 from exel import export_payments, export_attendance, export_products, export_dishes, export_menus
 
@@ -9,7 +9,11 @@ reports = Blueprint('reports', __name__, template_folder='templates')
 @login_required
 @roles_accepted('admin')
 def reports_list():
-    return render_template('reports.html')
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname
+    }
+    return render_template('reports/reports.html', **context)
 
 
 

@@ -1,0 +1,37 @@
+{% extends 'layouts/header_layout.html' %}
+
+{% block title %}Просмотр статистики{% endblock title %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/dishes/dish.css">
+    <link rel="stylesheet" href="/static/styles/statistics/statistics.css">
+{% endblock %}
+
+{% block top_bar %}
+    <h1 class="title left">Статистика системы</h1>
+    <div class="top-bar__right">
+        <button onclick="document.location.href='/admin/menu'" class="accent">Назад</button>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="dish__info">
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">Выберите тип статистики</h2>
+            </div>
+            <div class="statistics-grid">
+                <a href="/admin/statistic/payments" class="statistics-card" style="text-decoration: none; color: inherit;">
+                    <h2 class="stats-label">Статистика оплат</h2>
+                    <p>Просмотр доходов и способов оплаты</p>
+                </a>
+
+                <a href="/admin/statistic/attendance" class="statistics-card" style="text-decoration: none; color: inherit;">
+                    <h2 class="stats-label">Статистика посещаемости</h2>
+                    <p>Анализ покупок по классам</p>
+                </a>
+            </div>
+        </section>
+    </div>
+{% endblock %}

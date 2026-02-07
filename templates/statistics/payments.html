@@ -1,0 +1,119 @@
+{% extends 'layouts/header_layout.html' %}
+
+{% block title %}Статистика оплат{% endblock title %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/dishes/dish.css">
+    <link rel="stylesheet" href="/static/styles/statistics/statistics.css">
+{% endblock %}
+
+{% block top_bar %}
+    <h1 class="title left">Статистика оплат</h1>
+    <div class="top-bar__right">
+        <button onclick="document.location.href='/admin/statistics'" class="accent">Назад к статистике</button>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="dish__info">
+        {% if day_get_amount %}
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">Сегодня</h2>
+            </div>
+            <div class="statistics-grid">
+                <div class="statistics-card">
+                    <div class="stats-label">Получено</div>
+                    <div class="stats-value">{{ day_get_amount }} ₽</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Куплено меню</div>
+                    <div class="stats-value">{{ day_amount }}</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Абонементом</div>
+                    <div class="stats-value">{{ day_abonement_amount }}</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Разовый платёж</div>
+                    <div class="stats-value">{{ day_pay_amount }}</div>
+                </div>
+            </div>
+        </section>
+        {% else %}
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">Сегодня</h2>
+            </div>
+            <div class="no-data">Сегодня меню не покупали</div>
+        </section>
+        {% endif %}
+
+        {% if week_get_amount %}
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">За неделю</h2>
+            </div>
+            <div class="statistics-grid">
+                <div class="statistics-card">
+                    <div class="stats-label">Получено</div>
+                    <div class="stats-value">{{ week_get_amount }} ₽</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Куплено меню</div>
+                    <div class="stats-value">{{ week_amount }}</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Абонементом</div>
+                    <div class="stats-value">{{ week_abonement_amount }}</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Разовый платёж</div>
+                    <div class="stats-value">{{ week_pay_amount }}</div>
+                </div>
+            </div>
+        </section>
+        {% else %}
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">За неделю</h2>
+            </div>
+            <div class="no-data">На этой неделе меню не покупали</div>
+        </section>
+        {% endif %}
+
+        {% if month_get_amount %}
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">В этом месяце</h2>
+            </div>
+            <div class="statistics-grid">
+                <div class="statistics-card">
+                    <div class="stats-label">Получено</div>
+                    <div class="stats-value">{{ month_get_amount }} ₽</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Куплено меню</div>
+                    <div class="stats-value">{{ month_amount }}</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Абонементом</div>
+                    <div class="stats-value">{{ month_abonement_amount }}</div>
+                </div>
+                <div class="statistics-card">
+                    <div class="stats-label">Разовый платёж</div>
+                    <div class="stats-value">{{ month_pay_amount }}</div>
+                </div>
+            </div>
+        </section>
+        {% else %}
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">В этом месяце</h2>
+            </div>
+            <div class="no-data">В этом месяце меню не покупали</div>
+        </section>
+        {% endif %}
+    </div>
+{% endblock %}
