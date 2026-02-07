@@ -45,7 +45,7 @@ def notifications_page():
                     return redirect('/cook/requisitions')
                 elif current_user.roles[0].name == 'cook' and notification_viewed.type == 'add_menu':
                     db.session.close()
-                    return redirect('/cook/requisitions')
+                    return redirect('/cook/menus')
                 elif current_user.roles[0].name in ['cook', 'admin', 'user'] and notification_viewed.type == 'profile':
                     db.session.close()
                     return redirect('/profile')
