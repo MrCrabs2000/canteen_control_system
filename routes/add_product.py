@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted, current_user
-from datebase.classes import Product, AssociationDishProduct, Requisition, db
+from datebase.classes import Product, AssociationDishProduct, Requisition, db, Dish
 from configs.app_configs import login_required
 
 
@@ -49,16 +49,20 @@ def edit_product_page(id):
     if request.method == 'GET':
         dishes = db.session.query(Dish).join(AssociationDishProduct).filter(AssociationDishProduct.product_id == id).all()
         requisitions = db.session.query(Requisition).filter_by(product_id=id).all()
+
         context = {
             'product': product,
-            'name': product.name,
+            'product_name': product.name,
+            'name': current_user.name,
+            'surname': current_user.surname,
             'measurement': product.measurement,
             'amount': product.amount,
             'dishes': dishes,
             'requisitions': requisitions,
         }
+
         db.session.close()
-        return render_template('edit_product.html', **context)
+        return render_template('/products/manage_product.html', **context)
 
     elif request.method == 'POST':
         name = request.form.get('name')

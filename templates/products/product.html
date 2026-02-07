@@ -1,0 +1,29 @@
+{% extends 'layouts/management/products.html' %}
+
+
+{% block title %}Список продуктов{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/products/product.css">
+{% endblock %}
+
+{% block top_bar %}
+    {{ super() }}
+    <button onclick="document.location='/cook/requisition/add/{{ product.id }}'" class="edit-btn">Закупить</button>
+    <button onclick="document.location='/cook/product/{{ product.id }}/edit'" class="edit-btn">Изменить</button>
+    <button onclick="document.location='/cook/product/{{ product.id }}/del'" class="del-btn danger">Удалить</button>
+{% endblock %}
+
+{% block main %}
+    <section class="form__section">
+        <h2 class="section__header">Основное</h2>
+
+        <div class="section__content">
+            {% set product = product if product else None %}
+            {{ labeled_input(name='name', label='Название', type='text') }}
+            {{ labeled_select([('кг', 'кг'), ('л', 'л')], selected=product.measurement, label='Измерение', name='measurement', required=True) }}
+        </div>
+
+    </section>
+{% endblock %}

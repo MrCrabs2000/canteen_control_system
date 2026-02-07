@@ -10,21 +10,21 @@ reviews_main = Blueprint('reviews_main', __name__)
 
 @reviews_main.route('/reviews')
 @login_required
-@roles_accepted('user')
+@roles_accepted('user', 'cook')
 def reviewsmain():
     reviews = db.session.query(Review).filter_by(user_id=current_user.id).all()
 
     context = {
         'name': current_user.name,
         'surname': current_user.surname,
-        'reviews': reviews
+        'reviews': reviews,
+        'current_user': current_user,
     }
 
     return render_template('reviews/list.html', **context)
 
 
 review_view = Blueprint('review_view', __name__)
-
 
 @review_view.route('/reviews/<review_id>', methods=["GET", "POST"])
 @login_required

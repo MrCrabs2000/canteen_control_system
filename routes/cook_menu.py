@@ -5,7 +5,7 @@ from configs.app_configs import login_required
 
 
 cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
-@cook_menu.route('/cook/menu/')
+@cook_menu.route('/cook/menu')
 @login_required
 @roles_accepted('cook')
 def cook_menu_page():

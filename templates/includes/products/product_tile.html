@@ -1,8 +1,15 @@
 <div class="product">
-    <div class="product__name">{{ product.name }}</div>
+    <div class="product-title">
+        <div class="product__name">{{ product.name }}</div>
+        <button onclick="document.location='/cook/product/{{ product.id }}/del'" class="del-btn danger">Удалить</button>
+    </div>
     <ul class="product__composition">
         <li>Колличество: {{ product.amount }} {{ product.measurement }}</li>
     </ul>
+    <div class="buttons">
+        <button onclick="document.location='/cook/requisition/add/{{ product.id }}'" class="edit-btn">Закупить</button>
+        <button onclick="document.location='/cook/product/{{ product.id }}/edit'" class="edit-btn">Изменить</button>
+    </div>
 </div>
 
 

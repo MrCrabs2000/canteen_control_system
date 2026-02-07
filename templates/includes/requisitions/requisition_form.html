@@ -7,7 +7,11 @@
 
         <div class="section__content">
             {% set product = product if product else None %}
-            {{ labeled_select(products_formated, label='Продукт', name='product_name', required=True) }}
+            {% if is_certain %}
+                {{ labeled_select(products_formated, label='Продукт', name='product_name', required=True, selected=certain_product.name) }}
+            {% else %}
+                {{ labeled_select(products_formated, label='Продукт', name='product_name', required=True) }}
+            {% endif %}
             {{ labeled_input(name='amount', label='Количество', type='number') }}
         </div>
 

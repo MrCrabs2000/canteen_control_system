@@ -1,0 +1,19 @@
+{% extends 'layouts/management/products.html' %}
+
+
+{% block title %}Список продуктов{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/products/adding.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled_fields.css">
+{% endblock %}
+
+{% block top_bar %}
+    {{ super() }}
+    <button id="add-product-btn" form="editProductForm" class="add-btn accent">Изменить</button>
+{% endblock %}
+
+{% block main %}
+    {% include 'includes/products/product_edit_form.html' %}
+{% endblock %}
