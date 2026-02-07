@@ -1,0 +1,135 @@
+.statistics-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.statistics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 36px;
+    padding: 0 12px;
+}
+
+.statistics-title {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.statistics-card {
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: 2px solid transparent;
+    transition: border 0.2s ease;
+}
+
+.statistics-card:hover {
+    border-color: var(--primary);
+}
+
+.stats-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 12px 0;
+}
+
+.stats-label {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.no-data {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.attendance-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.attendance-item {
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.attendance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.menu-date {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.menu-type {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.menu-amount {
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.classes-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: var(--text);
+}
+
+.classes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.class-item {
+    padding: 8px 16px;
+    background: var(--bg);
+    border-radius: var(--border-radius-small);
+    box-shadow: var(--shadow-small);
+    font-weight: 600;
+}
+
+.class-name {
+    color: var(--text);
+}
+
+.class-amount {
+    color: var(--primary);
+    margin-left: 4px;
+}

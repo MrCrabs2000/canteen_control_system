@@ -1,10 +1,8 @@
-from itertools import product
-
 from flask import Blueprint, render_template
 from flask_security import current_user, roles_accepted
 from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User, Info
 from configs.app_configs import login_required
-
+from utils.templates_rendering.menu import render_menu_template
 
 admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
 @admin_menu.route('/admin/menu')
@@ -20,6 +18,56 @@ def admin_menu_page():
             'surname': current_user.surname
         }
         return render_template('menus/list.html', **context)
+
+    finally:
+        db.session.close()
+
+
+admin_view_menu = Blueprint('admin_view_menu', __name__, template_folder='templates')
+
+
+@admin_view_menu.route('/admin/menus/<menu_id>')
+@login_required
+@roles_accepted('admin')
+def admin_menu_page(menu_id):
+    try:
+        menu = db.session.query(Menu).filter_by(id=menu_id).first()
+
+        breakfasts = []
+        salads = []
+        soups = []
+        main_dishes = []
+        drinks = []
+        bread = []
+
+        if menu and menu.dishes:
+            for dish in menu.dishes:
+                print(dish.category)
+                if dish.category == 'breakfasts':
+                    breakfasts.append(dish)
+                elif dish.category == 'salads':
+                    salads.append(dish)
+                elif dish.category == 'soups':
+                    soups.append(dish)
+                elif dish.category == 'main_dishes':
+                    main_dishes.append(dish)
+                elif dish.category == 'drinks':
+                    drinks.append(dish)
+                elif dish.category == 'bread':
+                    bread.append(dish)
+
+        context = {
+            'menu': menu,
+            'breakfasts': breakfasts,
+            'salads': salads,
+            'soups': soups,
+            'main_dishes': main_dishes,
+            'drinks': drinks,
+            'bread': bread,
+            'name': current_user.name,
+            'surname': current_user.surname
+        }
+        return render_template('menus/admin.html', **context)
 
     finally:
         db.session.close()

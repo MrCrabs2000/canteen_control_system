@@ -21,6 +21,7 @@ def cook_requisition_page():
             'products': products,
             'products_formated': products_formated,
             'is_certain': False,
+            'role': current_user.roles[0].name
         }
 
         return render_template('requisition/adding.html', **context)

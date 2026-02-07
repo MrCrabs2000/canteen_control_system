@@ -53,11 +53,17 @@ def profile_edit():
 
         if not all([login, surname, name, patronymic]):
             return redirect('/profile')
-        
+
+        other_user = db.session.query(User).filter_by(login=login).first()
+        if other_user:
+            return redirect('/profile')
+
         user.login = login
         user.surname = surname
         user.name = name
         user.patronymic = patronymic
+
+
         if user.roles[0].name == 'user':
             info = db.session.query(Info).filter_by(user_id=user_id).first()
             if info:

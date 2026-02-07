@@ -28,6 +28,33 @@
                     </button>
                 </div>
             </form>
+        {% elif role == 'cook' and notification.status != 2 and notification.type == 'add_menu' %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
+        {% elif role == 'cook' and notification.status != 2 and notification.type == 'add_dish' %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
+        {% elif role == 'cook' and notification.status != 2 and notification.type == 'add_product' %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
         {% elif role == 'user' and notification.type == 'profile' and notification.status != 2 %}
             <form method="POST" action="/notifications" class="action-form">
                 <input type="hidden" name="notification_id" value="{{ notification.id }}">

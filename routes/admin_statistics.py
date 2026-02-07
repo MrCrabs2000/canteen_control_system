@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from flask_security import roles_accepted
+from flask_security import roles_accepted, current_user
 from datebase.classes import db, Menu, AssociationUserMenus, Info
 from configs.app_configs import login_required
 from datetime import date, timedelta
@@ -10,7 +10,11 @@ statistics = Blueprint('statistics', __name__, template_folder='templates')
 @login_required
 @roles_accepted('admin')
 def statistics_page():
-    return render_template('statistics.html')
+    context = {
+        'name': current_user.name,
+        'surname': current_user.surname
+    }
+    return render_template('statistics/statistics.html', **context)
 
 
 
@@ -84,8 +88,10 @@ def statistic_payments_page():
             'month_abonement_amount': month_abonement_amount,
             'month_amount': month_amount,
             'menus': menus,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
-        return render_template('statistic_payments.html', **context)
+        return render_template('statistics/payments.html', **context)
 
     finally:
         db.session.close()
@@ -125,8 +131,10 @@ def statistic_attendance_page():
     try:
         context = {
             'menu_statistic': menu_statistic,
+            'name': current_user.name,
+            'surname': current_user.surname
         }
-        return render_template('statistic_attendance.html', **context)
+        return render_template('statistics/attendance.html', **context)
 
     finally:
         db.session.close()

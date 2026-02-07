@@ -1,6 +1,10 @@
 <div class="dish">
-    <a class="dish__link" href="/admin/dishes/{{ dish.id }}">
+    <a class="dish__link" href="/dishes/{{ dish.id }}">
+        {% if current_user.roles[0].name == 'admin' %}
+        <div class="dish__name">{{ dish.name }} | <span class="dish__category">{{ dish.category }}</span></div>
+        {% else %}
         <div class="dish__name">{{ dish.name }}</div>
+        {% endif %}
         <ul class="dish__composition">
             {% for association in dish.products %}
                 <li>{{ association.product.name }}</li>

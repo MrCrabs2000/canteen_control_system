@@ -1,0 +1,49 @@
+{% extends 'layouts/header_layout.html' %}
+
+{% block title %}Статистика посещаемости{% endblock title %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/dishes/dish.css">
+    <link rel="stylesheet" href="/static/styles/statistics/statistics.css">
+{% endblock %}
+
+{% block top_bar %}
+    <h1 class="title left">Статистика посещаемости</h1>
+    <div class="top-bar__right">
+        <button onclick="document.location.href='/admin/statistics'" class="accent">Назад к статистике</button>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="dish__info">
+        {% if menu_statistic %}
+            {% for statistic in menu_statistic %}
+            <section class="info__section">
+                <div class="section__top">
+                    <h2 class="section__header">{{ statistic.menu.type }} - {{ statistic.menu.date }}</h2>
+                    <div class="menu-amount">{{ statistic.menu.get_amount }} меню</div>
+                </div>
+
+                {% if statistic.classes %}
+                    <div class="classes-title">Распределение по классам:</div>
+                    <ul class="dish__composition">
+                        {% for stud_class, amount in statistic.classes.items() %}
+                            <li>{{ stud_class }} - {{ amount }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="no-data">Нет данных по классам</div>
+                {% endif %}
+            </section>
+            {% endfor %}
+        {% else %}
+            <section class="info__section">
+                <div class="section__top">
+                    <h2 class="section__header">Посещаемость</h2>
+                </div>
+                <div class="no-data">Ни одно меню не было куплено</div>
+            </section>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -30,8 +30,6 @@ def menupage(date_str):
         return redirect(url_for('menu_page.menupage', date_str=str(date.today())))
 
     menu = db.session.query(Menu).filter_by(date=datte, type=ttype).first()
-    print(datte, type(datte))
-    print(menu)
     user_info = db.session.query(Info).filter_by(user_id=current_user.id).first()
 
     if request.method == 'GET':

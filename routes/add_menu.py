@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted, current_user
 from datetime import datetime, date
 from configs.app_configs import db, login_required
-from datebase.classes import Menu, Dish
+from datebase.classes import Menu, Dish, Notification, Role, User
 from utils.templates_rendering.management.menu import get_dishes_in_categories
 
 
@@ -47,12 +47,33 @@ def add_menu_page():
         if not dish_name or date1 < date.today() or Menu.query.filter_by(type=type, date=date1).first():
             return redirect('/cook/menu/add')
 
+        cook_role = Role.query.filter_by(name='cook').first()
+
+        cooks = None
+        if cook_role:
+            cooks = db.session.query(User).filter(User.roles.contains(cook_role)).all()
+        if cooks:
+            for cook in cooks:
+                if cook.id != current_user.id:
+                    try:
+                        new_notification = Notification(name='Добавление', text=f'Повар {current_user.name} добавил меню',
+                                        date=date.today(),
+                                        receiver_id=cook.id, status=1,
+                                        type='add_menu')
+                        db.session.add(new_notification)
+                    except Exception as e:
+                        print(f'У нас ошибочка уведома при создании меню: {e}')
+                        db.session.rollback()
+
         try:
             dish1 = db.session.query(Dish).filter(Dish.name.in_(dish_name)).all()
             new_menu = Menu(type=type, dishes=dish1, price=price, date=date1)
             db.session.add(new_menu)
             db.session.commit()
             return redirect('/cook/menu')
+
+        except Exception as e:
+            print(f'Ошибка при добавлении меню: {e}')
 
         finally:
             db.session.close()

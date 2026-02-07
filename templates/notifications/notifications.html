@@ -12,15 +12,6 @@
 
 {% block top_bar_title %}Уведомления{% endblock %}
 
-{% block sidebar_tabs %}
-{% if role == 'admin' or role == 'cook' %}
-    <li><a href="/{{ role }}/requisitions">Закупкам</a></li>
-{% endif %}
-{% if role == 'user' %}
-    <li><a href="/">Профиль</a></li>
-{% endif %}
-{% endblock %}
-
 {% block main %}
     {% if notifications %}
         <div class="requisition_admin-grid">

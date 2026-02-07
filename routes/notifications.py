@@ -43,6 +43,15 @@ def notifications_page():
                 elif current_user.roles[0].name == 'cook' and notification_viewed.type == 'requisition':
                     db.session.close()
                     return redirect('/cook/requisitions')
+                elif current_user.roles[0].name == 'cook' and notification_viewed.type == 'add_menu':
+                    db.session.close()
+                    return redirect('/cook/menus')
+                elif current_user.roles[0].name == 'cook' and notification_viewed.type == 'add_dish':
+                    db.session.close()
+                    return redirect('/cook/dishes')
+                elif current_user.roles[0].name == 'cook' and notification_viewed.type == 'add_product':
+                    db.session.close()
+                    return redirect('/cook/products')
                 elif current_user.roles[0].name in ['cook', 'admin', 'user'] and notification_viewed.type == 'profile':
                     db.session.close()
                     return redirect('/profile')
