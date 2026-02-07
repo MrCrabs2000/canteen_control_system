@@ -15,8 +15,8 @@
     <section class="form__section">
         <div class="second_form_header">
             <h2 class="section__header">Состав</h2>
-            <button class="add_product_button" onclick="addInput()" type="button">+</button>
-        </div>
+            <button class="add_product_button accent" onclick="addInput()" type="button">+</button>
+        </div>  
         <div class="section__content" id="container">
             <div class="input-group">
                 {{ labeled_select(products_form, label='Продукт', name='ingredients', required=True) }}

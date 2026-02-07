@@ -86,3 +86,13 @@ main {
     display: flex;
     justify-content: space-between;
 }
+
+.remove-btn {
+    margin-top: 12px;
+}
+
+.input-group {
+  padding-bottom: 20px;
+  border-bottom: solid var(--border-color);
+  border-radius: 3px;
+}

@@ -31,7 +31,7 @@
             inputGroup.innerHTML = `
                 {{ labeled_select(products_form, label='Продукт', name='ingredients', required=True) }}
                 {{ labeled_input(name='product_amount', label='Количество', type='number') }}
-                <button class="remove-btn" onclick="removeInput(this)" type="button">Удалить</button>
+                <button class="remove-btn danger" onclick="removeInput(this)" type="button">Удалить</button>
             `;
             container.appendChild(inputGroup);
             inputId++;
