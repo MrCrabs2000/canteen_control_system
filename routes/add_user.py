@@ -31,11 +31,14 @@ def add_user_page():
         balance = request.form.get('balance')
         abonement = request.form.get('abonement')
 
-        user = db.session.query(User).filter_by(login=login).first()
+        user_dublicate = db.session.query(User).filter_by(login=login).first()
+        if user_dublicate:
+            return redirect('/admin/user/add')
+
         fs_uniquifier = str(uuid.uuid4())
 
         if (not all([name, surname, patronymic, login, role, password, second_password])
-                or password != second_password or len(password) < 6 or user):
+                or password != second_password or len(password) < 6):
             return redirect('/admin/user/add')
 
         if role == 'cook':
@@ -72,7 +75,6 @@ def add_user_page():
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            print(f'Ошибка при создании пользователя: {e}')
             return redirect('/admin/user/add')
         finally:
             db.session.close()
@@ -105,7 +107,6 @@ def edit_user_page(id):
         try:
             return render_template('users/edit.html', **context)
         except Exception as e:
-            print(f'Ошибка отображение страницы изменения пользователя: {e}')
             return redirect('/admin/users')
         finally:
             db.session.close()
@@ -128,7 +129,18 @@ def edit_user_page(id):
             if other_user:
                 return redirect(f'/admin/user/{id}/edit')
 
-        if not all([name, surname, patronymic, login, role]) or not user:
+        if not all([name, surname, patronymic, login, role]):
+            return redirect(f'/admin/user/{id}/edit')
+
+        if new_password and confirm_password:
+            if new_password != confirm_password or len(new_password) < 6:
+                return redirect(f'/admin/user/{id}/edit')
+
+        user_dublicate = db.session.query(User).filter(
+            User.id != id,
+            User.password == new_password
+        ).first()
+        if user_dublicate and new_password:
             return redirect(f'/admin/user/{id}/edit')
 
         role_accepted = db.session.query(Role).filter_by(name=role).first()
@@ -143,8 +155,6 @@ def edit_user_page(id):
         if new_password and confirm_password:
             if new_password == confirm_password and len(new_password) >= 6:
                 user.password = generate_password_hash(new_password)
-            elif new_password != confirm_password:
-                return redirect(f'/admin/user/{id}/edit')
 
         if role == 'user':
             info = db.session.query(Info).filter_by(user_id=id).first()
@@ -176,7 +186,6 @@ def edit_user_page(id):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            print(f'Ошибка при обновлении пользователя или создании уведомления: {e}')
             return redirect(f'/admin/user/{id}/edit')
         finally:
             db.session.close()
@@ -208,7 +217,6 @@ def delete_user_page(id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
-        print(f'Ошибка при удалении пользователя: {e}')
 
     db.session.close()
     return redirect('/admin/users')
