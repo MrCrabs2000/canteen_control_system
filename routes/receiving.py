@@ -38,4 +38,4 @@ def receiving_view():
         'surname': current_user.surname
     }
 
-    return render_template('receiving.html', **context)
+    return render_template('menus/receiving.html', **context)

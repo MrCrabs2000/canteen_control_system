@@ -4,10 +4,6 @@ from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, Re
 from configs.app_configs import login_required
 
 
-
-
-
-
 cook_menu = Blueprint('cook_menu', __name__, template_folder='templates')
 @cook_menu.route('/cook/menu/')
 @login_required
@@ -45,6 +41,7 @@ def cook_menus_page():
     return render_template('menus/list.html', **context)
 
 
+
 read_dish = Blueprint('read_dish', __name__, template_folder='templates')
 @read_dish.route('/cook/dishes')
 @login_required
@@ -64,7 +61,6 @@ def read_dish_page():
         db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).all()
 
     db.session.close()
-    print(breakfasts[0].id)
 
     context = {
         'name': current_user.name,
@@ -75,7 +71,6 @@ def read_dish_page():
         'main_dishes': main_dishes,
         'drinks': drinks,
         'bread': bread,
-        'current_user': current_user
     }
 
     return render_template('dishes/list.html', **context)

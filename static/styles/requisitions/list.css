@@ -57,3 +57,13 @@
     transition: border 0.1s ease-in-out;
 
 }
+
+.no-requisition-message {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+}

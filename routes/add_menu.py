@@ -19,7 +19,8 @@ def add_menu_page():
             'dishes': dishes,
             'name': current_user.name,
             'surname': current_user.surname,
-            'categories': get_dishes_in_categories(dishes)
+            'categories': get_dishes_in_categories(dishes),
+            'get_category_name': Dish.get_category_name,
         }
 
         return render_template('menus/adding.html', **context)
@@ -29,7 +30,13 @@ def add_menu_page():
         price = request.form.get('price')
         str_date = request.form.get('date')
 
-        date1 = datetime.strptime(str_date, '%Y-%m-%d').date()
+        if not all([type, price, str_date]):
+            return redirect('/cook/menu/add')
+
+        try:
+            date1 = datetime.strptime(str_date, '%Y-%m-%d').date()
+        except ValueError:
+            return redirect('/cook/menu/add')
 
         dish_name = []
         for dishes in ['breakfasts', 'salads', 'soups', 'main_dishes', 'drinks', 'bread']:
@@ -37,9 +44,7 @@ def add_menu_page():
             if dish:
                 dish_name.append(dish)
 
-
-        if not all([type, price, dish_name]) or date1 < date.today() or Menu.query.filter_by(type=type, date=date1).first():
-            db.session.close()
+        if not dish_name or date1 < date.today() or Menu.query.filter_by(type=type, date=date1).first():
             return redirect('/cook/menu/add')
 
         try:
