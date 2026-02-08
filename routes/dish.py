@@ -22,7 +22,8 @@ def dishview(dish_id):
             'name': current_user.name,
             'surname': current_user.surname,
             'dish': dish,
-            'products': products_list
+            'products': products_list,
+            'role': current_user.roles[0].name
         }
         try:
             return render_template('dishes/dish.html', **context)
@@ -42,7 +43,8 @@ def dishview(dish_id):
             'name': current_user.name,
             'surname': current_user.surname,
             'dish': dish,
-            'products': products_list
+            'products': products_list,
+            'role': current_user.roles[0].name
         }
         try:
             return render_template('dishes/dish.html', **context)

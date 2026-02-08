@@ -55,6 +55,12 @@ def notifications_page():
                 elif current_user.roles[0].name in ['cook', 'admin', 'user'] and notification_viewed.type == 'profile':
                     db.session.close()
                     return redirect('/profile')
+                elif current_user.roles[0].name == 'user' and notification_viewed.type == 'buying':
+                    db.session.close()
+                    return redirect('/receiving')
+                elif current_user.roles[0].name == 'user' and notification_viewed.type == 'abonement':
+                    db.session.close()
+                    return redirect('/payment')
         context = {
             'notifications': notifications[::-1],
             'name': current_user.name,

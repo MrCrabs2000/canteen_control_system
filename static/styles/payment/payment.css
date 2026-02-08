@@ -1,0 +1,147 @@
+.payment-grid {
+    max-width: 600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.payment-section {
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    width: 340px;
+}
+
+.payment-sections-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.balance-display {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 16px 0;
+}
+
+.payment-button {
+    display: inline-block;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: var(--border-radius-small);
+    background: var(--bg-light);
+    box-shadow: var(--shadow-small);
+    font-weight: 600;
+    transition: background 0.1s ease-in-out;
+}
+
+.payment-button.accent {
+    color: var(--text-light);
+    background: var(--primary);
+}
+
+.payment-button:hover {
+    background: var(--bg-dark-hover);
+}
+
+.payment-button.accent:hover {
+    background: var(--primary-dark);
+}
+
+.abonement-info {
+    margin-bottom: 16px;
+}
+
+.abonement-active {
+    font-size: 1.1rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.abonement-inactive {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin: 16px 0;
+}
+
+.abonement-days {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.payment-form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.period-options {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.period-option {
+    flex: 1;
+    padding: 12px 8px;
+    background: var(--bg-light);
+    border-radius: var(--border-radius-small);
+    box-shadow: var(--shadow-small);
+    cursor: pointer;
+    text-align: center;
+    min-width: 100px;
+    max-width: 120px;
+}
+
+.period-option input[type="radio"] {
+    margin-bottom: 8px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.form-actions button {
+    padding: 10px 24px;
+    min-width: 120px;
+}
+
+.top-bar-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.top-bar-actions button {
+    padding: 8px 16px;
+    font-size: 1rem;
+}
+
+.button-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.section__header {
+    margin: 0;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.section__top {
+    margin-bottom: 16px;
+}

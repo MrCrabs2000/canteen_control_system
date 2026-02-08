@@ -1,0 +1,71 @@
+{% extends 'layouts/header_layout.html' %}
+
+{% block title %}Покупка абонемента{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/styles/payment/payment.css">
+{% endblock %}
+
+{% block top_bar %}
+    <div class="top-bar__left">
+        <h1 class="title left">Покупка абонемента</h1>
+    </div>
+
+    <div class="top-bar__right">
+        <div class="top-bar-actions">
+            <button onclick="location.href='/payment'" type="button">Назад</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+<div class="menus">
+    <div class="payment-sections-container">
+        {% if user_abonement and user_abonement >= today %}
+        <div class="payment-section info__section">
+            <div class="section__top">
+                <h2 class="section__header">Текущий абонемент</h2>
+            </div>
+            <div class="abonement-info">
+                <div class="abonement-active">Действует до: {{ user_abonement.strftime('%d.%m.%Y') }}</div>
+                <div class="abonement-days">Осталось дней: {{ (user_abonement - today).days }}</div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="payment-section payment-form-container info__section">
+            <div class="section__top">
+                <h2 class="section__header">Выберите период</h2>
+            </div>
+
+            <form method="POST" action="/abonement/edit">
+                <div class="period-options">
+                    <label class="period-option">
+                        <input type="radio" name="period" value="7" checked>
+                        1 неделя<br>
+                        <strong>700₽</strong>
+                    </label>
+
+                    <label class="period-option">
+                        <input type="radio" name="period" value="14">
+                        2 недели<br>
+                        <strong>1300₽</strong>
+                    </label>
+
+                    <label class="period-option">
+                        <input type="radio" name="period" value="30">
+                        1 месяц<br>
+                        <strong>2500₽</strong>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="accent">Купить</button>
+                    <button type="button" onclick="location.href='/payment'" class="button">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

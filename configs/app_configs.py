@@ -7,8 +7,9 @@ from werkzeug.security import generate_password_hash
 from functools import wraps
 
 from utils.generation_password import generate_password_for_user
-from datebase.classes import db, User, Role
+from datebase.classes import db, User, Role, Notification, Info
 from configs.filters import register_filters
+from datetime import date
 
 
 try:
@@ -54,8 +55,6 @@ app.config['SECURITY_PROFILE_URL'] = '/user_profile'
 register_filters(app)
 
 db.init_app(app)
-
-
 
 
 @app.before_request
@@ -104,9 +103,72 @@ def start_db():
         db.session.commit()
     except Exception:
         db.session.rollback()
-    db.session.close()
+    finally:
+        db.session.close()
 
     app.before_first_request = True
+
+
+@app.before_request
+def check_abonement():
+    with app.app_context():
+        try:
+            if current_user.is_authenticated and hasattr(current_user, 'id'):
+                user_info = Info.query.filter_by(user_id=current_user.id).first()
+
+                if user_info and user_info.abonement:
+                    today = date.today()
+                    days_left = (user_info.abonement - today).days
+
+                    if days_left == 1:
+                        existing_notification = Notification.query.filter_by(
+                            receiver_id=current_user.id,
+                            name='Окончание абонемента',
+                            type='abonement',
+                            warning=True
+                        ).first()
+
+                        if not existing_notification:
+                            notification = Notification(
+                                name='Окончание абонемента',
+                                text='Завтра заканчивается ваш абонемент на питание',
+                                date=today,
+                                receiver_id=current_user.id,
+                                status=0,
+                                type='abonement',
+                                warning=True
+                            )
+                            db.session.add(notification)
+                            db.session.commit()
+
+                    elif days_left <= 0:
+                        user_info.abonement = None
+
+                        existing_notification = Notification.query.filter_by(
+                            receiver_id=current_user.id,
+                            name='Абонемент закончился',
+                            type='abonement',
+                            warning=True
+                        ).first()
+
+                        if not existing_notification:
+                            notification = Notification(
+                                name='Абонемент закончился',
+                                text='Ваш абонемент на питание закончился',
+                                date=today,
+                                receiver_id=current_user.id,
+                                status=0,
+                                type='abonement',
+                                warning=True
+                            )
+                            db.session.add(notification)
+
+                        db.session.commit()
+        except Exception as e:
+            print(f"Ошибка при проверке абонемента: {e}")
+            db.session.rollback()
+        finally:
+            db.session.close()
 
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)

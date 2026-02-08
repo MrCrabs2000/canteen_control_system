@@ -7,6 +7,7 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/dishes/dish.css">
+    <link rel="stylesheet" href="/static/styles/users/user.css">
 {% endblock %}
 
 
@@ -14,6 +15,19 @@
     <h1 class="title left">{{ dish.name }} |
         <span class="dish__category">{{ dish.category_name }}</span>
     </h1>
+{% if role == 'cook' %}
+    <div class="top-bar-actions">
+        <button onclick="location.href='/cook/dishes'" type="button">Отмена</button>
+    </div>
+{% elif role == 'user' %}
+    <div class="top-bar-actions">
+        <button onclick="location.href='/menu'" type="button">Отмена</button>
+    </div>
+{% elif role == 'admin' %}
+    <div class="top-bar-actions">
+        <button onclick="location.href='/admin/dishes'" type="button">Отмена</button>
+    </div>
+{% endif %}
 {% endblock %}
 
 
@@ -26,7 +40,7 @@
 
             <ul class="dish__composition">
                 {% for product in products %}
-                    <li>{{ product.name }}</li>
+                    <li>{{ product.name }} - {{ product.amount }} {{ product.measurement }}</li>
                 {% endfor %}
             </ul>
         </section>

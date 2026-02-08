@@ -64,6 +64,24 @@
                     </button>
                 </div>
             </form>
+        {% elif role == 'user' and notification.type == 'buying' and notification.status != 2 %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
+        {% elif role == 'user' and (notification.type == 'adonement' or notification.type == 'adonement_end') and notification.status != 2 %}
+            <form method="POST" action="/notifications" class="action-form">
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <div style="display: flex; gap: 1px; margin-top: 10px;">
+                    <button type="submit" name="action" value="view" class="btn accent">
+                        Просмотреть
+                    </button>
+                </div>
+            </form>
         {% endif %}
     </ul>
 </div>

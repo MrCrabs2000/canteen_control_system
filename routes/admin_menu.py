@@ -179,22 +179,26 @@ admin_read_dish = Blueprint('admin_read_dish', __name__, template_folder='templa
 @admin_read_dish.route('/admin/dishes/<dish_id>')
 @login_required
 def read_dish_page(dish_id):
-    dish = db.session.query(Dish).filter_by(id=dish_id).first()
+    dish = db.session.query(Dish).filter_by(id=dish_id).options(
+        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)
+    ).first()
 
-    products_list = []
-
-    for idd in dish.product_ids:
-        productt = db.session.query(Product).filter_by(id=idd).first()
-        products_list.append(productt)
+    product_data = []
+    for assoc in dish.products:
+        product_data.append({
+            'id': assoc.product.id,
+            'name': assoc.product.name,
+            'measurement': assoc.product.measurement,
+            'amount': assoc.product_amount
+        })
 
     try:
         context = {
             'dish': dish,
-            'products': products_list,
+            'products': product_data,
             'name': current_user.name,
             'surname': current_user.surname
         }
-
 
         return render_template('dishes/dish.html', **context)
 

@@ -170,6 +170,7 @@ class Notification(db.Model):
     date = db.Column(db.Date, nullable=False, default=date.today())
     status = db.Column(db.Integer, nullable=False, default=False)
     type = db.Column(db.String, nullable=True)
+    warning = db.Column(db.Boolean, nullable=True)
 
     receiver_id = db.Column(db.Integer, db.ForeignKey('users.id', name='notification_users', ondelete='CASCADE'), nullable=False)
     requisition_id = db.Column(db.Integer, db.ForeignKey('requisitions.id', name='notification_requisitions', ondelete='CASCADE'), nullable=True)

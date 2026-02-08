@@ -2,7 +2,7 @@ from flask import Blueprint, request, redirect, url_for
 from flask_security import current_user
 from datetime import datetime, date
 from configs.app_configs import db, login_required
-from datebase.classes import Menu, Info, History
+from datebase.classes import Menu, Info, History, Notification
 from utils.templates_rendering.menu import render_menu_template
 
 menu_redirect = Blueprint('menu_redirect', __name__)
@@ -77,6 +77,13 @@ def menupage(date_str):
                 cost=cost,
                 status=False
             )
+            new_notification = Notification(
+                name='Покупка', text=f'Вы купили меню на {datte}',
+                date=date.today(),
+                receiver_id=current_user.id,
+                status=1,
+                type='buying')
+            db.session.add(new_notification)
 
             for dish in menu2.dishes:
                 dish.amount -= 1
