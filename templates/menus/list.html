@@ -32,11 +32,17 @@
 
 
 {% block main %}
-    <div class="menus-grid">
-        {% for menu in menus %}
-            {% include 'includes/menus/menu_tile.html' %}
-        {% endfor %}
-    </div>
+    {% if menus %}
+        <div class="menus-grid">
+            {% for menu in menus %}
+                {% include 'includes/menus/menu_tile.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-menu-message">
+            <p><strong>Меню нет</strong></p>
+        </div>
+    {% endif %}
 {% endblock %}
 
 

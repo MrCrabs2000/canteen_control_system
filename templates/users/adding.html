@@ -8,11 +8,10 @@
 {% endblock %}
 
 {% block top_bar %}
-{{ super() }}
-<div class="top-bar-actions">
-    <button onclick="location.href='/admin/users'" type="button">Отмена</button>
-    <button type="submit" form="add-user-form" class="accent">Добавить</button>
-</div>
+    {{ super() }}
+    <div class="top-bar-actions">
+        <button type="submit" form="add-user-form" class="add-btn accent">Добавить</button>
+    </div>
 {% endblock %}
 
 {% block main %}

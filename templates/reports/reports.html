@@ -10,9 +10,6 @@
 
 {% block top_bar %}
     <h1 class="title left">Формирование отчётов</h1>
-    <div class="top-bar__right">
-        <button onclick="document.location.href='/admin/menu'" class="accent">Назад к меню</button>
-    </div>
 {% endblock %}
 
 {% block main %}
@@ -25,17 +22,17 @@
             <div class="statistics-grid">
                 <div class="statistics-card">
                     <h3 class="stats-label">Таблица по оплатам</h3>
-                    <p>Статистика оплат и способов расчёта</p>
-                    <button onclick="window.open('/admin/report/payments', '_blank')" class="accent" style="margin-top: 12px;">
-                        Скачать Excel
+                    <p class="stats-content">Статистика оплат и способов расчёта</p>
+                    <button onclick="window.open('/admin/report/payments', '_blank')" class="accent" style="margin-top: 20px;">
+                        Скачать
                     </button>
                 </div>
                 
                 <div class="statistics-card">
                     <h3 class="stats-label">Таблица по посещаемости</h3>
-                    <p>Распределение покупок по классам</p>
-                    <button onclick="window.open('/admin/report/attendance', '_blank')" class="accent" style="margin-top: 12px;">
-                        Скачать Excel
+                    <p class="stats-content">Распределение покупок по классам</p>
+                    <button onclick="window.open('/admin/report/attendance', '_blank')" class="accent" style="margin-top: 20px;">
+                        Скачать
                     </button>
                 </div>
             </div>
@@ -49,25 +46,25 @@
             <div class="statistics-grid">
                 <div class="statistics-card">
                     <h3 class="stats-label">Таблица по продуктам</h3>
-                    <p>Список всех продуктов</p>
-                    <button onclick="window.open('/admin/report/products', '_blank')" class="accent" style="margin-top: 12px;">
-                        Скачать Excel
+                    <p class="stats-content">Список всех продуктов</p>
+                    <button onclick="window.open('/admin/report/products', '_blank')" class="accent" style="margin-top: 20px;">
+                        Скачать
                     </button>
                 </div>
                 
                 <div class="statistics-card">
                     <h3 class="stats-label">Таблица по блюдам</h3>
-                    <p>Информация о блюдах</p>
-                    <button onclick="window.open('/admin/report/dishes', '_blank')" class="accent" style="margin-top: 12px;">
-                        Скачать Excel
+                    <p class="stats-content">Информация о блюдах</p>
+                    <button onclick="window.open('/admin/report/dishes', '_blank')" class="accent" style="margin-top: 20px;">
+                        Скачать
                     </button>
                 </div>
                 
                 <div class="statistics-card">
                     <h3 class="stats-label">Таблица по меню</h3>
-                    <p>Все созданные меню</p>
-                    <button onclick="window.open('/admin/report/menus', '_blank')" class="accent" style="margin-top: 12px;">
-                        Скачать Excel
+                    <p class="stats-content">Все созданные меню</p>
+                    <button onclick="window.open('/admin/report/menus', '_blank')" class="accent" style="margin-top: 20px;">
+                        Скачать
                     </button>
                 </div>
             </div>

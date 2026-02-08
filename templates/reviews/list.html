@@ -29,9 +29,9 @@
             </div> 
         {% else %}
             {% if current_user.roles[0].name == 'user' %}
-                <p class="no-reviews">Вы не оставили ни одного отзыва</p>
+                <p class="no-reviews"><strong>Вы не оставили ни одного отзыва</strong></p>
             {% else %}
-                <p class="no-reviews">Пользователи не оставили ни одного отзыва</p>
+                <p class="no-reviews"><strong>Пользователи не оставили ни одного отзыва</strong></p>
             {% endif %}
         {% endfor %}
     </div>
