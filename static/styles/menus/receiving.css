@@ -83,3 +83,9 @@
     color: inherit;
     font-weight: 600;
 }
+
+.no-menus {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.3rem;
+}

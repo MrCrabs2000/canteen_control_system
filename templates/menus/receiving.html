@@ -23,39 +23,45 @@
 
 
 {% block main %}
-    <div class="menus">
-        <ul class="menus__list">
-            {% for history in history_list %}
+    {% if history_list %}
+        <div class="menus">
+            <ul class="menus__list">
+                {% for history in history_list %}
 
-                {% set received = "menu--received" if history.status else "" %}
+                    {% set received = "menu--received" if history.status else "" %}
 
-                <li class="menu {{ received }}">
-                    <h2 class="menu__header">
-                        <span class="menu__date">{{ history.eat_date | date_Y_M_d}}</span>
-                        <div class="menu__text-separator"></div>
-                        {% if history.type == 'breakfast' %}
-                            <span class="menu__type">Завтрак</span>
-                        {% elif history.type == 'lunch' %}
-                            <span class="menu__type">Обед</span>
-                        {% endif %}
-                    </h2>
+                    <li class="menu {{ received }}">
+                        <h2 class="menu__header">
+                            <span class="menu__date">{{ history.eat_date | date_Y_M_d}}</span>
+                            <div class="menu__text-separator"></div>
+                            {% if history.type == 'breakfast' %}
+                                <span class="menu__type">Завтрак</span>
+                            {% elif history.type == 'lunch' %}
+                                <span class="menu__type">Обед</span>
+                            {% endif %}
+                        </h2>
 
-                    <div class="menu__right-container">
-                        <span class="menu__price">{{ history.cost }}₽</span>
+                        <div class="menu__right-container">
+                            <span class="menu__price">{{ history.cost }}₽</span>
 
-                        {% if history.status %}
-                            <div class="menu__received-status">Получено</div>
-                        {% else %}
-                            <form id="receiveMenuForm" method="post" style="display: none;">
-                                <input type="hidden" name="mark_received" value="{{ history.id }}">
-                            </form>
+                            {% if history.status %}
+                                <div class="menu__received-status">Получено</div>
+                            {% else %}
+                                <form id="receiveMenuForm" method="post" style="display: none;">
+                                    <input type="hidden" name="mark_received" value="{{ history.id }}">
+                                </form>
 
-                            <button class="menu__receive-button accent" form="receiveMenuForm" type="submit">Получить</button>
-                        {% endif %}
-                    </div>
-                </li>
+                                <button class="menu__receive-button accent" form="receiveMenuForm" type="submit">Получить</button>
+                            {% endif %}
+                        </div>
+                    </li>
 
-            {% endfor %}
-        </ul>
-    </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="no-menus">
+            <p><strong>Продуктов нет</strong></p>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -143,11 +143,18 @@ select {
     border-radius: var(--border-radius-small);
     background: var(--bg-light);
     box-shadow: var(--shadow-small);
-}
+    transition: border 0.1s ease-in-out;
+    cursor: pointer;
 
 
-select:focus {
-    border: 2px solid var(--primary);
+    &:hover {
+        border-color: var(--border-color);
+    }
+
+    &:focus {
+        border: 2px solid var(--primary);
+    }
+
 }
 
 

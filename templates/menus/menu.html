@@ -21,11 +21,7 @@
 
     <div class="top-bar__left">
         <h1 class="title left">
-            Меню | 
-
-            {% if menu %}
-                <span class="price">{{ menu.price }}₽</span>
-            {% endif %}
+            Меню{% if menu %} | <span class="price">{{ menu.price }}₽</span>{% endif %}
         </h1>
     </div>
 
