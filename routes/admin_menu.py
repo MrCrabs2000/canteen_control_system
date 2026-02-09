@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template
 from flask_security import current_user, roles_accepted
-from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User, Info
+from datebase.classes import db, Menu, Dish, Product, AssociationDishProduct, User
 from configs.app_configs import login_required
 from utils.templates_rendering.menu import render_menu_template
+
 
 admin_menu = Blueprint('admin_menu', __name__, template_folder='templates')
 @admin_menu.route('/admin/menu')

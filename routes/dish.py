@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted, current_user
 from configs.app_configs import db, login_required
-from datebase.classes import Dish, Product, AssociationDishProduct
+from datebase.classes import Dish, Product, Review
 
 
 dish_view = Blueprint('dish_view', __name__)
@@ -13,6 +13,7 @@ def dishview(dish_id):
     if current_user.roles[0].name == 'user':
         dish = db.session.query(Dish).filter_by(id=dish_id).first()
         products_list = []
+        reviews = db.session.query(Review).filter_by(user_id=current_user.id).all()
 
         for idd in dish.product_ids:
             productt = db.session.query(Product).filter_by(id=idd).first()
@@ -25,7 +26,8 @@ def dishview(dish_id):
             'amount_products': len(products_list),
             'products': products_list,
             'product_amounts': dish.product_amounts,
-            'role': current_user.roles[0].name
+            'role': current_user.roles[0].name,
+            'reviews': reviews
         }
         try:
             return render_template('dishes/dish.html', **context)
@@ -65,8 +67,9 @@ def dishview(dish_id):
 
             try:
                 db.session.commit()
-            except Exception:
+            except Exception as e:
                 db.session.rollback()
+                print(f'Ошибка в dish.py: {e}')
             finally:
                 db.session.close()
 

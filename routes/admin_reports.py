@@ -32,8 +32,7 @@ def reports_payments_page():
         )
 
     except Exception as e:
-        print(f"Ошибка: {e}")
-        return f"Ошибка: {e}", 500
+        print(f'Ошибка в отсчёте: {e}')
 
 
 
@@ -52,8 +51,7 @@ def reports_attendance_page():
         )
 
     except Exception as e:
-        print(f"Ошибка: {e}")
-        return f"Ошибка: {e}", 500
+        print(f'Ошибка в отсчёте: {e}')
 
 
 
@@ -72,8 +70,7 @@ def reports_product_page():
         )
 
     except Exception as e:
-        print(f"Ошибка: {e}")
-        return f"Ошибка: {e}", 500
+        print(f'Ошибка в отсчёте: {e}')
 
 
 
@@ -92,8 +89,7 @@ def reports_dish_page():
         )
 
     except Exception as e:
-        print(f"Ошибка: {e}")
-        return f"Ошибка: {e}", 500
+        print(f'Ошибка в отсчёте: {e}')
 
 
 
@@ -112,5 +108,4 @@ def reports_menu_page():
         )
 
     except Exception as e:
-        print(f"Ошибка: {e}")
-        return f"Ошибка: {e}", 500
+        print(f'Ошибка в отсчёте: {e}')

@@ -97,7 +97,8 @@ def edit_product_page(id):
 
         try:
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(f'Ошибка при изменении продукта: {e}')
             db.session.rollback()
         finally:
             db.session.close()

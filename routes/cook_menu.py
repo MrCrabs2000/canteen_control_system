@@ -35,7 +35,8 @@ def cook_menus_page():
     context = {
         'menus': menus,
         'name': current_user.name,
-        'surname': current_user.surname
+        'surname': current_user.surname,
+        'role': current_user.roles[0].name
     }
 
     return render_template('menus/list.html', **context)
@@ -89,7 +90,6 @@ def read_product_page():
             'name': current_user.name,
             'surname': current_user.surname
         }
-        print(product)
         return render_template('products/list.html', **context)
 
     finally:

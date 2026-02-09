@@ -26,7 +26,8 @@ def menupage(date_str):
 
     try:
         datte = datetime.strptime(date_str, '%Y-%m-%d').date()
-    except ValueError:
+    except ValueError as e:
+        print(f'Ошибка в menu.py: {e}')
         return redirect(url_for('menu_page.menupage', date_str=str(date.today())))
 
     menu = db.session.query(Menu).filter_by(date=datte, type=ttype).first()
@@ -57,12 +58,10 @@ def menupage(date_str):
 
         this_menu = db.session.query(History).filter_by(user_id=current_user.id, menu_id=menu2.id, eat_date=date_today, type=ttype).first()
         if this_menu:
-            print('Пользователь уже купил это меню')
             return redirect(url_for('menu_page.menupage', date_str=date_str))
 
         for dish in menu2.dishes:
             if dish.amount < 1:
-                print('Какое-то блюдо кончилось')
                 return redirect(url_for('menu_page.menupage', date_str=date_str))
 
         try:

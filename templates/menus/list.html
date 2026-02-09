@@ -1,66 +1,21 @@
-{% extends 'layouts/sidebar_w_header.html' %}
+{% extends 'layouts/management/menus.html' %}
 
-{% from 'macros/sidebar.html' import sidebar %}
 
 {% block title %}Список меню{% endblock %}
 
-{% block top_bar %}
-<div class="top-bar__left">
-        <h1 class="title left">Список меню</h1>
-</div>
-{% endblock %}
-
-{% block sidebar %}
-    {% call sidebar(header='Категории') %}
-    <ul class="days-list">
-        <li class="day">
-            <a class="day__link" href="#breakfasts">Завтраки</a>
-        </li>
-        <li class="day">
-            <a class="day__link" href="#breakfasts">Обеды</a>
-        </li>
-    {% endcall %}
-{% endblock %}
 
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/menus/list.css">
     <link rel="stylesheet" href="/static/styles/includes/menus/menu_tile.css">
-    <link rel="stylesheet" href="/static/styles/menus/menu.css">
-    <link rel="stylesheet" href="/static/styles/macros/sidebar.css">
 {% endblock %}
 
 
 {% block main %}
-    {% if menus %}
-        <div class="menus-grid">
-            {% for menu in menus %}
-                {% include 'includes/menus/menu_tile.html' %}
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="no-menu-message">
-            <p><strong>Меню нет</strong></p>
-        </div>
-    {% endif %}
+    <div class="menus-grid">
+        {% for menu in menus %}
+            {% include 'includes/menus/menu_tile.html' %}
+        {% endfor %}
+    </div>
 {% endblock %}
 
-
-{% block scripts %}
-    <script>
-        const menus = document.querySelectorAll('.menu');
-
-        menus.forEach(user => {
-            const deleteButton = user.querySelector('.menu__delete-btn');
-            const id = user.dataset.id;
-            
-            deleteButton.addEventListener('click', function() {
-                event.preventDefault();
-                isDeleting = confirm('Удалить меню?');
-                if (isDeleting) {
-                    
-                }
-            });
-        });
-    </script>
-{% endblock %}

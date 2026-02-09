@@ -61,7 +61,6 @@ class Review(db.Model):
     content = db.Column(db.JSON)
     dish_id = db.Column(db.Integer, db.ForeignKey('dishes.id', name='review_dishes', ondelete='CASCADE'), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-    stars = db.Column(db.Integer, nullable=True)
 
     user = db.relationship('User', back_populates='reviews')
     dish = db.relationship('Dish', back_populates='reviews')

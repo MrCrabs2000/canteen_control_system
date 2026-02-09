@@ -24,7 +24,7 @@ def add_dish_page():
 
         return render_template('dishes/adding.html', **context)
 
-    elif request.method == 'POST':  
+    elif request.method == 'POST':
         name = request.form.get('name')
         category = request.form.get('category')
         ingredients_given = request.form.getlist('ingredients')
@@ -76,7 +76,6 @@ def add_dish_page():
                 dish_products = AssociationDishProduct(dish_id=new_dish.id, product_id=int(id_product.id),
                                                        product_amount=int(amount))
                 db.session.add(dish_products)
-            print(dish_products)
             db.session.commit()
 
             return redirect('/cook/dishes')
@@ -102,7 +101,6 @@ def edit_dish_page(id):
         for idd in dish.product_ids:
             productt = db.session.query(Product).filter_by(id=idd).first()
             products_selected.append(productt)
-        print(dish.category)
         context = {
             'dish': dish,
             'dish_name': dish.name,
@@ -124,16 +122,28 @@ def edit_dish_page(id):
     if request.method == 'POST':
         name = request.form.get('name')
         category = request.form.get('category')
+        ingredients_given = request.form.getlist('ingredients')
+        amounts_given = request.form.getlist('product_amount')
 
-        if not all([name, category]):
+        if not all([name, category, ingredients_given, amounts_given]) or len(ingredients_given) != len(amounts_given):
             return redirect(f'/cook/dish/{id}/edit')
 
         dish.name = name
         dish.category = category
 
+        for i in range(len(ingredients_given)):
+            if ingredients_given:
+                product = db.session.query(Product).filter_by(name=ingredients_given[i]).first()
+                if product.id not in dish.product_ids:
+                    dish_products = AssociationDishProduct(dish_id=dish.id, product_id=int(product.id),
+                                                           product_amount=int(amounts_given[i]))
+                    db.session.add(dish_products)
+
+
         try:
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(f'Ошибка при добавлении блюда: {e}')
             db.session.rollback()
         finally:
             db.session.close()
@@ -160,50 +170,3 @@ def delete_dish_page(id):
     db.session.close()
 
     return redirect('/cook/dishes')
-
-
-
-cook_dish = Blueprint('cook_dish', __name__, template_folder='templates')
-@cook_dish.route('/cook/dish/<id>/cook', methods=['GET', 'POST'])
-@login_required
-@roles_accepted('cook')
-def cook_dish_page(id):
-    dish = db.session.query(Dish).filter_by(id=id).options(
-        db.joinedload(Dish.products).joinedload(AssociationDishProduct.product)).first()
-    if request.method == 'POST':
-        amount = int(request.form.get('amount'))
-
-        if not amount:
-            return redirect(f'/cook/dish/{id}/cook')
-
-        cook = True
-        for association in dish.products:
-            product_dish_amount = int(association.product_amount)
-            product_amount = int(association.product.amount)
-            if amount * product_dish_amount > product_amount:
-                cook = False
-            if not cook:
-                break
-
-        if cook:
-            dish.amount += amount
-            dish.cook_amount += amount
-            for association in dish.products:
-                product_dish_amount = int(association.product_amount)
-                product_amount = int(association.product.amount)
-                product_amount -= amount * product_dish_amount
-                association.product.amount = product_amount
-                association.product.spend_amount += amount * product_dish_amount
-        else:
-            return redirect(f'/cook/dish/{id}/cook')
-
-        try:
-            db.session.commit()
-        except Exception:
-            db.session.rollback()
-        finally:
-            db.session.close()
-
-        return redirect('/cook/dishes')
-
-    return render_template('cook_dish.html', dish=dish)
