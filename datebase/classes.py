@@ -1,6 +1,6 @@
 from flask_security import UserMixin, RoleMixin
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date, datetime
+from datetime import date
 
 db = SQLAlchemy()
 
@@ -86,7 +86,7 @@ class Requisition(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id', name='requisition_products', ondelete='CASCADE'), nullable=False)
-    recevier_id = db.Column(db.Integer, db.ForeignKey('users.id', name='requisition_users', ondelete='CASCADE'), nullable=False)
+    receiver_id = db.Column(db.Integer, db.ForeignKey('users.id', name='requisition_users', ondelete='CASCADE'), nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
     date = db.Column(db.Date, nullable=False, default=date.today())
     coordination = db.Column(db.Integer, nullable=False, default=0)
@@ -106,8 +106,6 @@ class Menu(db.Model):
     dishes = db.relationship('Dish', secondary='dish_menu', back_populates='menus')
     menu_accepted = db.relationship('User', secondary='user_menus', back_populates='user_accepted')
     history = db.relationship('History', back_populates='menu', cascade='all, delete-orphan')
-
-
 
 
 class History(db.Model):

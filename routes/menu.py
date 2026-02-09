@@ -55,6 +55,11 @@ def menupage(date_str):
         if not menu2:
             return redirect(url_for('menu_page.menupage', date_str=date_str))
 
+        this_menu = db.session.query(History).filter_by(user_id=current_user.id, menu_id=menu2.id, eat_date=date_today, type=ttype).first()
+        if this_menu:
+            print('Пользователь уже купил это меню')
+            return redirect(url_for('menu_page.menupage', date_str=date_str))
+
         for dish in menu2.dishes:
             if dish.amount < 1:
                 print('Какое-то блюдо кончилось')

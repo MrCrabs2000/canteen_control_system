@@ -2,7 +2,15 @@
 __pycache__/
 *.py[codz]
 *$py.class
+
+# Custom folders
 /exel
+db/
+*.db
+*.sqlite
+*.sqlite3
+*.xlsx
+
 # C extensions
 *.so
 
@@ -170,7 +178,7 @@ cython_debug/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
@@ -182,9 +190,9 @@ cython_debug/
 .abstra/
 
 # Visual Studio Code
-#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore
 #  that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#  and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#  and can be added to the global gitignore or merged into this file. However, if you prefer,
 #  you could uncomment the following to ignore the entire vscode folder
 # .vscode/
 
@@ -205,8 +213,29 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-.idea
-db/
 
-*test.py
-migrations
+# Flask Migrations
+migrations/
+alembic.ini
+
+logs/
+*.log
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+flask_session/
+
+tmp/
+temp/
+*.tmp
+*.temp
+
+.env.local
+.env.production
+.env.development
+.env.test
+
+/db/*.db
+/db/*.sqlite*

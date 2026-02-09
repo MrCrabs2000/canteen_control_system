@@ -70,7 +70,7 @@ def admin_requisition_page():
 
             new_notification = Notification(name='Заявка', text='У вас изменения в статусе заявки',
                                                 date=date.today(),
-                                                receiver_id=requisition.recevier_id, requisition_id=requisition_id, status=1, type='requisition')
+                                                receiver_id=requisition.receiver_id, requisition_id=requisition_id, status=1, type='requisition')
             db.session.add(new_notification)
 
             try:

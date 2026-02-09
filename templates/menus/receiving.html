@@ -41,7 +41,11 @@
                     </h2>
 
                     <div class="menu__right-container">
-                        <span class="menu__price">{{ history.cost }}₽</span>
+                        {% if history.cost == 0 %}
+                            <span class="menu__price">Оплата абонементом</span>
+                        {% else %}
+                            <span class="menu__price">{{ history.cost }}₽</span>
+                        {% endif %}
 
                         {% if history.status %}
                             <div class="menu__received-status">Получено</div>
