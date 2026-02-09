@@ -74,6 +74,7 @@ def add_user_page():
         try:
             db.session.commit()
         except Exception as e:
+            print(f':Ошибка при добавлении пользователя: {e}')
             db.session.rollback()
             return redirect('/admin/user/add')
         finally:
@@ -107,6 +108,7 @@ def edit_user_page(id):
         try:
             return render_template('users/edit.html', **context)
         except Exception as e:
+            print(f'Ошибка при изменении пользователя: {e}')
             return redirect('/admin/users')
         finally:
             db.session.close()
@@ -185,6 +187,7 @@ def edit_user_page(id):
             db.session.add(notification)
             db.session.commit()
         except Exception as e:
+            print(f'Ошибка создания уведомления об изменении: {e}')
             db.session.rollback()
             return redirect(f'/admin/user/{id}/edit')
         finally:

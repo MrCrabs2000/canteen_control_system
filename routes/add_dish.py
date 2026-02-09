@@ -24,7 +24,7 @@ def add_dish_page():
 
         return render_template('dishes/adding.html', **context)
 
-    elif request.method == 'POST':  
+    elif request.method == 'POST':
         name = request.form.get('name')
         category = request.form.get('category')
         ingredients_given = request.form.getlist('ingredients')
@@ -142,7 +142,8 @@ def edit_dish_page(id):
 
         try:
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(f'Ошибка при добавлении блюда: {e}')
             db.session.rollback()
         finally:
             db.session.close()
@@ -208,7 +209,8 @@ def cook_dish_page(id):
 
         try:
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(f'Ошибка в add_dish.py: {e}')
             db.session.rollback()
         finally:
             db.session.close()

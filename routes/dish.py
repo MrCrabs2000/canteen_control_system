@@ -67,8 +67,9 @@ def dishview(dish_id):
 
             try:
                 db.session.commit()
-            except Exception:
+            except Exception as e:
                 db.session.rollback()
+                print(f'Ошибка в dish.py: {e}')
             finally:
                 db.session.close()
 

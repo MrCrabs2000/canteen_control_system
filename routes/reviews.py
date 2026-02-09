@@ -1,6 +1,3 @@
-from crypt import methods
-from itertools import product
-
 from flask import Flask, Blueprint, render_template, request, redirect
 from flask_security import current_user, roles_accepted
 from datetime import datetime, date
@@ -64,7 +61,7 @@ def reviewnew():
             try:
                 db.session.commit()
             except Exception as e:
-                print(e)
+                print(f'Ошибка при создании отзыва: {e}')
                 db.session.rollback()
             finally:
                 db.session.close()
@@ -85,7 +82,7 @@ def reviewsmain(review_id, dish_id):
         db.session.delete(review)
         return redirect(f'/dishes/{dish_id}')
     except Exception as e:
-        print(f'У нас ошибка при удалении отзыва: {e}')
+        print(f'Ошибка при удалении отзыва: {e}')
         return redirect(f'/dishes/{dish_id}')
     finally:
         db.session.close()

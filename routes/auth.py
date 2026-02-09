@@ -42,7 +42,8 @@ def registerpage():
         try:
             db.session.commit()
             login_user(new_user)
-        except Exception:
+        except Exception as e:
+            print(f'Ошибка в регистрации пользователя: {e}')
             db.session.rollback()
         finally:
             db.session.close()
