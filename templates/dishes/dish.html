@@ -55,9 +55,11 @@
                 <textarea class="new-review__textarea" name="content" placeholder="Новый отзыв"></textarea>
             </form>
             
-            <div class="dish__review">
-                <p class="review">{{ review.content }}</p>
-            </div>
+            {% for review in reviews %}
+                <div class="dish__review">
+                    <p class="review">{{ review.content }}</p>
+                </div>
+            {% endfor %}
 
         </section>
     {% elif role == 'cook' %}
