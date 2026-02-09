@@ -23,7 +23,9 @@
         {% for review in reviews %}
             <div class="review">
                 <a href="/dishes/{{ review.dish.id }}" class="review__link">
-                    <h2 class="review__dish">{{ review.dish.name }}</h2>
+                    <h2 class="review__dish">{{ review.dish.name }} | 
+                        <span class="review-date">{{ review.date | date_Y_M_d }}</span>
+                    </h2>
                     <p class="review__content">{{ review.content }}</p>
                 </a>
             </div> 
