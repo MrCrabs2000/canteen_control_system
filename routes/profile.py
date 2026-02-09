@@ -54,7 +54,7 @@ def profile_edit():
         if not all([login, surname, name, patronymic]):
             return redirect('/profile')
 
-        other_user = db.session.query(User).filter_by(login=login).first()
+        other_user = db.session.query(User).filter(User.login == login, User.id != current_user.id).first()
         if other_user:
             return redirect('/profile')
 
@@ -73,8 +73,8 @@ def profile_edit():
 
                 if not student_class:
                     return redirect('/profile')
-                
-                info.stud_class, info.allergies, info.preferences  = student_class, allergies, preferences
+
+                info.stud_class, info.allergies, info.preferences = student_class, allergies, preferences
 
         try:
             db.session.commit()
