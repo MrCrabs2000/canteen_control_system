@@ -50,5 +50,6 @@
 
 .no-reviews {
     text-align: center;
+    color: var(--text-muted);
     font-size: 1.3rem;
 }
