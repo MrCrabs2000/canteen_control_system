@@ -76,8 +76,13 @@
 
                 {% if user.student_info.abonement %}
                 <div class="info-field">
-                    <label>Абонемент до</label>
-                    <div class="info-value">{{ user.student_info.abonement.strftime('%d.%m.%Y') }}</div>
+                    <label>Абонемент</label>
+                    <div class="info-value">До {{ user.student_info.abonement.strftime('%d.%m.%Y') }}</div>
+                </div>
+                {% else %}
+                <div class="info-field">
+                    <label>Абонемент</label>
+                    <div class="info-value">Не оформлен</div>
                 </div>
                 {% endif %}
             </div>
