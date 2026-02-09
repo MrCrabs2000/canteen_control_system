@@ -4,10 +4,14 @@
 {% block title %}{{ dish.name }}{% endblock %}
 
 
+{% from 'macros/labeled_fields.html' import labeled_input %}
+
+
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="/static/styles/dishes/dish.css">
     <link rel="stylesheet" href="/static/styles/users/user.css">
+    <link rel="stylesheet" href="/static/styles/macros/labeled_fields.css">
 {% endblock %}
 
 
@@ -17,15 +21,8 @@
     </h1>
 {% if role == 'cook' %}
     <div class="top-bar-actions">
-        <button onclick="location.href='/cook/dishes'" type="button">Отмена</button>
-    </div>
-{% elif role == 'user' %}
-    <div class="top-bar-actions">
-        <button onclick="location.href='/menu'" type="button">Отмена</button>
-    </div>
-{% elif role == 'admin' %}
-    <div class="top-bar-actions">
-        <button onclick="location.href='/admin/dishes'" type="button">Отмена</button>
+        <button onclick="location.href='/cook/dish/{{ dish.id }}/edit'" type="button">Изменить</button>
+        <button onclick="location.href='/cook/dish/{{ dish.id }}/del'" type="button">Удалить</button>
     </div>
 {% endif %}
 {% endblock %}
@@ -39,8 +36,8 @@
             </div>
 
             <ul class="dish__composition">
-                {% for product in products %}
-                    <li>{{ product.name }} - {{ product.amount }} {{ product.measurement }}</li>
+                {% for i in range(amount_products) %}
+                    <li>{{ products[i].name }} - {{ products[i].amount }} {{ products[i].measurement }}. Нужно на одно блюдо: {{ product_amounts[i] }} {{ products[i].measurement }}</li>
                 {% endfor %}
             </ul>
         </section>
@@ -63,6 +60,17 @@
                     <p class="review">Test review Test review Test review Test review Test reviewTest reviewTest review</p>
                 </div>
             {% endif %}
+        </section>
+    {% elif role == 'cook' %}
+        <section class="info__section">
+            <div class="section__top">
+                <h2 class="section__header">Готовность</h2>
+            </div>
+            <div>Блюд готово: {{ dish.amount }}</div>
+            <form method="post" id="cookDishForm" class="dishes-form">
+                {{ labeled_input(name='amount', label='Количество', type='number') }}
+                <button id="cook-dish-btn" form="cookDishForm" class="cook-btn accent">Приготовить</button>
+            </form>
         </section>
     {% endif %}
     </div>

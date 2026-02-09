@@ -151,6 +151,10 @@ class Dish(db.Model):
     @property
     def product_ids(self):
         return [assoc.product_id for assoc in self.products]
+    
+    @property
+    def product_amounts(self):
+        return [assoc.product_amount for assoc in self.products]
 
     @property
     def category_name(self):

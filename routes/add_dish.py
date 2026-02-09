@@ -27,8 +27,15 @@ def add_dish_page():
     elif request.method == 'POST':  
         name = request.form.get('name')
         category = request.form.get('category')
-        ingredients = request.form.getlist('ingredients')
-        amounts = request.form.getlist('product_amount')
+        ingredients_given = request.form.getlist('ingredients')
+        amounts_given = request.form.getlist('product_amount')
+
+        ingredients, amounts = [], []
+
+        for i in range(len(ingredients_given)):
+            if ingredients_given[i] not in ingredients:
+                ingredients.append(ingredients_given[i])
+                amounts.append(amounts_given[i])
 
         if not all([name, category, ingredients, amounts]) or len(ingredients) != len(amounts):
             return redirect('/cook/dish/add')
@@ -87,16 +94,32 @@ def edit_dish_page(id):
     if request.method == 'GET':
         menus = db.session.query(Menu).join(Menu.dishes).filter(Dish.id == id).all()
         reviews = db.session.query(Review).filter_by(dish_id=id).all()
+        products = db.session.query(Product).all()
+        products_form = [(product.name, product.name) for product in products]
+
+        products_selected = []
+
+        for idd in dish.product_ids:
+            productt = db.session.query(Product).filter_by(id=idd).first()
+            products_selected.append(productt)
+        print(dish.category)
         context = {
             'dish': dish,
-            'name': dish.name,
+            'dish_name': dish.name,
             'category': dish.category,
             'amount': dish.amount,
             'menus': menus,
-            'reviews': reviews
+            'reviews': reviews,
+            'name': current_user.name,
+            'surname': current_user.surname,
+            'products': products,
+            'products_selected': products_selected,
+            'amount_products': len(products_selected),
+            'products_amounts': dish.product_amounts,
+            'products_form': products_form
         }
         db.session.close()
-        return render_template('edit_dish.html', **context)
+        return render_template('dishes/manage_dish.html', **context)
 
     if request.method == 'POST':
         name = request.form.get('name')

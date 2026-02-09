@@ -1,6 +1,5 @@
 .dish__info {
     display: flex;
-    flex-direction: column;
     gap: 16px;
 }
 
@@ -15,6 +14,7 @@
     background: var(--bg);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    width: 50%;
 }
 
 
@@ -31,7 +31,6 @@
 
 
 .dish__composition {
-    display: flex;
     gap: 40px;
     margin: 4px;
     padding: 0 28px;
@@ -59,4 +58,12 @@
 .review {
     margin: 0;
     font-size: 1.2rem;
+}
+
+.cook-btn {
+    margin-top: 7px;
+}
+
+.dishes-form {
+    margin-top: 5px;
 }

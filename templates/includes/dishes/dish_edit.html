@@ -1,0 +1,39 @@
+{% from 'macros/labeled_fields.html' import labeled_input, labeled_select %}
+
+<form method="post" id="editDishForm" class="dishes-form">
+    <section class="form__section">
+        <h2 class="section__header">Основное</h2>
+
+        <div class="section__content">
+            {{ labeled_input(name='name', label='Название', type='text', value=dish.name) }}
+            {{ labeled_select([('', 'Выберите тип блюда'), ('breakfasts', 'завтраки'), ('salads', 'салаты'), ('soups', 'супы'),
+             ('main_dishes', 'основные блюда'), ('drinks', 'напитки'), ('bread', 'хлеб')], selected=dish.category,
+              label='Категория', name='category', required=True) }}
+        </div>
+    </section>
+
+    <section class="form__section">
+        <div class="second_form_header">
+            <h2 class="section__header">Состав</h2>
+            <button class="add_product_button accent" onclick="addInput()" type="button">+</button>
+        </div>
+        <div class="section__content" id="container">
+            <div class="input-group">
+                {{ labeled_select(products_form, label='Продукт', name='ingredients', required=True, selected=products_selected[0].name) }}
+                {{ labeled_input(name='product_amount', label='Количество', type='number', value=products_amounts[0]) }}
+            </div>
+            {% if amount_products > 1 %}
+                {% set div_id = 1 %}
+                {% for i in range(1, amount_products) %}
+                    {% set div_id = div_id + 1 %}
+                    <div class="input-group">
+                        {{ labeled_select(products_form, label='Продукт', name=div_id, required=True, selected=products_selected[i].name) }}
+                        {{ labeled_input(name=div_id, label='Количество', type='number', value=products_amounts[i]) }}
+                        <button class="remove-btn danger" onclick="removeInput(this)" type="button">Удалить</button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+     
+</form>

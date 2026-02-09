@@ -1,0 +1,93 @@
+.dish-control-button {
+    font-size: 1.2rem;
+}
+
+.dish-control-button li a {
+  display: block;
+  box-sizing: border-box;
+  padding: 6px 12px;
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sidebar__content {
+  min-height: 10px;
+  height: auto;
+  overflow: auto;
+}
+
+.management-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 15px;
+  padding: 0;
+  list-style: none;
+}
+
+.days-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+
+main {
+  box-sizing: border-box;
+  display: flex;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.section__header {
+    margin: 0;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+
+.dishes-form {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-auto-rows: max-content;
+    column-gap: 1.5rem;
+    row-gap: 1.5rem;
+    width: 100%;
+    height: fit-content;
+    padding: 16px;
+    overflow-y: auto;
+    background: var(--bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.second_form_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.remove-btn {
+    margin-top: 12px;
+}
+
+.input-group {
+  padding-bottom: 20px;
+  border-bottom: solid var(--border-color);
+  border-radius: 3px;
+}
