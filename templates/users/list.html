@@ -17,9 +17,18 @@
                         <div class="user__top">
                             <h2 class="user__full-name">{{ user.surname }} {{ user.name[0] }}. {{ user.patronymic[0] }}.</h2>
                         </div>
-                        <div class="role-badge">
-                            {{ user.roles[0].name }}
-                        </div>
+
+                        <ul class="user__special-info">
+                            <li class="user__role">{{ user.roles[0].name }}</li>
+                            
+                            {% if user.roles[0].name == 'user' %}
+                                <li>{{ user.balance }}</li>
+                            {% endif %}
+                            
+                            {% if user.student_info.abonement %}
+                                <li>Абонемент</li>
+                            {% endif %}
+                        </ul>
                     </a>
                 </div>
             {% endfor %}
