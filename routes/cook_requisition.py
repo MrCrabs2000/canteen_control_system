@@ -39,7 +39,7 @@ def cook_requisition_page():
 
         try:
             product1 = db.session.query(Product).filter(Product.name == name).first()
-            new_requisition = Requisition(product=product1, amount=amount, date=date.today(), recevier_id=current_user.id)
+            new_requisition = Requisition(product=product1, amount=amount, date=date.today(), receiver_id=current_user.id)
             db.session.add(new_requisition)
             db.session.flush()
             for admin in admins:
@@ -89,7 +89,7 @@ def cook_requisition_by_id_page(product_id):
 
         try:
             product1 = db.session.query(Product).filter(Product.name == name).first()
-            new_requisition = Requisition(product=product1, amount=amount, date=date.today(), recevier_id=current_user.id)
+            new_requisition = Requisition(product=product1, amount=amount, date=date.today(), receiver_id=current_user.id)
             db.session.add(new_requisition)
             db.session.flush()
             for admin in admins:

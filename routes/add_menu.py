@@ -35,7 +35,8 @@ def add_menu_page():
 
         try:
             date1 = datetime.strptime(str_date, '%Y-%m-%d').date()
-        except ValueError:
+        except ValueError as e:
+            print(f'Ошибка при добавлении меню:{e}')
             return redirect('/cook/menu/add')
 
         dish_name = []
@@ -62,7 +63,7 @@ def add_menu_page():
                                         type='add_menu')
                         db.session.add(new_notification)
                     except Exception as e:
-                        print(f'У нас ошибочка уведома при создании меню: {e}')
+                        print(f'Ошибка уведомления при создании меню: {e}')
                         db.session.rollback()
 
         try:

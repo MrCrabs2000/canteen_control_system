@@ -78,7 +78,8 @@ def profile_edit():
 
         try:
             db.session.commit()
-        except Exception:
+        except Exception as e:
+            print(f'Ошибка в профиле: {e}')
             db.session.rollback()
         finally:
             db.session.close()

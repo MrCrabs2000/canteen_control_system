@@ -90,7 +90,6 @@ def read_product_page():
             'name': current_user.name,
             'surname': current_user.surname
         }
-        print(product)
         return render_template('products/list.html', **context)
 
     finally:
