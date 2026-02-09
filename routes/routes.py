@@ -8,7 +8,7 @@ from .cook_menu import cook_menu, read_dish, read_product, read_requisition, coo
 from .add_dish import add_dish, edit_dish, delete_dish
 from .add_product import add_product, edit_product, delete_product
 from .food_payment import food_payment_main, balance_edit, edit_abonement
-from .reviews import reviews_main, review_new, review_view
+from .reviews import reviews_main, review_new
 from .add_user import add_user, edit_user, delete_user
 from .cook_requisition import cook_requisition, cook_requisition_with_id
 from .admin_requisition import admin_requisition, admin_requisition_history
@@ -50,7 +50,6 @@ def register_all_blueprints(app):
     app.register_blueprint(edit_abonement)
     app.register_blueprint(reviews_main)
     app.register_blueprint(review_new)
-    app.register_blueprint(review_view)
     app.register_blueprint(menu_redirect)
     app.register_blueprint(cook_requisition)
     app.register_blueprint(admin_requisition)

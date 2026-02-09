@@ -23,12 +23,10 @@
                 {{ labeled_input(name='product_amount', label='Количество', type='number', value=products_amounts[0]) }}
             </div>
             {% if amount_products > 1 %}
-                {% set div_id = 1 %}
                 {% for i in range(1, amount_products) %}
-                    {% set div_id = div_id + 1 %}
                     <div class="input-group">
-                        {{ labeled_select(products_form, label='Продукт', name=div_id, required=True, selected=products_selected[i].name) }}
-                        {{ labeled_input(name=div_id, label='Количество', type='number', value=products_amounts[i]) }}
+                        {{ labeled_select(products_form, label='Продукт', name='ingredients', required=True, selected=products_selected[i].name) }}
+                        {{ labeled_input(name='product_amount', label='Количество', type='number', value=products_amounts[i]) }}
                         <button class="remove-btn danger" onclick="removeInput(this)" type="button">Удалить</button>
                     </div>
                 {% endfor %}
