@@ -92,7 +92,15 @@ main {
 }
 
 .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding-bottom: 20px;
   border-bottom: solid var(--border-color);
   border-radius: 3px;
+}
+
+.add_product_button {
+  font-size: 1.3rem;
+  padding: 0px 12px;
 }

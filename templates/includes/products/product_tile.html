@@ -1,7 +1,7 @@
 <div class="product">
     <div class="product-title">
         <div class="product__name">{{ product.name }}</div>
-        <button onclick="document.location='/cook/product/{{ product.id }}/del'" class="del-btn danger">Удалить</button>
+        <button class="delete-btn-small danger" onclick="document.location='/cook/product/{{ product.id }}/del'"><img style="height: 1.25em;" src='/static/images/buttons/delete_button.svg'></button>
     </div>
     <ul class="product__composition">
         <li>Колличество: {{ product.amount }} {{ product.measurement }}</li>

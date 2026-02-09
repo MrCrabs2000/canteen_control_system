@@ -12,17 +12,20 @@
 
 .product {
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background: var(--bg);
     border: solid 2px transparent;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     overflow: hidden;
     transition: border 0.1s ease-in-out;
-    padding: 2px;
+    padding: 8px;
 }
 
 .product__name {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 600;   
 }
 
@@ -46,11 +49,11 @@
 }
 
 .del-btn {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .buttons {
     display: flex;
     justify-content: center;
-    align-items:normal;
+    gap: 8px;
 }

@@ -42,12 +42,12 @@
         </div>
 
         {% if current_user.roles[0].name == 'user' and menu %}
-            <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}">
+            <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}" style="display: none;">
                 <input type="hidden" name="menu_id" value="{{ menu.id }}">
                 <button class="buy-menu-btn accent" type="submit">Купить</button>
             </form>
         {% elif current_user.roles[0].name == 'cook' and menu %}
-            <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}">
+            <form class="buy-form" method="POST" action="/menu/{{ selected_date }}?type={{ menu.type }}" style="display: none;">
                 <input type="hidden" name="menu_id" value="{{ menu.id }}">
             </form>
         {% endif %}
