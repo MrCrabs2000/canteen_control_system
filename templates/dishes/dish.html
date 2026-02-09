@@ -22,7 +22,7 @@
 {% if role == 'cook' %}
     <div class="top-bar-actions">
         <button onclick="location.href='/cook/dish/{{ dish.id }}/edit'" type="button">Изменить</button>
-        <button onclick="location.href='/cook/dish/{{ dish.id }}/del'" type="button">Удалить</button>
+        <button class="danger" onclick="location.href='/cook/dish/{{ dish.id }}/del'" type="button">Удалить</button>
     </div>
 {% endif %}
 {% endblock %}

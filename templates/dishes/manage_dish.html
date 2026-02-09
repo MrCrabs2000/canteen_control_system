@@ -15,7 +15,7 @@
     {{ super() }}
     <div>
         <button id="add-dish-btn" form="editDishForm" class="add-btn accent">Изменить</button>
-        <button class="cansel-btn" onclick="document.location='/dishes/{{ dish.id }}'">Отмена</button>
+        <button class="cancel-btn danger" onclick="document.location='/dishes/{{ dish.id }}'">Отмена</button>
     </div>
 {% endblock %}
 
