@@ -50,16 +50,15 @@
                 {% endif %}
             </div>
             
-            {% if not review %}
-                <form class="dish__new-review" action="/reviews/add" id="newReviewForm" method="post">
-                    <input type="hidden" name="dish_id" value="{{ dish.id }}">
-                    <textarea class="new-review__textarea" name="content" placeholder="Новый отзыв"></textarea>
-                </form>
-            {% else %}
-                <div class="dish__review">
-                    <p class="review">{{ review.content }}</p>
-                </div>
-            {% endif %}
+            <form class="dish__new-review" action="/reviews/add" id="newReviewForm" method="post">
+                <input type="hidden" name="dish_id" value="{{ dish.id }}">
+                <textarea class="new-review__textarea" name="content" placeholder="Новый отзыв"></textarea>
+            </form>
+            
+            <div class="dish__review">
+                <p class="review">{{ review.content }}</p>
+            </div>
+
         </section>
     {% elif role == 'cook' %}
         <section class="info__section">
