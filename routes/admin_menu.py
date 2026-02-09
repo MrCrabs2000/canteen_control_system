@@ -133,18 +133,11 @@ read_users = Blueprint('read_users', __name__, template_folder='templates')
 @login_required
 @roles_accepted('admin')
 def read_users_page():
-    user = db.session.query(User).filter(User.id != current_user.id).all()
-    info = db.session.query(Info).all()
-
-    classes = {}
-    for i in info:
-        classes[i.user_id] = i.stud_class
-
-    inform = sorted(info, key=lambda x: x.stud_class)
+    users = db.session.query(User).options(db.joinedload(User.student_info)).filter(User.id != current_user.id).order_by(User.surname, User.name).all()
 
     try:
         context = {
-            'users': user,
+            'users': users,
             'name': current_user.name,
             'surname': current_user.surname
         }
