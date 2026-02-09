@@ -239,3 +239,5 @@ temp/
 
 /db/*.db
 /db/*.sqlite*
+
+*test.py

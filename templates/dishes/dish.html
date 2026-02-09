@@ -43,23 +43,24 @@
         </section>
     {% if role == 'user' %}
         <section class="info__section">
-            <form action="/reviews/add" id="newReviewForm" method="post" style="display: none;"></form>
             <div class="section__top">
                 <h2 class="section__header">Ваш отзыв</h2>
                 {% if not review %}
                     <button class="accent" form="newReviewForm">Сохранить</button>
                 {% endif %}
             </div>
-
-            {% if not review %}
-                <div class="dish__new-review">
-                    <textarea class="new-review__textarea" name="" placeholder="Новый отзыв"></textarea>
-                </div>  
-            {% else %}
+            
+            <form class="dish__new-review" action="/reviews/add" id="newReviewForm" method="post">
+                <input type="hidden" name="dish_id" value="{{ dish.id }}">
+                <textarea class="new-review__textarea" name="content" placeholder="Новый отзыв"></textarea>
+            </form>
+            
+            {% for review in reviews %}
                 <div class="dish__review">
-                    <p class="review">Test review Test review Test review Test review Test reviewTest reviewTest review</p>
+                    <p class="review">{{ review.content }}</p>
                 </div>
-            {% endif %}
+            {% endfor %}
+
         </section>
     {% elif role == 'cook' %}
         <section class="info__section">
