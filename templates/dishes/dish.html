@@ -47,6 +47,7 @@
             <div class="section__top">
                 <h2 class="section__header">Ваш отзыв</h2>
                 {% if not review %}
+                    <input type="hidden" value="{{ dish.id }}" style="display: none;">
                     <button class="accent" form="newReviewForm">Сохранить</button>
                 {% endif %}
             </div>
@@ -57,7 +58,7 @@
                 </div>  
             {% else %}
                 <div class="dish__review">
-                    <p class="review">Test review Test review Test review Test review Test reviewTest reviewTest review</p>
+                    <p class="review">{{ review.content }}</p>
                 </div>
             {% endif %}
         </section>
