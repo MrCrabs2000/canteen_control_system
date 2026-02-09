@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted, current_user
 from configs.app_configs import db, login_required
-from datebase.classes import Dish, Product, AssociationDishProduct
+from datebase.classes import Dish, Product
 
 
 dish_view = Blueprint('dish_view', __name__)

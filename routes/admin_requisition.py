@@ -1,5 +1,3 @@
-from itertools import product
-
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted, current_user
 from datebase.classes import Product, Requisition, db, Notification
