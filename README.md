@@ -69,4 +69,4 @@ Linux/Mac
 
 ## Ссылка на видеоролик 
 
-> 
+> https://disk.yandex.ru/i/xMEsFiF4ydC-HA
