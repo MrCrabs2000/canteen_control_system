@@ -1,7 +1,7 @@
 from openpyxl import Workbook
 from pathlib import Path
 from datetime import datetime
-from datebase.classes import Product, Dish, Menu, db, Info, AssociationUserMenus
+from datebase.classes import Product, Dish, Menu, db, Info, History
 import os
 
 
@@ -28,8 +28,14 @@ def export_payments():
     row = 2
 
     menus = db.session.query(Menu).all()
-    users = db.session.query(AssociationUserMenus).all()
-    users_id = [i.user_id for i in users]
+    history = db.session.query(History).all()
+    history_user = {}
+    for buy in history:
+        if buy.menu_id not in history_user:
+            history_user[buy.menu_id] = []
+        history_user[buy.menu_id].append(buy)
+
+    users_id = [i.user_id for i in history]
     info_user = {}
     if users_id:
         inform = db.session.query(Info).filter(Info.user_id.in_(users_id)).all()
@@ -39,22 +45,14 @@ def export_payments():
     menu_abonement = {}
     menu_payment = {}
     for menu in menus:
-        day_pay_amount, day_abonement_amount, day_amount = 0, 0, 0
-        menu_user = []
-        for user in users:
-            if menu.id == user.menu_id:
-                menu_user.append(user.user_id)
         abonement_amount = 0
-        for user_id in menu_user:
-            abonement = info_user.get(user_id)
-            if abonement and abonement >= menu.date:
+        menu_history = history_user.get(menu.id, [])
+        for buy in menu_history:
+            if buy.cost == 0:
                 abonement_amount += 1
-        pay_amount = len(menu_user) - abonement_amount
-
-        day_abonement_amount += abonement_amount
-        day_pay_amount += pay_amount
-        menu_abonement[menu.id] = day_abonement_amount
-        menu_payment[menu.id] = day_pay_amount
+        pay_amount = len(menu_history) - abonement_amount
+        menu_abonement[menu.id] = abonement_amount
+        menu_payment[menu.id] = pay_amount
 
     db.session.close()
 
@@ -86,8 +84,15 @@ def export_attendance():
     ws.title = "Посещаемость"
 
     menus = db.session.query(Menu).order_by(Menu.date.asc()).all()
-    users = db.session.query(AssociationUserMenus).all()
-    users_id = [i.user_id for i in users]
+    history = db.session.query(History).all()
+    users_id = [i.user_id for i in history]
+
+    history_user = {}
+    for buy in history:
+        if buy.menu_id not in history_user:
+            history_user[buy.menu_id] = []
+        history_user[buy.menu_id].append(buy)
+
     classes_list = []
     user_classes = {}
 
@@ -125,11 +130,12 @@ def export_attendance():
             ws[f'C{row}'] = menu.price
             ws[f'D{row}'] = menu.get_amount
 
+            menu_user = history_user.get(menu.id, [])
             menu_classes = {}
             for stud_class in classes_list:
                 menu_classes[stud_class] = 0
 
-            for user in users:
+            for user in menu_user:
                 if menu.id == user.menu_id:
                     user_class = user_classes.get(user.user_id)
                     if user_class in menu_classes:

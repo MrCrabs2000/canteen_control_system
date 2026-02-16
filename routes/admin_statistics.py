@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from flask_security import roles_accepted, current_user
-from datebase.classes import db, Menu, AssociationUserMenus, Info
+from datebase.classes import db, Menu, Info, History
 from configs.app_configs import login_required
 from datetime import date, timedelta
 
@@ -34,25 +34,22 @@ def statistic_payments_page():
     weekday = date1.weekday()
     first_week = date1 - timedelta(days=weekday)
     menus = db.session.query(Menu).all()
-    users = db.session.query(AssociationUserMenus).all()
-    users_id = [i.user_id for i in users]
-    info_user = {}
-    if users_id:
-        inform = db.session.query(Info).filter(Info.user_id.in_(users_id)).all()
-        for info in inform:
-            info_user[info.user_id] = info.abonement
+    history = db.session.query(History).all()
+    history_user = {}
+    for buy in history:
+        if buy.menu_id not in history_user:
+            history_user[buy.menu_id] = []
+        history_user[buy.menu_id].append(buy)
 
     for menu in menus:
-        menu_user = []
-        for user in users:
-            if menu.id == user.menu_id:
-                menu_user.append(user.user_id)
-        abonement_amount = 0
-        for user_id in menu_user:
-            abonement = info_user.get(user_id)
-            if abonement and abonement >= menu.date:
+        this_menu = history_user.get(menu.id, [])
+        abonement_amount, pay_amount = 0, 0
+        for buy in this_menu:
+            if buy.cost == 0:
                 abonement_amount += 1
-        pay_amount = len(menu_user) - abonement_amount
+            else:
+                pay_amount += 1
+
         if menu.date == date1:
             day_get_amount += menu.get_amount * menu.price
             day_amount += menu.get_amount
@@ -104,19 +101,16 @@ statistic_attendance = Blueprint('statistic_attendance', __name__, template_fold
 @roles_accepted('admin')
 def statistic_attendance_page():
     menus = db.session.query(Menu).order_by(Menu.date.desc()).all()
-    users = db.session.query(AssociationUserMenus).all()
-    users_id = [i.user_id for i in users]
+    history = db.session.query(History).all()
     menu_statistic = []
 
     for menu in menus:
-        menu_user = []
-        for user in users:
-            if menu.id == user.menu_id:
-                menu_user.append(user.user_id)
+        menu_history = [x for x in history if x.menu_id == menu.id]
+        menu_user = [x.user_id for x in menu_history]
 
         classes = {}
-        if users_id:
-            inform = db.session.query(Info).filter(Info.user_id.in_(users_id)).all()
+        if menu_user:
+            inform = db.session.query(Info).filter(Info.user_id.in_(menu_user)).all()
             for info in inform:
                 stud_class = info.stud_class if info.stud_class else 'Не указан'
                 if stud_class not in classes:
