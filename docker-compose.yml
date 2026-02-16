@@ -1,9 +1,11 @@
 version: '3.8'
 services:
-  canteen:
-    build: .
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./db:/app/db
-    restart: unless-stopped
+    canteen:
+        build: .
+        ports:
+          - "5000:5000"
+        volumes:
+          - ./db:/app/db
+        environment:
+          - PYTHONUNBUFFERED=1
+        restart: unless-stopped

@@ -1,6 +1,7 @@
 import os
 import uuid
 import locale
+import sys
 from flask import Flask, redirect
 from flask_security import Security, SQLAlchemyUserDatastore, current_user
 from werkzeug.security import generate_password_hash
@@ -76,7 +77,8 @@ def start_db():
 
         if not admin:
             password = generate_password_for_user()
-            print(f"Admin password: {password}")
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Password!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print(f"Admin password: {password}", file=sys.stderr, flush=True)
 
             passwordHash = generate_password_hash(password)
 

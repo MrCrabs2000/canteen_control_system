@@ -4,6 +4,6 @@ RUN apt-get update && apt-get install -y curl
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-RUN mkdir -p db logs
+RUN mkdir -p db logs exel migrations
 EXPOSE 5000
 CMD ["python", "main.py"]
